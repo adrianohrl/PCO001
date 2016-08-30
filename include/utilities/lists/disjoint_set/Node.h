@@ -51,6 +51,8 @@ namespace utilities
         Node<Element>* remove(Node<Element> *node);
         bool find(Element element);
         bool find(Node<Element> *node);
+        int calculateHeight();
+        int countElements();
 
 				Element getElement();
         Node<Element>* getSubset();
@@ -167,10 +169,9 @@ namespace utilities
 
       template<typename Element> bool Node<Element>::find(Node<Element> *node)
       {
-        return ((tag_ == node->tag_ && ((isElement() && *element_ == *node->element_) ||
-                                        (isSubset() && (subset_ == node->subset_ ||
-                                                        subset_->find(node))))) ||
-                (hasNext() && next_->find(node)));
+        return node && *this == *node ||
+            isSubset() && subset_->find(node) ||
+            hasNext() && next_->find(node);
       }
 
       template<typename Element> Node<Element>* Node<Element>::getRightmost()
@@ -180,6 +181,42 @@ namespace utilities
           return this;
         }
         return next_->getRightmost();
+      }
+
+      template<typename Element> int Node<Element>::calculateHeight()
+      {
+        int height = 1;
+        if (isSubset())
+        {
+          height += subset_->calculateHeight();
+        }
+        if (hasNext())
+        {
+          int next_height = next_->calculateHeight();
+          if (next_height > height)
+          {
+            height = next_height;
+          }
+        }
+        return height;
+      }
+
+      template<typename Element> int Node<Element>::countElements()
+      {
+        int counter = 0;
+        if (isElement())
+        {
+          counter++;
+        }
+        else if (isSubset())
+        {
+          counter += subset_->countElements();
+        }
+        if (hasNext())
+        {
+          counter += next_->countElements();
+        }
+        return counter;
       }
 
 			template<typename Element> Element Node<Element>::getElement()
@@ -231,29 +268,31 @@ namespace utilities
 
       template<typename Element> std::string Node<Element>::toString(bool reversed) const
 			{
-        if (reversed && isSubset())
+        std::stringstream ss;
+        if (reversed && hasNext())
         {
-          return ""; ///////////// implementar isso!!!
+          ss << next_->toString(reversed) << ",";
         }
-				std::stringstream ss;
         if (isElement() && element_)
         {
           ss << *element_;
-				}
+        }
         else if (isSubset())
-				{
-					ss << "(" << (subset_ ? subset_->toString() : "") << ")";
-				}
-				if (hasNext())
-				{
-					ss << "," << next_->toString();
-				}
+        {
+          ss << "(" << (subset_ ? subset_->toString(reversed) : "") << ")";
+        }
+        if (!reversed && hasNext())
+        {
+          ss << "," << next_->toString(reversed);
+        }
 				return ss.str();
       }
 
       template<typename Element> bool Node<Element>::operator==(const Node<Element>& node)
       {
-        return tag_ == node.tag_ && isElement() ? element_ == node.element_ : subset_ == node.subset_;
+        return tag_ == node.tag_ && (node.isElement() && *element_ == *node.element_ ||
+                                     node.isSubset() && *subset_ == *node.subset_) &&
+            (!node.hasNext() || hasNext() && *next_ == *node.next_);
       }
 
       template<typename Element> bool Node<Element>::operator!=(const Node<Element>& node)

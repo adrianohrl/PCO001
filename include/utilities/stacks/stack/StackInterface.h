@@ -21,16 +21,16 @@ namespace utilities
 		namespace stack
 		{
 
-			template<typename Element> class StackInterface
-			{
-			public:
-				virtual bool push(Element element) = 0;
-				virtual Element pop() = 0;
-				virtual Element top() = 0;
-				virtual bool isEmpty() = 0;
-				virtual std::string toString() = 0;
+    template<typename Element> class StackInterface
+    {
+    public:
+      virtual bool push(Element element) = 0;
+      virtual Element pop() = 0;
+      virtual Element top() = 0;
+      virtual bool isEmpty() = 0;
+      virtual std::string toString() = 0;
 
-			};
+    };
 
 		}
 	}

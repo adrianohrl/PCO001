@@ -20,23 +20,23 @@ namespace utilities
 		namespace double_stack
 		{
 
-			template<typename Element> class DoubleStackInterface
-			{
-			public:
-				virtual bool pushToA(Element element) = 0;
-				virtual bool pushToB(Element element) = 0;
-				virtual Element popFromA() = 0;
-				virtual Element popFromB() = 0;
-				virtual Element topOfA() = 0;
-				virtual Element topOfB() = 0;
-				virtual bool isAEmpty() = 0;
-				virtual bool isBEmpty() = 0;
-				virtual std::string toStringA() = 0;
-				virtual std::string toStringB() = 0;
-				virtual std::string toStringAInOrder() = 0;
-				virtual std::string toStringBInOrder() = 0;
+    template<typename Element> class DoubleStackInterface
+    {
+    public:
+      virtual bool pushToA(Element element) = 0;
+      virtual bool pushToB(Element element) = 0;
+      virtual Element popFromA() = 0;
+      virtual Element popFromB() = 0;
+      virtual Element topOfA() = 0;
+      virtual Element topOfB() = 0;
+      virtual bool isAEmpty() = 0;
+      virtual bool isBEmpty() = 0;
+      virtual std::string toStringA() = 0;
+      virtual std::string toStringB() = 0;
+      virtual std::string toStringAInOrder() = 0;
+      virtual std::string toStringBInOrder() = 0;
 
-			};
+    };
 
 		}
 	}

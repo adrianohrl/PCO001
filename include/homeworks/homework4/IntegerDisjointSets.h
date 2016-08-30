@@ -54,6 +54,7 @@ namespace homeworks
       bool setDisjointSetA(std::string expression);
       bool setDisjointSetB(std::string expression);
       friend std::ostream& operator<<(std::ostream& os, const IntegerDisjointSets& sets);
+      void operator=(const IntegerDisjointSets& sets);
 
     private:
       utilities::lists::disjoint_set::IntegerDisjointSet *set_A_, *set_B_;

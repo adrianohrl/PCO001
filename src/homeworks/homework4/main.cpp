@@ -24,17 +24,19 @@ std::string report(IntegerDisjointSets sets, Queue<std::string> expression_queue
 int main()
 {
   Queue<IntegerDisjointSets> set_queue;
-  IntegerDisjointSets ids("(1,2,3)", "(1,(2,3))");
-  set_queue.insert(ids); // equals
-  set_queue.insert(IntegerDisjointSets("((1),(2,3))", "(1,(2),(3))")); // not equals
+  set_queue.insert(IntegerDisjointSets("(((2,3),3),4)", "(1,2,3,(4,(5,((6)))))")); // equals
+  set_queue.insert(IntegerDisjointSets("(((2,3),1),4)", "(1,2,3,(4,(5,((6,((2,3),1))))))")); // equals
+  set_queue.insert(IntegerDisjointSets("((1),(2,((3)),4),0,5,6)", "(1,(2),(2,3))")); // not equals
   set_queue.insert(IntegerDisjointSets("((1,2,3))", "((1,2,3))")); // not equals
-  set_queue.insert(IntegerDisjointSets("(1,(2),3)", "(1,(2),3)")); // equals
+  set_queue.insert(IntegerDisjointSets("(1,(2),3)", "(1,(2),3,(2,3),((1)))")); // equals
   Queue<std::string> expression_queue;
-  expression_queue.insert("1");
+  expression_queue.insert("((2,3),1)");
   expression_queue.insert("(2,3)");
+  expression_queue.insert("1");
   while (!set_queue.isEmpty())
-	{ 
+  {
     std::cout << std::endl << report(set_queue.remove(), expression_queue) << std::endl;
+    std::cout << std::endl << "--------------------------------" << std::endl;
   }
 	return EXIT_SUCCESS;
 }
@@ -47,7 +49,6 @@ std::string report(IntegerDisjointSets sets, Queue<std::string> expression_queue
   if (sets.compareDisjointSets())
   {
     ss << "\nThe disjoint set A is equal to the B one.\n";
-    std::cout << ss << std::endl;
   }
   else
   {
@@ -59,7 +60,7 @@ std::string report(IntegerDisjointSets sets, Queue<std::string> expression_queue
 std::string report(IntegerDisjointSets sets, Queue<std::string> expression_queue, IntegerDisjointSetEnum set)
 {
   std::stringstream ss;
-  ss << "\nDisjoin Set A: " << sets.toString(set) << "\n";
+  ss << "\nDisjoin Set " << (set == 0 ? "A" : "B") << ": " << sets.toString(set) << "\n";
   ss << "\n\tSum of elements: " << sets.sumNodes(set) << "\n";
   ss << "\n\tHeight: " << sets.calculateHeight(set) << "\n";
   ss << "\n\tNumber of elements: " << sets.countElements(set) << "\n";
@@ -78,5 +79,5 @@ std::string report(IntegerDisjointSets sets, Queue<std::string> expression_queue
     std::string expression(expression_queue.remove());
     ss << "\n\t\t" << expression << ": " << (!sets.find(set, expression) ? "NOT " : "") << "found!!!";
   }
-  return ss.str();
+  return ss.str() + "\n";
 }

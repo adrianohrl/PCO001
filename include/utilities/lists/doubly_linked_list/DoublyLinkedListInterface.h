@@ -21,18 +21,18 @@ namespace utilities
 		namespace doubly_linked_list
 		{
 
-			template<typename Element> class DoublyLinkedListInterface
-			{
-			public:
+    template<typename Element> class DoublyLinkedListInterface
+    {
+    public:
 
-				virtual bool insert(Element element, bool from_beginning = true) = 0;
-				virtual bool remove(Element element, bool from_beginning = true) = 0;
-				virtual Element find(Element element, bool from_beginning = true) = 0;
-				virtual bool isEmpty() = 0;
-				virtual bool contains(Element element, bool from_beginning = true) = 0;
-				virtual std::string toString(bool from_beginning = true) = 0;
+      virtual bool insert(Element element, bool from_beginning = true) = 0;
+      virtual bool remove(Element element, bool from_beginning = true) = 0;
+      virtual Element find(Element element, bool from_beginning = true) = 0;
+      virtual bool isEmpty() = 0;
+      virtual bool contains(Element element, bool from_beginning = true) = 0;
+      virtual std::string toString(bool from_beginning = true) = 0;
 
-			};
+    };
 
 		}
 	}

@@ -119,16 +119,28 @@ namespace homeworks
 
   int IntegerDisjointSets::sumNodes(IntegerDisjointSetEnum set)
   {
-    return 0;
+    if (set == sets::A)
+    {
+      return set_A_->sumNodes();
+    }
+    return set_B_->sumNodes();
   }
 
   int IntegerDisjointSets::calculateHeight(IntegerDisjointSetEnum set)
   {
-    return 0;
+    if (set == sets::A)
+    {
+      return set_A_->calculateHeight();
+    }
+    return set_B_->calculateHeight();
   }
   int IntegerDisjointSets::countElements(IntegerDisjointSetEnum set)
   {
-    return 0;
+    if (set == sets::A)
+    {
+      return set_A_->countElements();
+    }
+    return set_B_->countElements();
   }
 
   bool IntegerDisjointSets::compareDisjointSets()
@@ -186,6 +198,28 @@ namespace homeworks
   {
     os << "A = " << sets.toString(sets::A) << " and B = " << sets.toString(sets::B);
     return os;
+  }
+
+  void IntegerDisjointSets::operator=(const IntegerDisjointSets& sets)
+  {
+    if (set_A_)
+    {
+      delete set_A_;
+    }
+    if (set_B_)
+    {
+      delete set_B_;
+    }
+    set_A_ = NULL;
+    set_B_ = NULL;
+    if (sets.set_A_)
+    {
+      set_A_ = new utilities::lists::disjoint_set::IntegerDisjointSet(*sets.set_A_);
+    }
+    if (sets.set_B_)
+    {
+      set_B_ = new utilities::lists::disjoint_set::IntegerDisjointSet(*sets.set_B_);
+    }
   }
 
   }

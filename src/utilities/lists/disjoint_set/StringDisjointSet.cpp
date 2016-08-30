@@ -18,11 +18,6 @@ namespace utilities
 		namespace disjoint_set
     {
 
-    /*StringDisjointSet::StringDisjointSet(const StringDisjointSet& set)
-      : DisjointSet(set)
-    {
-    }*/
-
     StringDisjointSet::~StringDisjointSet()
     {
     }

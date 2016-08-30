@@ -24,8 +24,6 @@ namespace utilities
     class StringDisjointSet : public DisjointSet<std::string>
     {
     public:
-      //using DisjointSet<int>::DisjointSet;
-      //virtual StringDisjointSet(const StringDisjointSet& set);
       virtual ~StringDisjointSet();
 
       virtual bool insert(std::string expression);

@@ -35,6 +35,8 @@ namespace utilities
       virtual bool insert(Element element);
       virtual bool remove(Element element);
       virtual bool find(Element element);
+      int calculateHeight();
+      int countElements();
       virtual bool isEmpty();
       virtual std::string toString(bool reversed = false) const;
       virtual bool operator==(const DisjointSet& set);
@@ -47,7 +49,10 @@ namespace utilities
       virtual bool remove(Node<Element> *node);
       virtual bool find(Node<Element> *node);
 
+      static bool isSeparator(char c);
+
       static std::string getNext(std::string expression);
+      Node<Element>* getRoot();
 
     private:
       Node<Element> *root_, *node_;
@@ -138,20 +143,35 @@ namespace utilities
 
     template<typename Element> bool DisjointSet<Element>::find(Element element)
     {
-      if (isEmpty())
-      {
-        return false;
-      }
-      return root_->find(element);
+      return !isEmpty() && root_->find(element);
     }
 
     template<typename Element> bool DisjointSet<Element>::find(Node<Element> *node)
     {
+      return !isEmpty() && root_->find(node);
+    }
+
+    template<typename Element> int DisjointSet<Element>::calculateHeight()
+    {
       if (isEmpty())
       {
-        return false;
+        return 0;
       }
-      return root_->find(node);
+      return root_->calculateHeight();
+    }
+
+    template<typename Element> int DisjointSet<Element>::countElements()
+    {
+      if (isEmpty())
+      {
+        return 0;
+      }
+      return root_->countElements();
+    }
+
+    template<typename Element> Node<Element>* DisjointSet<Element>::getRoot()
+    {
+      return root_;
     }
 
     template<typename Element> bool DisjointSet<Element>::isEmpty()
@@ -176,9 +196,13 @@ namespace utilities
 
     template<typename Element> bool DisjointSet<Element>::evaluate(std::string expression)
     {
-      if (expression == "" || expression.at(0) != '(')
+      if (expression == "")
       {
         return false;
+      }
+      else if (expression.length() == 1 && !isSeparator(expression.at(0)))
+      {
+        return true;
       }
       stacks::stack::Stack<char> evaluator;
       evaluator.push(expression.at(0));
@@ -205,6 +229,11 @@ namespace utilities
         evaluator.pop();
       }
       return evaluator.isEmpty();
+    }
+
+    template<typename Element> bool DisjointSet<Element>::isSeparator(char c)
+    {
+      return c == '(' || c == ',' || c == ')';
     }
 
     template<typename Element> std::string DisjointSet<Element>::getNext(std::string expression)

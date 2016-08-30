@@ -24,21 +24,23 @@ namespace utilities
     class IntegerDisjointSet : public DisjointSet<int>
     {
     public:
-      //using DisjointSet<int>::DisjointSet;
-      //virtual IntegerDisjointSet(const IntegerDisjointSet& set);
-      virtual ~IntegerDisjointSet();
-
       using DisjointSet<int>::insert;
       virtual bool insert(std::string expression);
       using DisjointSet<int>::remove;
       virtual bool remove(std::string expression);
       using DisjointSet<int>::find;
       virtual bool find(std::string expression);
+      int sumNodes();
 
       static bool evaluate(std::string expression);
 
+    protected:
+      static bool isInRange(char c);
+
     private:
       Node<int>* create(std::string expression);
+
+      int sum(Node<int>* node);
 
     };
 

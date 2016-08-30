@@ -20,22 +20,17 @@ namespace utilities
     namespace disjoint_set
     {
 
-    /*IntegerDisjointSet::IntegerDisjointSet(const IntegerDisjointSet& set)
-      : DisjointSet(set)
-    {
-    }*/
-
-    IntegerDisjointSet::~IntegerDisjointSet()
-    {
-    }
-
     bool IntegerDisjointSet::insert(std::string expression)
     {
       if (!evaluate(expression))
       {
         return false;
       }
-      Node<int>* node = create(expression.substr(1, expression.length() - 2));
+      if (isEmpty() && expression.at(0) == '(')
+      {
+        expression = expression.substr(1, expression.length() - 2);
+      }
+      Node<int>* node = create(expression);
       return DisjointSet<int>::insert(node);
     }
 
@@ -45,7 +40,7 @@ namespace utilities
       {
         return false;
       }
-      Node<int>* node = create(expression.substr(1, expression.length() - 2));
+      Node<int>* node = create(expression);
       return DisjointSet<int>::remove(node);
     }
 
@@ -55,8 +50,39 @@ namespace utilities
       {
         return false;
       }
-      Node<int>* node = create(expression.substr(1, expression.length() - 2));
+      Node<int>* node = create(expression);
       return DisjointSet<int>::find(node);
+    }
+
+    int IntegerDisjointSet::sumNodes()
+    {
+      if (DisjointSet<int>::isEmpty())
+      {
+        return 0;
+      }
+      return sum(DisjointSet<int>::getRoot());
+    }
+
+    int IntegerDisjointSet::sum(Node<int>* node)
+    {
+      if (!node)
+      {
+        return 0;
+      }
+      int total = 0;
+      if (node->isElement())
+      {
+        total += node->getElement();
+      }
+      else if (node->isSubset())
+      {
+        total += sum(node->getSubset());
+      }
+      if (node->hasNext())
+      {
+        total += sum(node->getNext());
+      }
+      return total;
     }
 
     Node<int>* IntegerDisjointSet::create(std::string expression)
@@ -90,6 +116,11 @@ namespace utilities
       return node;
     }
 
+    bool IntegerDisjointSet::isInRange(char c)
+    {
+      return c >= '0' && c <= '9';
+    }
+
     bool IntegerDisjointSet::evaluate(std::string expression)
     {
       if (!DisjointSet<int>::evaluate(expression))
@@ -98,7 +129,7 @@ namespace utilities
       }
       for (std::string::iterator it = expression.begin() + 1; it != expression.end(); ++it)
       {
-        if ((*it < '0' || *it > '9') && *it != '(' && *it != ',' && *it != ')')
+        if (!isInRange(*it) && !isSeparator(*it))
         {
           return false;
         }

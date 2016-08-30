@@ -20,16 +20,16 @@ namespace utilities
 		namespace binary_tree
 		{
 
-			template<typename Key, typename Element> class BinaryTreeInterface
-			{
-			public:
+    template<typename Key, typename Element> class BinaryTreeInterface
+    {
+    public:
 
-				virtual bool insert(Key key, Element element) = 0;
-				virtual bool remove(Key key) = 0;
-				virtual Element find(Key key) = 0;
-				virtual std::string toString() = 0; //in-order
+      virtual bool insert(Key key, Element element) = 0;
+      virtual bool remove(Key key) = 0;
+      virtual Element find(Key key) = 0;
+      virtual std::string toString() = 0; //in-order
 
-			};
+    };
 
 		}
 	}

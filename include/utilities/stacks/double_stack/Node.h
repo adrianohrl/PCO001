@@ -24,68 +24,75 @@ namespace utilities
 		namespace double_stack
 		{
 
-			template<typename Element> class Node
-			{
-			public:
-				Node();
-				Node(Element element, int previous);
-				virtual ~Node();
+    template<typename Element> class Node
+    {
+    public:
+      Node();
+      Node(Element element, int previous);
+      Node(const Node<Element>& node);
+      virtual ~Node();
 
-				Element getElement();
-				int getPrevious();
-				void set(Element element, int previous);
-				std::string toString();
-				void operator=(Node<Element> *node);
+      Element getElement();
+      int getPrevious();
+      void set(Element element, int previous);
+      std::string toString();
+      void operator=(Node<Element> *node);
 
-			private:
-				Element element_;
-				int previous_;
+    private:
+      Element element_;
+      int previous_;
 
-			};
+    };
 
-			template<typename Element> Node<Element>::Node()
-			{
-				previous_ = -100;
-			}
+    template<typename Element> Node<Element>::Node()
+    {
+      previous_ = -100;
+    }
 
-			template<typename Element> Node<Element>::Node(Element element, int previous)
-				: element_(element)
-			{
-				previous_ = previous;
-			}
+    template<typename Element> Node<Element>::Node(Element element, int previous)
+      : element_(element)
+    {
+      previous_ = previous;
+    }
 
-			template<typename Element> Node<Element>::~Node()
-			{
-			}
+    template<typename Element> Node<Element>::Node(const Node<Element>& node)
+      : element_(node.element_)
+    {
+      previous_ = node.previous_;
+    }
 
-			template<typename Element> Element Node<Element>::getElement()
-			{
-				return element_;
-			}
+    template<typename Element> Node<Element>::~Node()
+    {
+    }
 
-			template<typename Element> int Node<Element>::getPrevious()
-			{
-				return previous_;
-			}
+    template<typename Element> Element Node<Element>::getElement()
+    {
+      return element_;
+    }
 
-			template<typename Element> void Node<Element>::set(Element element, int previous)
-			{
-				element_ = element;
-				previous_ = previous;
-			}
+    template<typename Element> int Node<Element>::getPrevious()
+    {
+      return previous_;
+    }
 
-			template<typename Element> std::string Node<Element>::toString()
-			{
-				std::stringstream ss;
-				ss << element_;
-				return ss.str();
-			}
+    template<typename Element> void Node<Element>::set(Element element, int previous)
+    {
+      element_ = element;
+      previous_ = previous;
+    }
 
-			template<typename Element> void Node<Element>::operator=(Node<Element> *node)
-			{
-				element_ = node->element_;
-				previous_ = node->previous_;
-			}
+    template<typename Element> std::string Node<Element>::toString()
+    {
+      std::stringstream ss;
+      ss << element_;
+      return ss.str();
+    }
+
+    template<typename Element> void Node<Element>::operator=(Node<Element> *node)
+    {
+      element_ = node->element_;
+      previous_ = node->previous_;
+    }
 
 		}
 	}

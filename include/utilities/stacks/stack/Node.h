@@ -24,64 +24,75 @@ namespace utilities
 		namespace stack
 		{
 
-			template<typename Element> class Node
-			{
-			public:
-				Node(Element element, Node<Element>* previous = NULL);
-				virtual ~Node();
+    template<typename Element> class Node
+    {
+    public:
+      Node(Element element, Node<Element>* previous = NULL);
+      Node(const Node<Element>& node);
+      virtual ~Node();
 
-				Element getElement();
-				Node<Element>* getPrevious();
-				void setPreviousToNull();
-				bool hasPrevious();
-				std::string toString();
+      Element getElement();
+      Node<Element>* getPrevious();
+      void setPreviousToNull();
+      bool hasPrevious();
+      std::string toString();
 
-			private:
-				Element element_;
-				Node<Element> *previous_;
+    private:
+      Element element_;
+      Node<Element> *previous_;
 
-			};
+    };
 
-			template<typename Element> Node<Element>::Node(Element element, Node<Element>* previous)
-				: element_(element)
-			{
-				previous_ = previous;
-			}
+    template<typename Element> Node<Element>::Node(Element element, Node<Element>* previous)
+      : element_(element)
+    {
+      previous_ = previous;
+    }
 
-			template<typename Element> Node<Element>::~Node()
-			{
-				if (previous_)
-				{
-					delete previous_;
-				}
-			}
+    template<typename Element> Node<Element>::Node(const Node<Element>& node)
+      : element_(node.element_)
+    {
+      previous_ = NULL;
+      if (node.previous_)
+      {
+        previous_ = new Node<Element>(*node.previous_);
+      }
+    }
 
-			template<typename Element> Element Node<Element>::getElement()
-			{
-				return element_;
-			}
+    template<typename Element> Node<Element>::~Node()
+    {
+      if (previous_)
+      {
+        delete previous_;
+      }
+    }
 
-			template<typename Element> Node<Element>* Node<Element>::getPrevious()
-			{
-				return previous_;
-			}
+    template<typename Element> Element Node<Element>::getElement()
+    {
+      return element_;
+    }
 
-			template<typename Element> void Node<Element>::setPreviousToNull()
-			{
-				previous_ = NULL;
-			}
+    template<typename Element> Node<Element>* Node<Element>::getPrevious()
+    {
+      return previous_;
+    }
 
-			template<typename Element> bool Node<Element>::hasPrevious()
-			{
-				return previous_;
-			}
+    template<typename Element> void Node<Element>::setPreviousToNull()
+    {
+      previous_ = NULL;
+    }
 
-			template<typename Element> std::string Node<Element>::toString()
-			{
-				std::stringstream ss;
-				ss << element_;
-				return ss.str();
-			}
+    template<typename Element> bool Node<Element>::hasPrevious()
+    {
+      return previous_;
+    }
+
+    template<typename Element> std::string Node<Element>::toString()
+    {
+      std::stringstream ss;
+      ss << element_;
+      return ss.str();
+    }
 
 		}
 	}

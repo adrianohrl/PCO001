@@ -71,7 +71,6 @@ namespace utilities
         }
         last_ = node;
       }
-
     }
 
     template<typename Element> Queue<Element>::~Queue()
@@ -105,16 +104,16 @@ namespace utilities
 
     template<typename Element> Element Queue<Element>::remove()
     {
-      Element element;
-      if (!isEmpty())
+      if (isEmpty())
       {
-        Node<Element> *first = first_;
-        first_ = first->getNext();
-        element = first->getElement();
-        first->setNext(NULL);
-        delete first;
-        --size_;
+        return Element();
       }
+      Node<Element> *first = first_;
+      first_ = first->getNext();
+      Element element(first->getElement());
+      first->setNext(NULL);
+      delete first;
+      --size_;
       return element;
     }
 
