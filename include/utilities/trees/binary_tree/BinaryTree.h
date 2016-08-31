@@ -95,8 +95,8 @@ namespace utilities
       {
         return false;
       }
-      removed_node->setLeft(NULL);
-      removed_node->setRight(NULL);
+      //removed_node->setLeft(NULL);
+      //removed_node->setRight(NULL);
       delete removed_node;
       return true;
     }

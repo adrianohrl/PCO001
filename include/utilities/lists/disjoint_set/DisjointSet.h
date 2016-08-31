@@ -113,32 +113,35 @@ namespace utilities
 
     template<typename Element> bool DisjointSet<Element>::remove(Element element)
     {
-      if (isEmpty())
+      if (isEmpty() || !find(element))
       {
         return false;
       }
       Node<Element> *removed_node = root_->remove(element);
-      if (removed_node)
+      while (!isEmpty() && removed_node)
       {
+        root_ = removed_node->getNext();
+        removed_node->setNext(NULL);
         delete removed_node;
-        return true;
+        removed_node = root_->remove(element);
       }
-      return false;
+      return true;
     }
 
     template<typename Element> bool DisjointSet<Element>::remove(Node<Element> *node)
     {
-      if (isEmpty())
+      if (isEmpty() || !find(node))
       {
         return false;
       }
       Node<Element> *removed_node = root_->remove(node);
       if (removed_node)
       {
+        root_ = removed_node->getNext();
+        removed_node->setNext(NULL);
         delete removed_node;
-        return true;
       }
-      return false;
+      return true;
     }
 
     template<typename Element> bool DisjointSet<Element>::find(Element element)

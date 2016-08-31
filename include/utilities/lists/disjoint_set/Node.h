@@ -16,6 +16,7 @@
 
 #include <sstream>
 #include <string>
+#include <iostream>
 
 namespace utilities
 {
@@ -47,8 +48,8 @@ namespace utilities
 
         bool insert(Element element);
         bool insert(Node<Element> *node);
-        Node<Element>* remove(Element element);
-        Node<Element>* remove(Node<Element> *node);
+        Node<Element>* remove(Element element, Node<Element> *previous = NULL);
+        Node<Element>* remove(Node<Element> *node, Node<Element> *previous = NULL);
         bool find(Element element);
         bool find(Node<Element> *node);
         int calculateHeight();
@@ -120,11 +121,11 @@ namespace utilities
 				{
 					delete next_;
 				}
-				if (tag_ == tags::SUBSET)
+        if (tag_ == tags::SUBSET)
 				{
 					delete subset_;
 				}
-				else
+        else
 				{
 					delete element_;
 				}
@@ -150,21 +151,88 @@ namespace utilities
         return true;
       }
 
-      template<typename Element> Node<Element>* Node<Element>::remove(Element element)
+      template<typename Element> Node<Element>* Node<Element>::remove(Element element, Node<Element> *previous)
       {
+        Node<Element> *removed_node;
+        if (hasNext())
+        {
+          removed_node = next_->remove(element, this);
+          if (removed_node)
+          {
+            delete removed_node;
+          }
+        }
+        if (isSubset())
+        {
+          removed_node = subset_->remove(element, this);
+          if (removed_node)
+          {
+            delete removed_node;
+          }
+        }
+        if (isElement() && *element_ == element || isSubset() && !subset_)
+        {
+          if (previous)
+          {
+            if (previous->isSubset() && this == previous->subset_)
+            {
+              previous->subset_ = next_;
+            }
+            else
+            {
+              previous->next_ = next_;
+            }
+            next_ = NULL;
+          }
+          return this;
+        }
         return NULL;
       }
 
-      template<typename Element> Node<Element>* Node<Element>::remove(Node<Element> *node)
+      // testar essa funcao
+      template<typename Element> Node<Element>* Node<Element>::remove(Node<Element> *node, Node<Element> *previous)
       {
+        Node<Element> *removed_node;
+        if (hasNext())
+        {
+          removed_node = next_->remove(node, this);
+          if (removed_node)
+          {
+            delete removed_node;
+          }
+        }
+        if (isSubset())
+        {
+          removed_node = subset_->remove(node, this);
+          if (removed_node)
+          {
+            delete removed_node;
+          }
+        }
+        if (*this == *node || isSubset() && !subset_) ///// talvez isso vai dar pau
+        {
+          if (previous)
+          {
+            if (previous->isSubset() && this == previous->subset_)
+            {
+              previous->subset_ = next_;
+            }
+            else
+            {
+              previous->next_ = next_;
+            }
+            next_ = NULL;
+          }
+          return this;
+        }
         return NULL;
       }
 
       template<typename Element> bool Node<Element>::find(Element element)
       {
-        return ((isElement() && *element_ == element) ||
-                (isSubset() && subset_->find(element)) ||
-                (hasNext() && next_->find(element)));
+        return isElement() && *element_ == element ||
+            isSubset() && subset_->find(element) ||
+            hasNext() && next_->find(element);
       }
 
       template<typename Element> bool Node<Element>::find(Node<Element> *node)

@@ -34,16 +34,23 @@ namespace utilities
       return DisjointSet<int>::insert(node);
     }
 
+    // testar
     bool IntegerDisjointSet::remove(std::string expression)
     {
       if (!evaluate(expression))
       {
         return false;
       }
-      Node<int>* node = create(expression);
-      return DisjointSet<int>::remove(node);
+      Node<int> *node = create(expression);
+      bool removed = DisjointSet<int>::remove(node);
+      if (node)
+      {
+        delete node;
+      }
+      return removed;
     }
 
+    // testar
     bool IntegerDisjointSet::find(std::string expression)
     {
       if (!evaluate(expression))
@@ -51,7 +58,12 @@ namespace utilities
         return false;
       }
       Node<int>* node = create(expression);
-      return DisjointSet<int>::find(node);
+      bool found = DisjointSet<int>::find(node);
+      if (node)
+      {
+        delete node;
+      }
+      return found;
     }
 
     int IntegerDisjointSet::sumNodes()

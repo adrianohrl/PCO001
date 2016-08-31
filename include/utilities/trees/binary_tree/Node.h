@@ -136,11 +136,15 @@ namespace utilities
       else if (parent->left_ == this)
       {
         parent->left_ = left_ ? left_ : right_;
+        left_ = NULL; // Testar
+        right_ = NULL; // Testar
         return this;
       }
       else if (parent->right_ == this)
       {
         parent->right_ = left_ ? left_ : right_;
+        left_ = NULL; // Testar
+        right_ = NULL; // Testar
         return this;
       }
       return NULL;
