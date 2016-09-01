@@ -1,6 +1,6 @@
 /**
  * This source file implements a main function in order to test the
- * functionalities of the created BinaryTree class.
+ * functionalities of the created BinarySearchTree class.
  *
  * Author: Adriano Henrique Rossette Leite (2016101518)
  * Subject: Algoritmos e Estruturas de Dados (PCO001)
@@ -11,18 +11,18 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "utilities/trees/binary_tree/BinaryTree.h"
+#include "utilities/trees/binary_search_tree/BinarySearchTree.h"
 
 int main()
 {
-	utilities::trees::binary_tree::BinaryTree<int, std::string> tree;
+	utilities::trees::binary_search_tree::BinarySearchTree<int, std::string> tree;
 	if (tree.isEmpty())
 	{
-		std::cout << "The binary tree is empty!!!" << std::endl;
+    std::cout << "The binary search tree is empty!!!" << std::endl;
 	}
 	else
 	{
-		std::cout << "The binary tree is NOT empty!!!" << std::endl;
+    std::cout << "The binary search tree is NOT empty!!!" << std::endl;
 	}
 	int n = 11;
 	int keys[n] = {15, 6, 7, 18, 3, 13, 2, 9, 4, 17, 20};
@@ -31,21 +31,21 @@ int main()
 	{
 		tree.insert(keys[i], elements[i]);
 	}
-	std::cout << "Printing the binary tree in order: " << tree.toString() << std::endl;
+  std::cout << "Printing the binary search tree in order: " << tree.toString() << std::endl;
 	n = 8;
 	int indexes[n] = {2, 4, 6, 9, 7, 1, 9, 2};
 	for (int i = 0; i < n; i++)
 	{
 		if (tree.remove(keys[i]))
 		{
-			std::cout << "Removed (" << keys[i] << ") " << elements[i] << " from the binary tree." << std::endl;
+      std::cout << "Removed (" << keys[i] << ") " << elements[i] << " from the binary search tree." << std::endl;
 		}
 		else
 		{
-			std::cout << "There is no (" << keys[i] << ") " << elements[i] << " in the binary tree." << std::endl;
+      std::cout << "There is no (" << keys[i] << ") " << elements[i] << " in the binary search tree." << std::endl;
 		}
 	}
-	std::cout << "Printing the binary tree in order after all: " << tree.toString() << std::endl;
+  std::cout << "Printing the binary search tree in order after all: " << tree.toString() << std::endl;
 	int key = keys[10];
 	std::string element = tree.find(key);
 	if (element != "")

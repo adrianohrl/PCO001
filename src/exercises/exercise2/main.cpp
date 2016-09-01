@@ -1,6 +1,6 @@
 /**
  * This source file implements a main function in order to test the
- * functionalities of the created BinaryTree class.
+ * functionalities of the created BinarySearchTree class.
  *
  * Author: Adriano Henrique Rossette Leite (2016101518)
  * Subject: Algoritmos e Estruturas de Dados (PCO001)
@@ -11,11 +11,11 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "utilities/trees/binary_tree/BinaryTree.h"
+#include "utilities/trees/binary_search_tree/BinarySearchTree.h"
 
 int main()
 {
-	utilities::trees::binary_tree::BinaryTree<int, std::string> tree;
+	utilities::trees::binary_search_tree::BinarySearchTree<int, std::string> tree;
 	if (tree.isEmpty())
 	{
 		std::cout << "The binary tree is empty!!!" << std::endl;

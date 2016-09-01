@@ -47,13 +47,15 @@ set(STACKS_FILES
 	 ${STACK_FILES}
 	 ${DOUBLE_STACK_FILES}
 )
-set(BINARY_TREE_FILES
-	 include/utilities/trees/binary_tree/Node.h
-	 include/utilities/trees/binary_tree/BinaryTreeInterface.h
-	 include/utilities/trees/binary_tree/BinaryTree.h
+set(BINARY_SEARCH_TREE_FILES
+	 src/utilities/trees/binary_search_tree/IntegerBinarySearchTree.cpp
+	 include/utilities/trees/binary_search_tree/Node.h
+	 include/utilities/trees/binary_search_tree/BinarySearchTreeInterface.h
+	 include/utilities/trees/binary_search_tree/BinarySearchTree.h
+	 include/utilities/trees/binary_search_tree/IntegerBinarySearchTree.h
 )
 set(TREES_FILES
-	 ${BINARY_TREE_FILES}
+	 ${BINARY_SEARCH_TREE_FILES}
 )
 set(UTIL_FILES
 	 ${LISTS_FILES}
@@ -65,7 +67,7 @@ add_executable(disjoint_set src/utilities/lists/disjoint_set/main.cpp ${UTIL_FIL
 add_executable(doubly_linked_list src/utilities/lists/doubly_linked_list/main.cpp ${UTIL_FILES})
 add_executable(stack src/utilities/stacks/stack/main.cpp ${UTIL_FILES})
 add_executable(queue src/utilities/queues/queue/main.cpp ${UTIL_FILES})
-add_executable(binary_tree src/utilities/trees/binary_tree/main.cpp ${UTIL_FILES})
+add_executable(binary_tree src/utilities/trees/binary_search_tree/main.cpp ${UTIL_FILES})
 
 ###################
 #### HOMEWORKS ####
@@ -96,6 +98,11 @@ set(HOMEWORK4_FILES
 	 include/homeworks/homework4/IntegerDisjointSets.h
 )
 add_executable(homework4 src/homeworks/homework4/main.cpp ${HOMEWORK4_FILES})
+
+set(HOMEWORK5_FILES
+	 ${UTIL_FILES}
+)
+add_executable(homework5 src/homeworks/homework5/main.cpp ${HOMEWORK5_FILES})
 
 ###################
 #### EXERCISES ####
