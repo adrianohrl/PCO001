@@ -13,7 +13,7 @@ namespace binary_search_tree
 class IntegerBinarySearchTree : public BinarySearchTree<int, int>
 {
 public:
-  int sumLeafs();
+  int sumLeaves();
   bool insert(int element);
 
 private:

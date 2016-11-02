@@ -104,7 +104,7 @@ int main()
   }
 
   std::cout << std::endl << tree.prettierToString() << std::endl;
-  std::cout << "Sum of leaf elements: " << tree.sumLeafs() << std::endl;
+  std::cout << "Sum of leaf elements: " << tree.sumLeaves() << std::endl;
   std::cout << "Tree height: " << tree.getHeight() << std::endl;
   std::cout << "Number of elements: " << tree.countElements() << std::endl;
   tree.remove(keys[n - 2]);

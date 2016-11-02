@@ -57,17 +57,31 @@ set(BINARY_SEARCH_TREE_FILES
 set(TREES_FILES
 	 ${BINARY_SEARCH_TREE_FILES}
 )
+set(GRAPHES_FILES
+	 src/utilities/graphes/AdjacencyMatrix.cpp
+	 include/utilities/graphes/AdjacencyList.h
+	 include/utilities/graphes/AdjacencyMatrix.h
+	 include/utilities/graphes/Arc.h
+	 include/utilities/graphes/DijkstraAdjacencyList.h
+	 include/utilities/graphes/DijkstraVertex.h
+	 include/utilities/graphes/Vertex.h
+)
 set(UTIL_FILES
+	 src/utilities/Exception.cpp
+	 include/utilities/Exception.h
 	 ${LISTS_FILES}
 	 ${QUEUES_FILES}
 	 ${STACKS_FILES}
 	 ${TREES_FILES}
+	 ${GRAPHES_FILES}
 )
 add_executable(disjoint_set src/utilities/lists/disjoint_set/main.cpp ${UTIL_FILES})
 add_executable(doubly_linked_list src/utilities/lists/doubly_linked_list/main.cpp ${UTIL_FILES})
 add_executable(stack src/utilities/stacks/stack/main.cpp ${UTIL_FILES})
 add_executable(queue src/utilities/queues/queue/main.cpp ${UTIL_FILES})
 add_executable(binary_tree src/utilities/trees/binary_search_tree/main.cpp ${UTIL_FILES})
+add_executable(adjacency_list src/utilities/graphes/adjacency_list/main.cpp ${UTIL_FILES})
+add_executable(adjacency_matrix src/utilities/graphes/adjacency_matrix/main.cpp ${UTIL_FILES})
 
 ###################
 #### HOMEWORKS ####
@@ -103,6 +117,22 @@ set(HOMEWORK5_FILES
 	 ${UTIL_FILES}
 )
 add_executable(homework5 src/homeworks/homework5/main.cpp ${HOMEWORK5_FILES})
+
+set(HOMEWORK8_FILES
+	 ${UTIL_FILES}
+)
+add_executable(homework8 src/homeworks/homework8/main.cpp ${HOMEWORK8_FILES})
+
+set(HOMEWORK9_FILES
+	 src/homeworks/homework9/City.cpp
+	 src/homeworks/homework9/Highway.cpp
+	 src/homeworks/homework9/HighwayMap.cpp
+	 include/homeworks/homework9/City.h
+	 include/homeworks/homework9/Highway.h
+	 include/homeworks/homework9/HighwayMap.h
+	 ${UTIL_FILES}
+)
+add_executable(homework9 src/homeworks/homework9/main.cpp ${HOMEWORK9_FILES})
 
 ###################
 #### EXERCISES ####

@@ -12,7 +12,7 @@ bool IntegerBinarySearchTree::insert(int element)
   return BinarySearchTree<int, int>::insert(element, element);
 }
 
-int IntegerBinarySearchTree::sumLeafs()
+int IntegerBinarySearchTree::sumLeaves()
 {
   return sum(BinarySearchTree<int, int>::getRoot());
 }

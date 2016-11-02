@@ -1,5 +1,4 @@
 /**
- *
  * Author: Adriano Henrique Rossette Leite (2016101518)
  * Subject: Algoritmos e Estruturas de Dados (PCO001)
  * Institution: Universidade Federal de Itajubá
@@ -9,22 +8,32 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "utilities/trees/binary_search_tree/IntegerBinarySearchTree.h"
+#include "homeworks/homework9/HighwayMap.h"
 
 #define NUMBER_OF_OPTIONS 16
 #define INT_MAX 1
 #define INVALID_INTEGER -32768
 
-void printMenu();
-bool process(int option);
-int query(int option);
+using namespace homeworks::homework9;
 
-static utilities::trees::binary_search_tree::IntegerBinarySearchTree tree;
+/*void printMenu();
+bool process(int option);
+int query(int option);*/
 
 int main()
 {
+  try
+  {
+    HighwayMap map("../../map.txt");
+    std::cout << map.str();
+  }
+  catch (utilities::Exception& e)
+  {
+    std::cout << "\nException catched: " << e.what();
+  }
+  std::cout << "\n";
 
-  int option;
+  /*int option;
   while (true)
   {
     printMenu();
@@ -50,10 +59,10 @@ int main()
         std::cout << "\nInvalid option: " << option << "!!!";
       }
     }
-  }
+  }*/
   return EXIT_SUCCESS;
 }
-
+/*
 void printMenu()
 {
   std::cout << "\n\n******************************************************************\n";
@@ -151,7 +160,7 @@ int query(int option)
     std::cout << "\nInvalid option";
     return number;
   }*/
-  std::cout << "Insira um inteiro: ";
+  /*std::cout << "Insira um inteiro: ";
   std::cin >> number;
   if (std::cin.fail())
   {
@@ -162,3 +171,4 @@ int query(int option)
   }
   return number;
 }
+*/

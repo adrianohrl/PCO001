@@ -1,0 +1,16 @@
+São Paulo
+Campinas
+Ribeirão Preto        
+Rio Claro
+Atibaia
+Pirassununga
+Campinas, Campinas, 100
+São Paulo   , Atibaia, 60
+Atibaia, Campinas, 60
+São  Paulo, Campinas, 100
+Campinas, Campinas, 100
+Campinas, Pirassununga, 130
+Pirassununga, Rio Claro, 80
+Pirassununga, Ribeirão Preto, 100
+Ribeirão Preto, Rio Claro, 160
+Rio Claro, Campinas, 100
