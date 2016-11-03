@@ -28,10 +28,10 @@ namespace utilities
     template<typename Element> class DoublyLinkedList : public DoublyLinkedListInterface<Element>
     {
     public:
-    DoublyLinkedList();
-    DoublyLinkedList(const DoublyLinkedList& list);
+			DoublyLinkedList();
+			DoublyLinkedList(const DoublyLinkedList& list);
       virtual ~DoublyLinkedList();
-
+			virtual void clear();
       virtual bool insert(Element element, bool from_beginning = true);
       virtual bool remove(Element element, bool from_beginning = true);
       virtual Element find(Element element, bool from_beginning = true);
@@ -45,15 +45,14 @@ namespace utilities
     };
 
     template<typename Element> DoublyLinkedList<Element>::DoublyLinkedList()
-    {
-      first_ = NULL;
-      last_ = NULL;
-    }
+				: first_(NULL),
+					last_(NULL)
+		{}
 
     template<typename Element> DoublyLinkedList<Element>::DoublyLinkedList(const DoublyLinkedList& list)
-    {
-      first_ = NULL;
-      last_ = NULL;
+				: first_(NULL),
+					last_(NULL)
+		{
       if (list.first_)
       {
         first_ = new Node<Element>(*list.first_);
@@ -71,9 +70,20 @@ namespace utilities
       if (!isEmpty())
       {
         last_ = NULL;
-        delete first_;
-      }
-    }
+				delete first_;
+				first_ = NULL;
+			}
+		}
+
+		template<typename Element> void DoublyLinkedList<Element>::clear()
+		{
+				if (!isEmpty())
+				{
+					last_ = NULL;
+					delete first_;
+					first_ = NULL;
+				}
+		}
 
     template<typename Element> bool DoublyLinkedList<Element>::insert(Element element, bool from_beginning)
     {

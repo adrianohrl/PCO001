@@ -13,6 +13,8 @@
 
 #include "utilities/graphes/Vertex.h"
 
+#define INFINITY 1E+37
+
 namespace utilities
 {
 
@@ -29,7 +31,7 @@ public:
   double getMinimumDistance() const;
   DijkstraVertex<T> *getPredecessor() const;
   void setVisited(bool visited = true);
-  void setMinimumDistance(double distance) const;
+	void setMinimumDistance(double distance);
 	void setPredecessor(DijkstraVertex<T> *vertex);
 	virtual std::string str() const;
 private:
@@ -43,7 +45,7 @@ template <typename T>
 DijkstraVertex<T>::DijkstraVertex(const T& content)
 	: Vertex<T>::Vertex(content),
     visited_(false),
-    minimum_distance_(0.0),
+		minimum_distance_(INFINITY),
 		predecessor_(NULL)
 {}
 
@@ -78,7 +80,7 @@ void DijkstraVertex<T>::setVisited(bool visited)
 }
 
 template <typename T>
-void DijkstraVertex<T>::setMinimumDistance(double distance) const
+void DijkstraVertex<T>::setMinimumDistance(double distance)
 {
   minimum_distance_ = distance;
 }
@@ -93,17 +95,15 @@ template <typename T>
 std::string DijkstraVertex<T>::str() const
 {
   std::stringstream ss;
-	/*ss << "DijkstraVertex " << content_ <<
-				" (" << (visited_ ? "T" : "F") << ")";
-	if (adjacent_)
-	{
-		ss << ": Arcs: " << adjacent_->str();
-	}
+	ss << Vertex<T>::str() + ", (" + (visited_ ? "" : "NOT ") + "visited)";
   if (predecessor_)
   {
-    ss << ", Predecessor: " << predecessor_->content_ <<
-          ", Distance: " << minimum_distance_;
-	}*/
+		ss << ", Predecessor: " << predecessor_->getContent();
+	}
+	if (minimum_distance_ != INFINITY)
+	{
+		ss << ", Distance: " << minimum_distance_;
+	}
 	return ss.str();
 }
 

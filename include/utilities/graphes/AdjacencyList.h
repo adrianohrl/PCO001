@@ -29,17 +29,18 @@ public:
   unsigned int getSize() const;
   bool isConnected(unsigned int origin, unsigned int destiny) const;
   bool isDisconnected(unsigned int origin, unsigned int destiny) const;
-  bool insert(const T &content);
+	virtual bool insert(const T &content);
 	bool insert(Vertex<T> *vertex);
 	bool connect(unsigned int origin, unsigned int destiny, double weight);
 	bool connect(const T &origin, const T &destiny, double weight);
 	bool disconnect(unsigned int origin, unsigned int destiny, double weight);
 	std::string str() const;
+protected:
+	unsigned int getIndex(const T &content) const;
 private:
 	const unsigned int max_size_;
 	unsigned int size_;
-  Vertex<T> **vertices_;
-	unsigned int getIndex(const T &content) const;
+	Vertex<T> **vertices_;
 };
 
 template<typename T>

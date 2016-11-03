@@ -17,7 +17,7 @@ using typename utilities::graphes::DijkstraAdjacencyList;
 
 int main()
 {
-	std::cout << std::endl << "Testing DijkstraAdjacencyList class:" << std::endl;
+	std::cout << "Testing DijkstraAdjacencyList class:\n";
 	DijkstraAdjacencyList<char> graph(11);
 	graph.insert('A'); // 0
 	graph.insert('B'); // 1
@@ -30,7 +30,8 @@ int main()
 	graph.insert('I'); // 8
 	graph.insert('J'); // 9
 	graph.insert('K'); // 10
-  std::cout << std::endl << "Initializing the graph:" << graph.str() << std::endl;
+	std::cout << "\nInitializing the graph:\n\n" + graph.str() + "\n";
+
 	graph.connect('A', 'B', 8);
 	graph.connect('A', 'C', 5);
 	graph.connect('A', 'D', 7);
@@ -49,6 +50,37 @@ int main()
 	graph.connect('H', 'K', 4);
 	graph.connect('I', 'K', 5);
 	graph.connect('J', 'K', 4);
-	std::cout << std::endl << "Initialized graph:" << graph.str() << std::endl;
+	std::cout << "\nInitialized graph:\n\n" + graph.str() + "\n\n";
+
+	std::list<std::pair<char, char> > goals;
+	goals.push_back(std::pair<char, char>('A', 'K')); // proposed homework
+	goals.push_back(std::pair<char, char>('B', 'H'));
+	goals.push_back(std::pair<char, char>('B', 'G'));
+	goals.push_back(std::pair<char, char>('J', 'A'));
+	std::list<std::pair<char, char> >::iterator goals_it(goals.begin());
+	std::list<char> path;
+	std::list<char>::iterator path_it;
+	int counter;
+	char origin, destiny;
+	while (goals_it != goals.end())
+	{
+		origin = goals_it->first;
+		destiny = goals_it->second;
+		goals_it++;
+		path = graph.getShortestPath(origin, destiny);
+		if (path.empty())
+		{
+			std::cout << "\nThere is no path from " << origin << " to " << destiny << "!!!\n";
+			continue;
+		}
+		counter = 1;
+		path_it = path.begin();
+		std::cout << "\nPath from " << origin << " to " << destiny << ":";
+		while (path_it != path.end())
+		{
+			std::cout << "\n\t" << counter++ << ": " << *path_it++;
+		}
+		std::cout << "\n";
+	}
 	return EXIT_SUCCESS;
 }
