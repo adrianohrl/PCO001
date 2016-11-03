@@ -24,8 +24,8 @@ int main()
 {
   try
   {
-    HighwayMap map("../../map.txt");
-    std::cout << map.str();
+		HighwayMap map("../PCO001/map.txt");
+		std::cout << map.str() + "\n";
   }
   catch (utilities::Exception& e)
   {

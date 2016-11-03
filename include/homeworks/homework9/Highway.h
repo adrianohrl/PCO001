@@ -11,11 +11,11 @@
 #ifndef HW9_HIGHWAY_H
 #define HW9_HIGHWAY_H
 
-#include <stdlib.h>
-#include <string>
+#include <cstdlib>
 #include <sstream>
 #include <vector>
 #include "utilities/Exception.h"
+#include "homeworks/homework9/City.h"
 
 namespace homeworks
 {
@@ -25,12 +25,13 @@ namespace homeworks
 		{
     public:
       Highway(std::string line);
-      Highway(std::string origin, std::string destiny, int distance) throw();
-      Highway(std::string origin, std::string destiny, std::string distance) throw();
+			Highway(City origin, City destiny, double distance);
+			Highway(std::string origin, std::string destiny, std::string distance);
+			Highway(const Highway &highway);
       virtual ~Highway();
-      std::string getOriginCity() const;
-      std::string getDestinyCity() const;
-      int getDistance() const;
+      City getOriginCity() const;
+			City getDestinyCity() const;
+			double getDistance() const;
 			std::string str() const;
 			bool operator<(const Highway &highway) const;
 			bool operator<=(const Highway &highway) const;
@@ -39,8 +40,8 @@ namespace homeworks
 			bool operator>=(const Highway &highway) const;
 			bool operator>(const Highway &highway) const;
 		private:
-      std::string origin_, destiny_;
-      int distance_;
+			City origin_, destiny_;
+			double distance_;
       void validate() const;
 		};
 	}

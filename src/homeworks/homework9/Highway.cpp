@@ -12,8 +12,10 @@
 
 namespace homeworks
 {
+
   namespace homework9
   {
+
     Highway::Highway(std::string line)
     {
       std::vector<std::string> columns;
@@ -44,11 +46,11 @@ namespace homeworks
       }
       origin_ = columns[0];
       destiny_ = columns[1];
-      distance_ = atoi(columns[2].c_str());
+			distance_ = atof(columns[2].c_str());
       validate();
     }
 
-    Highway::Highway(std::string origin, std::string destiny, int distance) throw()
+		Highway::Highway(City origin, City destiny, double distance)
       : origin_(origin),
         destiny_(destiny),
         distance_(distance)
@@ -56,28 +58,34 @@ namespace homeworks
       validate();
     }
 
-    Highway::Highway(std::string origin, std::string destiny, std::string distance) throw()
-      : origin_(origin),
-        destiny_(destiny),
-        distance_(atoi(distance.c_str()))
+		Highway::Highway(std::string origin, std::string destiny, std::string distance)
+			: origin_(City(origin)),
+				destiny_(City(destiny)),
+				distance_(atof(distance.c_str()))
     {
-      validate();
-    }
+			validate();
+		}
+
+		Highway::Highway(const Highway &highway)
+			: origin_(highway.origin_),
+				destiny_(highway.destiny_),
+				distance_(highway.distance_)
+		{}
 
     Highway::~Highway()
-    {}
+		{}
 
-    std::string Highway::getOriginCity() const
+		City Highway::getOriginCity() const
     {
       return origin_;
     }
 
-    std::string Highway::getDestinyCity() const
+		City Highway::getDestinyCity() const
     {
       return destiny_;
     }
 
-    int Highway::getDistance() const
+		double Highway::getDistance() const
     {
       return distance_;
     }
@@ -85,7 +93,7 @@ namespace homeworks
     std::string Highway::str() const
     {
       std::stringstream ss;
-      ss << "go from " + origin_ + " to " + destiny_ + " for " << distance_ << " [km]";
+			ss << "go from " << origin_ << " to " << destiny_ << " for " << distance_ << " [km]";
 			return ss.str();
 		}
 
@@ -120,15 +128,7 @@ namespace homeworks
 		}
 
     void Highway::validate() const
-    {
-      if (origin_.empty())
-      {
-        throw utilities::Exception("City names must NOT be empty!!!");
-      }
-      if (destiny_.empty())
-      {
-        throw utilities::Exception("City names must NOT be empty!!!");
-      }
+		{
       if (origin_ == destiny_)
       {
         throw utilities::Exception("The name of cities that are connected by a highway must be different!!!");
@@ -138,5 +138,7 @@ namespace homeworks
         throw utilities::Exception("Highway distances must be positive!!!");
       }
     }
+
 	}
+
 }

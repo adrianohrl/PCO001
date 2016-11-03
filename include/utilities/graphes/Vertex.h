@@ -192,19 +192,20 @@ bool Vertex<T>::insert(Arc<T> *arc)
 		adjacent_ = arc;
 		return true;
 	}
-	Arc<T> *next = adjacent_, *previous = NULL;
-	while (*next < *arc->getDestiny() && next->hasNext())
+	Arc<T> *previous = NULL, *next = adjacent_;
+	while (next && *next < *arc->getDestiny())
 	{
 		previous = next;
 		next = next->getNext();
 	}
-	if (*next < *arc->getDestiny())
+	if (!previous)
 	{
-		next->setNext(arc);
+		arc->setNext(adjacent_);
+		adjacent_ = arc;
 	}
 	else
 	{
-		arc->setNext(next);
+		arc->setNext(previous->getNext());
 		previous->setNext(arc);
 	}
 	return true;

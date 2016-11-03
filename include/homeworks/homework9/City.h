@@ -11,10 +11,7 @@
 #ifndef HW9_CITY_H
 #define HW9_CITY_H
 
-#include <stdlib.h>
 #include <string>
-#include <sstream>
-#include <vector>
 #include "utilities/Exception.h"
 
 namespace homeworks
@@ -24,10 +21,13 @@ namespace homeworks
     class City
 		{
     public:
+			City();
       City(std::string name);
+			City(const City &city);
       virtual ~City();
       std::string getName() const;
       std::string str() const;
+			void operator=(const City &city);
 			bool operator<(const City &city) const;
 			bool operator<=(const City &city) const;
 			bool operator==(const City &city) const;

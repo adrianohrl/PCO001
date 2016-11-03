@@ -9,7 +9,6 @@
  */
 
 #include "homeworks/homework9/HighwayMap.h"
-#include <iostream>
 
 namespace homeworks
 {
@@ -59,7 +58,7 @@ namespace homeworks
         throw utilities::Exception("Empty file!!!");
       }
       std::vector<Highway> highways;
-      std::set<std::string> cities;
+			std::set<City> cities;
       while (file.good())
       {
         if (!str_line.empty())
@@ -76,7 +75,7 @@ namespace homeworks
             }
             if (!str_line.empty())
             {
-              cities.insert(str_line);
+							cities.insert(City(str_line));
             }
           }
           else
@@ -87,20 +86,8 @@ namespace homeworks
         }
         std::getline(file, str_line);
       }
-      for (int i(0); i < highways.size(); i++)
-      {
-        std::string origin(highways[i].getOriginCity());
-        if (cities.find(origin) == cities.end())
-        {
-          throw utilities::Exception(origin + " does NOT exists!!!");
-        }
-        std::string destiny(highways[i].getDestinyCity());
-        if (cities.find(destiny) == cities.end())
-        {
-          throw utilities::Exception(destiny + " does NOT exists!!!");
-        }
-      }
-      file.close();
+			file.close();
+			buildMap(cities, highways);
     }
 
     std::string HighwayMap::str() const
@@ -108,15 +95,45 @@ namespace homeworks
       return map_->str();
     }
 
-    utilities::graphes::AdjacencyList<City> *HighwayMap::getMap() const
+		utilities::graphes::AdjacencyList<City> *HighwayMap::getMap() const
     {
       return map_;
     }
 
     bool HighwayMap::exists(std::string file_name) const
     {
-      return true;
-    }
+			return true;
+		}
+
+		void HighwayMap::buildMap(std::set<City> cities, std::vector<Highway> highways)
+		{
+			if (map_)
+			{
+				delete map_;
+			}
+			map_ = new utilities::graphes::DijkstraAdjacencyList<City>(MAX_NUM_CITIES);
+			std::set<City>::iterator it(cities.begin());
+			while (it != cities.end())
+			{
+				map_->insert(*it++);
+			}
+			for (int i(0); i < highways.size(); i++)
+			{
+				double distance(highways[i].getDistance());
+				City origin(highways[i].getOriginCity());
+				if (cities.find(origin) == cities.end())
+				{
+					throw utilities::Exception(origin.getName() + " does NOT exists!!!");
+				}
+				City destiny(highways[i].getDestinyCity());
+				if (cities.find(destiny) == cities.end())
+				{
+					throw utilities::Exception(destiny.getName() + " does NOT exists!!!");
+				}
+				map_->connect(origin, destiny, distance);
+				map_->connect(destiny, origin, distance);
+			}
+		}
 
 	}
 

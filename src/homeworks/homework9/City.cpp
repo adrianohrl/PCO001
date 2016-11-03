@@ -16,14 +16,26 @@ namespace homeworks
   namespace homework9
   {
 
-    City::City(std::string name)
+		City::City()
+		{}
+
+		City::City(std::string name)
       : name_(name)
     {
       if (name_.empty())
       {
         throw utilities::Exception("City name must not be empty!!!");
-      }
-    }
+			}
+		}
+
+		City::City(const City &city)
+			: name_(city.name_)
+		{
+			if (name_.empty())
+			{
+				throw utilities::Exception("City name must not be empty!!!");
+			}
+		}
 
     City::~City()
     {}
@@ -36,6 +48,15 @@ namespace homeworks
     std::string City::str() const
     {
 			return "Name: " + name_;
+		}
+
+		void City::operator=(const City &city)
+		{
+			name_ = city.name_;
+			if (name_.empty())
+			{
+				throw utilities::Exception("City name must not be empty!!!");
+			}
 		}
 
 		bool City::operator<(const City &city) const
