@@ -8,29 +8,63 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "homeworks/homework9/HighwayMap.h"
+#include "homeworks/homework11/CPM.h"
 
 #define NUMBER_OF_OPTIONS 6
 #define INVALID_INTEGER -32768
+#define MAX_NUMBER_OF_ACTIVITIES 1000
 
-using namespace homeworks::homework9;
+using namespace homeworks::homework11;
 
-void printMenu();
-bool process(HighwayMap **map, int option);
+/*void printMenu();
+bool process(AdjacencyList **graph, int option);
 int query(std::string message);
-std::string queryString(std::string message);
+std::string queryString(std::string message);*/
 
-void importMap(HighwayMap **map);
-void showMap(HighwayMap *map);
-void showItinerary(HighwayMap *map);
-void showCities(HighwayMap *map);
-void showHighways(HighwayMap *map);
-void printItinerary(std::list<City> itinerary, double distance);
-
-int main()
+int main(int argc, const char** argv)
 {
-	HighwayMap *map = NULL;
-	int option;
+	CPM *cpm = new CPM("../PCO001/aula.txt", "semana(s)");
+	std::cout << cpm->str() + "\n";
+	std::list<Activity> critical_path(cpm->getCriticalPath());
+	std::list<Activity>::const_iterator it(critical_path.begin());
+	std::cout << "\n\nCritical Path:";
+	while (it != critical_path.end())
+	{
+		std::cout << "\n\t" << *it;
+		it++;
+	}
+	std::cout << "\n\nTotal duration: " << cpm->getTotalDuration(critical_path) << " [" << cpm->getTimeUnit() << "]";
+	std::cout << "\n\n";
+	/*AdjacencyList<Activity> *pert_cpm = new AdjacencyList<Activity>(MAX_NUMBER_OF_ACTIVITIES);
+	Activity a('A', "Escavação", 2);							pert_cpm->insert(a);
+	Activity b('B', "Fundação", 4);								pert_cpm->insert(b);
+	Activity c('C', "Paredes", 10);								pert_cpm->insert(c);
+	Activity d('D', "Telhado", 6);								pert_cpm->insert(d);
+	Activity e('E', "Encanamento exterior", 4);		pert_cpm->insert(e);
+	Activity f('F', "Encanamento interior", 5);		pert_cpm->insert(f);
+	Activity g('G', "Muros", 7);									pert_cpm->insert(g);
+	Activity h('H', "Pintura exterior", 9);				pert_cpm->insert(h);
+	Activity i('I', "Instalações elétricas", 7);	pert_cpm->insert(i);
+	Activity j('J', "Divisórias", 8);							pert_cpm->insert(j);
+	Activity k('K', "Piso", 4);										pert_cpm->insert(k);
+	Activity l('L', "Pintura interior", 5);				pert_cpm->insert(l);
+	Activity m('M', "Acabamento exterior", 2);		pert_cpm->insert(m);
+	Activity n('N', "Acabamento interior", 6);		pert_cpm->insert(n);
+	pert_cpm->connect(a, b);
+	pert_cpm->connect(b, c);
+	pert_cpm->connect(c, d);
+	pert_cpm->connect(c, e);
+	pert_cpm->connect(e, f);
+	pert_cpm->connect(d, g);
+	pert_cpm->connect(e, h);		pert_cpm->connect(g, h);
+	pert_cpm->connect(c, i);
+	pert_cpm->connect(f, j);		pert_cpm->connect(i, j);
+	pert_cpm->connect(j, k);
+	pert_cpm->connect(j, l);
+	pert_cpm->connect(h, m);
+	pert_cpm->connect(k, n);		pert_cpm->connect(l, n);*/
+
+	/*int option;
 	bool keep_going(true);
 	while (keep_going)
   {
@@ -50,11 +84,11 @@ int main()
 	if (map)
 	{
 		delete map;
-	}
+	}*/
 	return EXIT_SUCCESS;
 }
 
-void printMenu()
+/*void printMenu()
 {
 	std::cout << "\n";
 	std::cout << "\n********************************";
@@ -68,9 +102,9 @@ void printMenu()
 	std::cout << "\n********************************";
 }
 
-bool process(HighwayMap **map, int option)
+bool process(utilities::graphes::AdjacencyList **graph, int option)
 {
-	if (option != 1 && option != NUMBER_OF_OPTIONS && !*map)
+	if (option != 1 && option != NUMBER_OF_OPTIONS && !*graph)
 	{
 		std::cout << "\nThe map must be built, at first!!!";
 		return true;
@@ -78,19 +112,19 @@ bool process(HighwayMap **map, int option)
   switch (option)
   {
     case 1:
-			importMap(map);
+			importMap(graph);
 			break;
 		case 2:
-			showMap(*map);
+			showMap(*graph);
 			break;
 		case 3:
-			showItinerary(*map);
+			showItinerary(*graph);
 			break;
 		case 4:
-			showCities(*map);
+			showCities(*graph);
 			break;
 		case 5:
-			showHighways(*map);
+			showHighways(*graph);
 			break;
 		case 6:
 			return false;
@@ -199,4 +233,4 @@ void printItinerary(std::list<City> itinerary, double distance)
 		std::cout << it->getName() << ";";
 	}
 	std::cout << "\nTotal distance: " << distance << "[km].";
-}
+}*/

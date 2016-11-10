@@ -13,10 +13,7 @@
 
 #define MAX_NUM_CITIES 50000
 
-#include <stdlib.h>
 #include <fstream>
-#include <string>
-#include <vector>
 #include <set>
 #include "utilities/graphes/DijkstraAdjacencyList.h"
 #include "homeworks/homework9/Highway.h"
@@ -32,12 +29,18 @@ namespace homeworks
       HighwayMap(std::string file_name);
       virtual ~HighwayMap();
 			void import(std::string file_name);
-      std::string str() const;
-			utilities::graphes::AdjacencyList<City> *getMap() const;
+			std::list<City> getItinerary(std::string origin, std::string destiny);
+			std::list<City> getItinerary(const City &origin, const City &destiny);
+			std::list<City> getCities() const;
+			std::list<Highway> getHighways() const;
+			double getItineraryTotalDistance(const City &destiny) const;
+			double getItineraryTotalDistance(std::list<City> itinerary) const;
+			std::string str() const;
 		private:
-			utilities::graphes::AdjacencyList<City> *map_;
+			utilities::graphes::DijkstraAdjacencyList<City> *map_;
       bool exists(std::string file_name) const;
 			void buildMap(std::set<City> cities, std::vector<Highway> highways);
+			bool isRegistered(const City &city);
 		};
 	}
 }

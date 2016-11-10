@@ -47,7 +47,7 @@ namespace homeworks
 
     std::string City::str() const
     {
-			return "Name: " + name_;
+			return name_;
 		}
 
 		void City::operator=(const City &city)

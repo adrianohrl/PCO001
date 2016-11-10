@@ -93,7 +93,7 @@ namespace homeworks
     std::string Highway::str() const
     {
       std::stringstream ss;
-			ss << "go from " << origin_ << " to " << destiny_ << " for " << distance_ << " [km]";
+			ss << "From " << origin_ << " to " << destiny_ << " is " << distance_ << "[km]";
 			return ss.str();
 		}
 
@@ -125,6 +125,12 @@ namespace homeworks
 		bool Highway::operator>(const Highway &highway) const
 		{
 			return distance_ > highway.distance_;
+		}
+
+		std::ostream &operator<<(std::ostream &os, const Highway &highway)
+		{
+			os << highway.str();
+			return os;
 		}
 
     void Highway::validate() const

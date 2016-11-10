@@ -57,7 +57,7 @@ int main()
 
 void printMenu()
 {
-  std::cout << "\n";
+	std::cout << "\n";
   std::cout << "\n*********************************************";
   std::cout << "\n* Entre o numero da opcao desejada:         *";
   std::cout << "\n* 1) Criar novo grafo;                      *";

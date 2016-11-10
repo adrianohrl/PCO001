@@ -1,0 +1,15 @@
+#Atividade,	Descrição, 				Duração (semanas), 		Ativ. precedentes,
+A,			Escavação, 				2, 						-
+B,			Fundação, 				4, 						A
+C,			Paredes, 				10, 					B
+D,			Telhado, 				6, 						C
+E,			Encanamento exterior, 	4, 						C
+F, 			Encanamento interior, 	5, 						E
+G, 			Muros, 					7, 						D
+H, 			Pintura exterior, 		9, 						E,		G
+I, 			Instalações elétricas, 	7, 						C
+J, 			Divisórias, 			8, 						F,		I
+K, 			Piso, 					4, 						J
+L, 			Pintura interior, 		5, 						J
+M, 			Acabamento exterior, 	2,						H
+N, 			Acabamento interior, 	6, 						K,		L

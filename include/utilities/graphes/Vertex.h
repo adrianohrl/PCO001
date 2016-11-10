@@ -11,6 +11,7 @@
 #ifndef ADJACENCY_LIST_VERTEX_H
 #define ADJACENCY_LIST_VERTEX_H
 
+#include <list>
 #include <sstream>
 #include "utilities/graphes/Arc.h"
 
@@ -27,12 +28,18 @@ public:
 	Vertex(const T &content);
   virtual ~Vertex();
 	T getContent() const;
+	T *getContentReference();
+	std::list<std::pair<T, double> > getArcs() const;
 	Arc<T> *getAdjacent() const;
+	double getWeight(const T &content) const;
+	double getWeight(Vertex<T> *vertex) const;
   bool isConnected(Vertex<T> *vertex) const;
   bool isDisconnected(Vertex<T> *vertex) const;
+	virtual bool isVisited() const;
 	void setAdjancent(Arc<T> *vertex);
+	virtual void setVisited(bool visited = true);
 	bool connect(Vertex<T> *vertex, double weight);
-	bool disconnect(Vertex<T> *vertex, double weight);
+	bool disconnect(Vertex<T> *vertex);
 	virtual std::string str() const;
 	bool operator<(const Vertex<T> &vertex) const;
 	bool operator<=(const Vertex<T> &vertex) const;
@@ -44,8 +51,9 @@ protected:
 	virtual bool insert(Arc<T> *arc);
 private:
   T content_;
-  unsigned int degree_;
+  std::size_t degree_;
 	Arc<T> *adjacent_;
+	bool visited_;
 	virtual bool insert(Vertex<T> *vertex, double weight);
 };
 
@@ -53,7 +61,8 @@ template <typename T>
 Vertex<T>::Vertex(const T& content)
   : content_(content),
     degree_(0),
-		adjacent_(NULL)
+		adjacent_(NULL),
+		visited_(false)
 {}
 
 template <typename T>
@@ -72,10 +81,52 @@ T Vertex<T>::getContent() const
 	return content_;
 }
 
+template<typename T>
+T *Vertex<T>::getContentReference()
+{
+	return &content_;
+}
+
+template<typename T>
+std::list<std::pair<T, double> > Vertex<T>::getArcs() const
+{
+	std::list<std::pair<T, double> > arcs;
+	Arc<T> *adjacent = adjacent_;
+	while (adjacent)
+	{
+		std::pair<T, double> arc(adjacent->getDestiny()->getContent(), adjacent->getWeight());
+		arcs.push_back(arc);
+		adjacent = adjacent->getNext();
+	}
+	return arcs;
+}
+
 template <typename T>
 Arc<T> *Vertex<T>::getAdjacent() const
 {
-  return adjacent_;
+	return adjacent_;
+}
+
+template <typename T>
+double Vertex<T>::getWeight(const T &content) const
+{
+	double weight(0);
+	Vertex<T> *vertex = NULL;
+	for (Arc<T> *arc = adjacent_; arc; arc = arc->getNext())
+	{
+		vertex = arc->getDestiny();
+		if (vertex->content_ == content)
+		{
+			return arc->getWeight();
+		}
+	}
+	return weight;
+}
+
+template <typename T>
+double Vertex<T>::getWeight(Vertex<T> *vertex) const
+{
+	return getWeight(vertex->getContent());
 }
 
 template <typename T>
@@ -83,7 +134,7 @@ bool Vertex<T>::isConnected(Vertex<T> *vertex) const
 {
 	for (Arc<T> *arc = adjacent_; arc; arc = arc->getNext())
 	{
-		if (arc == vertex)
+		if (*arc == *vertex)
 		{
 			return true;
 		}
@@ -100,7 +151,7 @@ bool Vertex<T>::isDisconnected(Vertex<T> *vertex) const
 	}
 	for (Arc<T> *arc = adjacent_; arc; arc = arc->getNext())
 	{
-		if (arc == vertex)
+		if (*arc == *vertex)
 		{
 			return false;
 		}
@@ -109,9 +160,21 @@ bool Vertex<T>::isDisconnected(Vertex<T> *vertex) const
 }
 
 template <typename T>
+bool Vertex<T>::isVisited() const
+{
+	return visited_;
+}
+
+template <typename T>
 void Vertex<T>::setAdjancent(Arc<T> *vertex)
 {
   adjacent_ = vertex;
+}
+
+template <typename T>
+void Vertex<T>::setVisited(bool visited)
+{
+	visited_ = visited;
 }
 
 template <typename T>
@@ -130,7 +193,7 @@ bool Vertex<T>::connect(Vertex<T> *vertex, double weight)
 }
 
 template <typename T>
-bool Vertex<T>::disconnect(Vertex<T> *vertex, double weight)
+bool Vertex<T>::disconnect(Vertex<T> *vertex)
 {
   // implementar ainda
   return false;
@@ -145,6 +208,7 @@ std::string Vertex<T>::str() const
 	{
 		ss << ": Arcs: {" << adjacent_->str() << "}";
 	}
+	ss << ", (" << (visited_ ? "" : "NOT ") << "visited)";
 	return ss.str();
 }
 

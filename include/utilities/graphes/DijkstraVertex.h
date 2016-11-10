@@ -26,16 +26,13 @@ class DijkstraVertex : public Vertex<T>
 {
 public:
 	DijkstraVertex(const T &content);
-  virtual ~DijkstraVertex();
-  bool isVisited() const;
+	virtual ~DijkstraVertex();
   double getMinimumDistance() const;
-  DijkstraVertex<T> *getPredecessor() const;
-  void setVisited(bool visited = true);
+	DijkstraVertex<T> *getPredecessor() const;
 	void setMinimumDistance(double distance);
 	void setPredecessor(DijkstraVertex<T> *vertex);
 	virtual std::string str() const;
 private:
-  bool visited_;
   double minimum_distance_;
 	DijkstraVertex<T> *predecessor_;
 	virtual bool insert(DijkstraVertex<T> *vertex, double weight);
@@ -44,7 +41,6 @@ private:
 template <typename T>
 DijkstraVertex<T>::DijkstraVertex(const T& content)
 	: Vertex<T>::Vertex(content),
-    visited_(false),
 		minimum_distance_(INFINITY),
 		predecessor_(NULL)
 {}
@@ -53,12 +49,6 @@ template <typename T>
 DijkstraVertex<T>::~DijkstraVertex()
 {
 	predecessor_ = NULL;
-}
-
-template <typename T>
-bool DijkstraVertex<T>::isVisited() const
-{
-  return visited_;
 }
 
 template <typename T>
@@ -71,12 +61,6 @@ template <typename T>
 DijkstraVertex<T> *DijkstraVertex<T>::getPredecessor() const
 {
   return predecessor_;
-}
-
-template <typename T>
-void DijkstraVertex<T>::setVisited(bool visited)
-{
-  visited_ = visited;
 }
 
 template <typename T>
@@ -95,7 +79,7 @@ template <typename T>
 std::string DijkstraVertex<T>::str() const
 {
   std::stringstream ss;
-	ss << Vertex<T>::str() + ", (" + (visited_ ? "" : "NOT ") + "visited)";
+	ss << Vertex<T>::str();
   if (predecessor_)
   {
 		ss << ", Predecessor: " << predecessor_->getContent();

@@ -134,6 +134,15 @@ set(HOMEWORK9_FILES
 )
 add_executable(homework9 src/homeworks/homework9/main.cpp ${HOMEWORK9_FILES})
 
+set(HOMEWORK11_FILES
+	 src/homeworks/homework11/Activity.cpp
+	 src/homeworks/homework11/CPM.cpp
+	 include/homeworks/homework11/Activity.h
+	 include/homeworks/homework11/CPM.h
+	 ${UTIL_FILES}
+)
+add_executable(homework11 src/homeworks/homework11/main.cpp ${HOMEWORK11_FILES})
+
 ###################
 #### EXERCISES ####
 ###################

@@ -11,7 +11,6 @@
 #ifndef DIJKSTRA_ADJACENCY_LIST_H
 #define DIJKSTRA_ADJACENCY_LIST_H
 
-#include <list>
 #include "utilities/graphes/AdjacencyList.h"
 #include "utilities/graphes/DijkstraVertex.h"
 
@@ -25,21 +24,23 @@ template<typename T>
 class DijkstraAdjacencyList : public AdjacencyList<T>
 {
 public:
-	DijkstraAdjacencyList(const unsigned int max_size);
+	DijkstraAdjacencyList(const std::size_t max_size);
   virtual ~DijkstraAdjacencyList();
 	std::list<T> getShortestPath(const T &origin, const T &destiny);
-	std::list<T> getShortestPath(unsigned int origin, unsigned int destiny);
+	double getShortestPathTotalWeight(const T &destiny) const;
+	double getShortestPathTotalWeight(std::list<T> path) const;
 	virtual bool insert(const T &content);
-	std::string str() const;
 private:
-	void reset();
-	void reset(unsigned int start_vertex);
+	virtual void reset();
+	void reset(DijkstraVertex<T> *origin);
+	DijkstraVertex<T> *getDijkstraVertex(const T &destiny) const;
 	DijkstraVertex<T> *visitMinimumDistanceVertex();
-	bool isEmpty() const;
+	bool isEmpty();
+	std::list<T> getShortestPath(DijkstraVertex<T> *origin, DijkstraVertex<T> *destiny);
 };
 
 template<typename T>
-DijkstraAdjacencyList<T>::DijkstraAdjacencyList(const unsigned int max_size)
+DijkstraAdjacencyList<T>::DijkstraAdjacencyList(const std::size_t max_size)
 	: AdjacencyList<T>::AdjacencyList(max_size)
 {}
 
@@ -50,15 +51,14 @@ DijkstraAdjacencyList<T>::~DijkstraAdjacencyList()
 template<typename T>
 std::list<T> DijkstraAdjacencyList<T>::getShortestPath(const T &origin, const T &destiny)
 {
-	return getShortestPath(AdjacencyList<T>::getIndex(origin), AdjacencyList<T>::getIndex(destiny));
+	return getShortestPath(getDijkstraVertex(origin), getDijkstraVertex(destiny));
 }
 
 template<typename T>
-std::list<T> DijkstraAdjacencyList<T>::getShortestPath(unsigned int origin, unsigned int destiny)
+std::list<T> DijkstraAdjacencyList<T>::getShortestPath(DijkstraVertex<T> *origin, DijkstraVertex<T> *destiny)
 {
 	std::list<T> path;
-	unsigned int size = AdjacencyList<T>::getSize();
-	if (origin >= size || destiny >= size)
+	if (!origin || !destiny)
 	{
 		return path;
 	}
@@ -81,17 +81,48 @@ std::list<T> DijkstraAdjacencyList<T>::getShortestPath(unsigned int origin, unsi
 			arc = arc->getNext();
 		}
 	}
-	DijkstraVertex<T> *predecessor = (DijkstraVertex<T> *) AdjacencyList<T>::getVertex(destiny);
+	DijkstraVertex<T> *predecessor = destiny;
 	while (predecessor)
 	{
 		path.insert(path.begin(), predecessor->getContent());
 		predecessor = predecessor->getPredecessor();
 	}
-	if (*path.begin() != AdjacencyList<T>::getVertex(origin)->getContent())
+	if (*path.begin() != origin->getContent())
 	{
 		path.clear();
 	}
 	return path;
+}
+
+template<typename T>
+double DijkstraAdjacencyList<T>::getShortestPathTotalWeight(const T &destiny) const
+{
+	double total_weight(0);
+	DijkstraVertex<T> *predecessor = NULL, *vertex = getDijkstraVertex(destiny);
+	while (vertex)
+	{
+		predecessor = vertex->getPredecessor();
+		if (!predecessor)
+		{
+			break;
+		}
+		total_weight += predecessor->getWeight(vertex);
+		vertex = predecessor;
+	}
+	return total_weight;
+}
+
+template<typename T>
+double DijkstraAdjacencyList<T>::getShortestPathTotalWeight(std::list<T> path) const
+{
+	double total_weight(0);
+	typename std::list<T>::const_iterator it(path.begin());
+	while (*it != path.back())
+	{
+		Vertex<T> *vertex = AdjacencyList<T>::getVertex(*it++);
+		total_weight += vertex->getWeight(*it);
+	}
+	return total_weight;
 }
 
 template<typename T>
@@ -101,24 +132,12 @@ bool DijkstraAdjacencyList<T>::insert(const T &content)
 }
 
 template<typename T>
-std::string DijkstraAdjacencyList<T>::str() const
-{
-	unsigned int size(AdjacencyList<T>::getSize());
-  std::string str("Vertices:");
-	for (int i(0); i < size; i++)
-  {
-		str += "\n\t" + AdjacencyList<T>::getVertex(i)->str();
-  }
-	return str;
-}
-
-template<typename T>
 void DijkstraAdjacencyList<T>::reset()
 {
-	unsigned int size(AdjacencyList<T>::getSize());
+	std::size_t size(AdjacencyList<T>::getSize());
 	for (int i(0); i < size; i++)
 	{
-		DijkstraVertex<T> *vertex = (DijkstraVertex<T> *) AdjacencyList<T>::getVertex(i);
+		DijkstraVertex<T> *vertex = (DijkstraVertex<T> *) AdjacencyList<T>::get(i);
 		vertex->setVisited(false);
 		vertex->setPredecessor(NULL);
 		vertex->setMinimumDistance(INFINITY);
@@ -126,25 +145,30 @@ void DijkstraAdjacencyList<T>::reset()
 }
 
 template<typename T>
-void DijkstraAdjacencyList<T>::reset(unsigned int start_vertex)
+void DijkstraAdjacencyList<T>::reset(DijkstraVertex<T> *origin)
 {
 	reset();
-	if (start_vertex < AdjacencyList<T>::getSize())
+	if (origin)
 	{
-		DijkstraVertex<T> *vertex = (DijkstraVertex<T> *) AdjacencyList<T>::getVertex(start_vertex);
-		vertex->setMinimumDistance(0);
+		origin->setMinimumDistance(0);
 	}
+}
+
+template<typename T>
+DijkstraVertex<T> *DijkstraAdjacencyList<T>::getDijkstraVertex(const T &content) const
+{
+	return (DijkstraVertex<T> *) AdjacencyList<T>::getVertex(content);
 }
 
 template<typename T>
 DijkstraVertex<T> *DijkstraAdjacencyList<T>::visitMinimumDistanceVertex()
 {
 	double minimum_distance(INFINITY);
-	unsigned int size(AdjacencyList<T>::getSize());
+	std::size_t size(AdjacencyList<T>::getSize());
 	DijkstraVertex<T> *successor = NULL;
 	for (int i(0); i < size; i++)
 	{
-		DijkstraVertex<T> *vertex = (DijkstraVertex<T> *) AdjacencyList<T>::getVertex(i);
+		DijkstraVertex<T> *vertex = (DijkstraVertex<T> *) AdjacencyList<T>::get(i);
 		if (!vertex->isVisited() && vertex->getMinimumDistance() <= minimum_distance)
 		{
 			minimum_distance = vertex->getMinimumDistance();
@@ -159,12 +183,12 @@ DijkstraVertex<T> *DijkstraAdjacencyList<T>::visitMinimumDistanceVertex()
 }
 
 template<typename T>
-bool DijkstraAdjacencyList<T>::isEmpty() const
+bool DijkstraAdjacencyList<T>::isEmpty()
 {
-	unsigned int size(AdjacencyList<T>::getSize());
+	std::size_t size(AdjacencyList<T>::getSize());
 	for (int i(0); i < size; i++)
 	{
-		DijkstraVertex<T> *vertex = (DijkstraVertex<T> *) AdjacencyList<T>::getVertex(i);
+		DijkstraVertex<T> *vertex = (DijkstraVertex<T> *) AdjacencyList<T>::get(i);
 		if (!vertex->isVisited())
 		{
 			return false;

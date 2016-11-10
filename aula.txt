@@ -1,0 +1,10 @@
+#Atividade,	Descrição, 	Duração (semanas), 	Ativ. precedentes,
+A,			Nome de A, 	0, 					-
+B,			Nome de B, 	4, 					A
+C,			Nome de C, 	2, 					B
+D,			Nome de D, 	6, 					B
+E,			Nome de E, 	5, 					D
+F, 			Nome de F, 	3, 					D
+G, 			Nome de G, 	4, 					C,	E
+H, 			Nome de H, 	6, 					C,	E,	G
+I, 			Nome de I, 	0, 					F,	H

@@ -39,6 +39,7 @@ namespace homeworks
 			bool operator!=(const Highway &highway) const;
 			bool operator>=(const Highway &highway) const;
 			bool operator>(const Highway &highway) const;
+			friend std::ostream &operator<<(std::ostream &os, const Highway &highway);
 		private:
 			City origin_, destiny_;
 			double distance_;
