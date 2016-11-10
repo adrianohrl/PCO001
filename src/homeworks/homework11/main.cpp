@@ -33,8 +33,8 @@ int main(int argc, const char** argv)
 		std::cout << "\n\t" << *it;
 		it++;
 	}
-	std::cout << "\n\nTotal duration: " << cpm->getTotalDuration(critical_path) << " [" << cpm->getTimeUnit() << "]";
-	std::cout << "\n\n";
+	double duration(critical_path.back().getDuration());
+	std::cout << "\n\nTotal duration: " << duration << " [" << cpm->getTimeUnit() << "]\n\n";
 	/*AdjacencyList<Activity> *pert_cpm = new AdjacencyList<Activity>(MAX_NUMBER_OF_ACTIVITIES);
 	Activity a('A', "Escavação", 2);							pert_cpm->insert(a);
 	Activity b('B', "Fundação", 4);								pert_cpm->insert(b);
