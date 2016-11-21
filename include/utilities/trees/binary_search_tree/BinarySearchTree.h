@@ -43,6 +43,7 @@ public:
   virtual ~BinarySearchTree();
 
   virtual bool insert(Key key, Element element);
+  virtual bool insert(BinarySearchTree<Key, Element>* tree);
   virtual bool remove(Key key);
   virtual Element find(Key key);
   virtual void release();
@@ -60,8 +61,14 @@ public:
   virtual std::string toString(); //in-order
   std::string toStringLevelByLevel();
   std::string prettierToString();
+  bool operator<(const BinarySearchTree<Key, Element> &tree) const;
+  bool operator<=(const BinarySearchTree<Key, Element> &tree) const;
+  bool operator==(const BinarySearchTree<Key, Element> &tree) const;
+  bool operator!=(const BinarySearchTree<Key, Element> &tree) const;
+  bool operator>=(const BinarySearchTree<Key, Element> &tree) const;
+  bool operator>(const BinarySearchTree<Key, Element> &tree) const;
 
-protected:
+//protected:
   Node<Key, Element>* getRoot();
 
 private:
@@ -102,6 +109,18 @@ template<typename Key, typename Element> bool BinarySearchTree<Key, Element>::in
     root_ = root_->insert(key, element, root_);
   }
   return root_;
+}
+
+template<typename Key, typename Element> bool BinarySearchTree<Key, Element>::insert(BinarySearchTree<Key, Element> *tree)
+{
+    if (isEmpty())
+    {
+        root_ = new Node<Key, Element>(*tree->root_);
+    }
+    else
+    {
+        root_ = root_->insert(tree->root_, root_);
+    }
 }
 
 template<typename Key, typename Element> bool BinarySearchTree<Key, Element>::remove(Key key)
@@ -247,7 +266,37 @@ template<typename Key, typename Element> std::string BinarySearchTree<Key, Eleme
 
 template<typename Key, typename Element> std::string BinarySearchTree<Key, Element>::prettierToString()
 {
-  return root_->prettierToString();
+    return root_->prettierToString();
+}
+
+template<typename Key, typename Element> bool BinarySearchTree<Key, Element>::operator<(const BinarySearchTree<Key, Element> &tree) const
+{
+    return root_ < tree.root_;
+}
+
+template<typename Key, typename Element> bool BinarySearchTree<Key, Element>::operator<=(const BinarySearchTree<Key, Element> &tree) const
+{
+    return root_ <= tree.root_;
+}
+
+template<typename Key, typename Element> bool BinarySearchTree<Key, Element>::operator==(const BinarySearchTree<Key, Element> &tree) const
+{
+    return root_ == tree.root_;
+}
+
+template<typename Key, typename Element> bool BinarySearchTree<Key, Element>::operator!=(const BinarySearchTree<Key, Element> &tree) const
+{
+    return root_ != tree.root_;
+}
+
+template<typename Key, typename Element> bool BinarySearchTree<Key, Element>::operator>=(const BinarySearchTree<Key, Element> &tree) const
+{
+    return root_ >= tree.root_;
+}
+
+template<typename Key, typename Element> bool BinarySearchTree<Key, Element>::operator>(const BinarySearchTree<Key, Element> &tree) const
+{
+    return root_ > tree.root_;
 }
 
 template<typename Key, typename Element> Node<Key, Element>* BinarySearchTree<Key, Element>::getRoot()

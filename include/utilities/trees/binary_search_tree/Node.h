@@ -30,6 +30,7 @@ public:
   virtual ~Node();
 
   Node<Key, Element>* insert(Key key, Element element, Node<Key, Element> *parent);
+  Node<Key, Element>* insert(Node<Key, Element> * subtree, Node<Key, Element> *parent);
   Node<Key, Element>* remove(Key key, Node<Key, Element> *parent = NULL);
   Element find(Key key);
   Node<Key, Element>* getLeftmost();
@@ -58,7 +59,13 @@ public:
   bool operator==(Node<Key, Element> *node);
   bool operator!=(Node<Key, Element> *node);
   bool operator>(Node<Key, Element> *node);
+  bool operator>=(Node<Key, Element> *node);
   bool operator<(Node<Key, Element> *node);
+  bool operator<=(Node<Key, Element> *node);
+  bool operator>(const Node<Key, Element> &node);
+  bool operator>=(const Node<Key, Element> &node);
+  bool operator<(const Node<Key, Element> &node);
+  bool operator<=(const Node<Key, Element> &node);
 
 private:
   Key key_;
@@ -99,14 +106,14 @@ template<typename Key, typename Element> Node<Key, Element>::Node(const Node<Key
 
 template<typename Key, typename Element> Node<Key, Element>::~Node()
 {
-  if (hasLeft())
+  /*if (hasLeft())
   {
     delete left_;
   }
   if (hasRight())
   {
     delete right_;
-  }
+  }*/
 }
 
 template<typename Key, typename Element> Node<Key, Element>* Node<Key, Element>::insert(Key key, Element element, Node<Key, Element> *parent)
@@ -124,6 +131,23 @@ template<typename Key, typename Element> Node<Key, Element>* Node<Key, Element>:
     parent->right_ = insert(key, element, parent->right_);
   }
   return parent;
+}
+
+template<typename Key, typename Element> Node<Key, Element>* Node<Key, Element>::insert(Node<Key, Element> *subtree, Node<Key, Element> *parent)
+{
+    if (!parent)
+    {
+      parent = new Node<Key, Element>(*subtree);
+    }
+    else if (subtree->key_ < parent->key_)
+    {
+      parent->left_ = insert(subtree, parent->left_);
+    }
+    else
+    {
+      parent->right_ = insert(subtree, parent->right_);
+    }
+    return parent;
 }
 
 template<typename Key, typename Element> Node<Key, Element>* Node<Key, Element>::remove(Key key, Node<Key, Element> *parent)
@@ -382,9 +406,39 @@ template<typename Key, typename Element> bool Node<Key, Element>::operator>(Node
   return key_ > node->key_;
 }
 
+template<typename Key, typename Element> bool Node<Key, Element>::operator>=(Node<Key, Element> *node)
+{
+  return key_ >= node->key_;
+}
+
 template<typename Key, typename Element> bool Node<Key, Element>::operator<(Node<Key, Element> *node)
 {
   return key_ < node->key_;
+}
+
+template<typename Key, typename Element> bool Node<Key, Element>::operator<=(Node<Key, Element> *node)
+{
+  return key_ <= node->key_;
+}
+
+template<typename Key, typename Element> bool Node<Key, Element>::operator>(const Node<Key, Element> &node)
+{
+  return key_ > node.key_;
+}
+
+template<typename Key, typename Element> bool Node<Key, Element>::operator>=(const Node<Key, Element> &node)
+{
+  return key_ >= node.key_;
+}
+
+template<typename Key, typename Element> bool Node<Key, Element>::operator<(const Node<Key, Element> &node)
+{
+  return key_ < node.key_;
+}
+
+template<typename Key, typename Element> bool Node<Key, Element>::operator<=(const Node<Key, Element> &node)
+{
+  return key_ <= node.key_;
 }
 
 }
