@@ -54,8 +54,35 @@ set(BINARY_SEARCH_TREE_FILES
   include/utilities/trees/binary_search_tree/BinarySearchTree.h
   include/utilities/trees/binary_search_tree/IntegerBinarySearchTree.h
 )
+set(EXPRESSION_BINARY_TREE_FILES
+  src/utilities/trees/expression_binary_tree/double_operand.cpp
+  include/utilities/trees/expression_binary_tree/expression_binary_tree.h
+  include/utilities/trees/expression_binary_tree/node.h
+  include/utilities/trees/expression_binary_tree/operand.h
+  include/utilities/trees/expression_binary_tree/double_operand.h
+  include/utilities/trees/expression_binary_tree/operator.h
+  include/utilities/trees/expression_binary_tree/arithmetic/arithmetic_operator.h
+  include/utilities/trees/expression_binary_tree/arithmetic/negation.h
+  include/utilities/trees/expression_binary_tree/arithmetic/addition.h
+  include/utilities/trees/expression_binary_tree/arithmetic/subtraction.h
+  include/utilities/trees/expression_binary_tree/arithmetic/multiplication.h
+  include/utilities/trees/expression_binary_tree/arithmetic/division.h
+  include/utilities/trees/expression_binary_tree/logical/logical_operator.h
+  include/utilities/trees/expression_binary_tree/logical/not.h
+  include/utilities/trees/expression_binary_tree/logical/between_operators.h
+  include/utilities/trees/expression_binary_tree/logical/and.h
+  include/utilities/trees/expression_binary_tree/logical/or.h
+  include/utilities/trees/expression_binary_tree/logical/between_operands.h
+  include/utilities/trees/expression_binary_tree/logical/ngeq.h
+  include/utilities/trees/expression_binary_tree/logical/leq.h
+  include/utilities/trees/expression_binary_tree/logical/eq.h
+  include/utilities/trees/expression_binary_tree/logical/neq.h
+  include/utilities/trees/expression_binary_tree/logical/geq.h
+  include/utilities/trees/expression_binary_tree/logical/nleq.h
+)
 set(TREES_FILES
-${BINARY_SEARCH_TREE_FILES}
+  ${BINARY_SEARCH_TREE_FILES}
+  ${EXPRESSION_BINARY_TREE_FILES}
 )
 set(GRAPHES_FILES
   src/utilities/graphes/AdjacencyMatrix.cpp
@@ -93,6 +120,7 @@ add_executable(doubly_linked_list src/utilities/lists/doubly_linked_list/main.cp
 add_executable(stack src/utilities/stacks/stack/main.cpp ${UTIL_FILES})
 add_executable(queue src/utilities/queues/queue/main.cpp ${UTIL_FILES})
 add_executable(binary_tree src/utilities/trees/binary_search_tree/main.cpp ${UTIL_FILES})
+add_executable(expression_binary_tree src/utilities/trees/expression_binary_tree/main.cpp ${UTIL_FILES})
 add_executable(adjacency_list src/utilities/graphes/adjacency_list/main.cpp ${UTIL_FILES})
 add_executable(adjacency_matrix src/utilities/graphes/adjacency_matrix/main.cpp ${UTIL_FILES})
 add_executable(compression_huffman src/utilities/compression/huffman/main.cpp ${UTIL_FILES})
