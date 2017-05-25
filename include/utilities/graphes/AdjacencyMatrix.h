@@ -24,7 +24,8 @@ namespace graphes
 class AdjacencyMatrix
 {
 public:
-  AdjacencyMatrix(const unsigned int number_of_vertices, bool undirected = true);
+  AdjacencyMatrix(const unsigned int number_of_vertices,
+                  bool undirected = true);
   virtual ~AdjacencyMatrix();
   bool connect(const unsigned int source, const unsigned int destination);
   bool disconnect(const unsigned int source, const unsigned int destination);
@@ -39,15 +40,15 @@ private:
   bool visited_vertices_[NUMBER_OF_VERTICES];
   void reset();
   void visiteInDepthFirst(const unsigned int vertex);
-  bool isConnected(const unsigned int source, const unsigned int destination) const;
-  bool isDisconnected(const unsigned int source, const unsigned int destination) const;
+  bool isConnected(const unsigned int source,
+                   const unsigned int destination) const;
+  bool isDisconnected(const unsigned int source,
+                      const unsigned int destination) const;
   unsigned int getInDegree(const unsigned int vertex) const;
   unsigned int getOutDegree(const unsigned int vertex) const;
   unsigned int getDegree(const unsigned int vertex) const;
 };
-
 }
-
 }
 
 #endif // ADJACENCY_MATRIX_H

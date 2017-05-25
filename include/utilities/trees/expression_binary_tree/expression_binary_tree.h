@@ -38,13 +38,18 @@ private:
 
 template <typename T, typename E>
 ExpressionBinaryTree<T, E>::ExpressionBinaryTree(std::string expression)
-    : expression_(expression)
+    : expression_(expression), root_(NULL)
 {
 }
 
 template <typename T, typename E>
 ExpressionBinaryTree<T, E>::~ExpressionBinaryTree()
 {
+  if (root_)
+  {
+    delete root_;
+    root_ = NULL;
+  }
 }
 
 template <typename T, typename E> T ExpressionBinaryTree<T, E>::process() const

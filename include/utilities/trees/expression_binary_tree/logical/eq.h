@@ -25,7 +25,7 @@ namespace logical
 template <typename E> class EQ : public BetweenOperands<E>
 {
 public:
-  EQ(Operand<E>* left, Operand<E>* right);
+  EQ(Node<double, E>* left, Node<double, E>* right);
   EQ(const EQ<E>& operatorr);
   virtual ~EQ();
   virtual bool process() const;
@@ -35,17 +35,17 @@ public:
   static const std::string SYMBOL;
 };
 
-const std::string EQ::SYMBOL = "==";
+template <typename E> const std::string EQ<E>::SYMBOL = "==";
 
 template <typename E>
-EQ<E>::EQ(Operand<E>* left, Operand<E>* right)
-    : BetweenOperands(left, right)
+EQ<E>::EQ(Node<double, E>* left, Node<double, E>* right)
+    : BetweenOperands<E>::BetweenOperands(left, right)
 {
 }
 
 template <typename E>
 EQ<E>::EQ(const EQ<E>& operatorr)
-    : BetweenOperands(operatorr)
+    : BetweenOperands<E>::BetweenOperands(operatorr)
 {
 }
 
@@ -53,14 +53,13 @@ template <typename E> EQ<E>::~EQ() {}
 
 template <typename E> bool EQ<E>::process() const
 {
-  Node<bool, E>* left = Node<bool, E>::getLeft();
-  Node<bool, E>* right = Node<bool, E>::getRight();
-  return left->process() == right->process();
+  return BetweenOperands<E>::getDoubleLeft()->process() ==
+         BetweenOperands<E>::getDoubleRight()->process();
 }
 
 template <typename E> std::string EQ<E>::getSymbol() const
 {
-  return EQ::SYMBOL;
+  return EQ<E>::SYMBOL;
 }
 
 template <typename E> EQ<E>* EQ<E>::clone() const { return new EQ<E>(*this); }

@@ -12,6 +12,7 @@
 #define EBT_LOGICAL_OPERATOR_NLEQ_H
 
 #include "utilities/trees/expression_binary_tree/logical/between_operands.h"
+#include "utilities/trees/expression_binary_tree/arithmetic/arithmetic_operator.h"
 
 namespace utilities
 {
@@ -25,7 +26,7 @@ namespace logical
 template <typename E> class NLEQ : public BetweenOperands<E>
 {
 public:
-  NLEQ(Operand<E>* left, Operand<E>* right);
+  NLEQ(Node<double, E>* left, Node<double, E>* right);
   NLEQ(const NLEQ<E>& operatorr);
   virtual ~NLEQ();
   virtual bool process() const;
@@ -35,17 +36,17 @@ public:
   static const std::string SYMBOL;
 };
 
-const std::string NLEQ::SYMBOL = ">";
+template <typename E> const std::string NLEQ<E>::SYMBOL = ">";
 
 template <typename E>
-NLEQ<E>::NLEQ(Operand<E>* left, Operand<E>* right)
-    : BetweenOperands(left, right)
+NLEQ<E>::NLEQ(Node<double, E>* left, Node<double, E>* right)
+    : BetweenOperands<E>::BetweenOperands(left, right) // problem
 {
 }
 
 template <typename E>
 NLEQ<E>::NLEQ(const NLEQ<E>& operatorr)
-    : BetweenOperands(operatorr)
+    : BetweenOperands<E>::BetweenOperands(operatorr)
 {
 }
 
@@ -53,14 +54,13 @@ template <typename E> NLEQ<E>::~NLEQ() {}
 
 template <typename E> bool NLEQ<E>::process() const
 {
-  Node<bool, E>* left = Node<bool, E>::getLeft();
-  Node<bool, E>* right = Node<bool, E>::getRight();
-  return left->process() > right->process();
+  return BetweenOperands<E>::getDoubleLeft()->process() >
+         BetweenOperands<E>::getDoubleRight()->process();
 }
 
 template <typename E> std::string NLEQ<E>::getSymbol() const
 {
-  return NLEQ::SYMBOL;
+  return NLEQ<E>::SYMBOL;
 }
 
 template <typename E> NLEQ<E>* NLEQ<E>::clone() const

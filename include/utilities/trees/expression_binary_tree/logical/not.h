@@ -25,7 +25,7 @@ namespace logical
 template <typename E> class NOT : public LogicalOperator<E>
 {
 public:
-  NOT(LogicalOperator<E>* operatorr);
+  NOT(Node<bool, E>* operatorr);
   NOT(const NOT<E>& operatorr);
   virtual ~NOT();
   virtual bool process() const;
@@ -35,17 +35,17 @@ public:
   static const std::string SYMBOL;
 };
 
-const std::string NOT::SYMBOL = "!";
+template <typename E> const std::string NOT<E>::SYMBOL = "!";
 
 template <typename E>
-NOT<E>::NOT(LogicalOperator<E>* operatorr)
-    : LogicalOperator(operatorr)
+NOT<E>::NOT(Node<bool, E>* operatorr)
+    : LogicalOperator<E>::LogicalOperator(operatorr)
 {
 }
 
 template <typename E>
 NOT<E>::NOT(const NOT<E>& operatorr)
-    : LogicalOperator(operatorr)
+    : LogicalOperator<E>::LogicalOperator(operatorr)
 {
 }
 
@@ -53,13 +53,12 @@ template <typename E> NOT<E>::~NOT() {}
 
 template <typename E> bool NOT<E>::process() const
 {
-  Node<bool, E>* left = Node<bool, E>::getLeft();
-  return !left->process();
+  return !Operator<bool, E>::getLeft()->process();
 }
 
 template <typename E> std::string NOT<E>::getSymbol() const
 {
-  return NOT::SYMBOL;
+  return NOT<E>::SYMBOL;
 }
 
 template <typename E> NOT<E>* NOT<E>::clone() const

@@ -26,7 +26,7 @@ namespace arithmetic
 template <typename E> class Addition : public ArithmeticOperator<E>
 {
 public:
-  Addition(Operand<E>* left, Operand<E>* right);
+  Addition(Node<double, E>* left, Node<double, E>* right);
   Addition(const Addition<E>& operatorr);
   virtual ~Addition();
   virtual std::string getSymbol() const;
@@ -36,35 +36,34 @@ public:
   static const std::string SYMBOL;
 };
 
-const std::string Addition::SYMBOL = "+";
+template <typename E> const std::string Addition<E>::SYMBOL = "+";
 
 template <typename E>
-Addition::Addition(Operand<E>* left, Operand<E>* right)
-    : ArithmeticOperator(left, right)
+Addition<E>::Addition(Node<double, E>* left, Node<double, E>* right)
+    : ArithmeticOperator<E>::ArithmeticOperator(left, right)
 {
 }
 
 template <typename E>
-Addition::Addition(const Addition<E>& operatorr)
-    : ArithmeticOperator(operatorr)
+Addition<E>::Addition(const Addition<E>& operatorr)
+    : ArithmeticOperator<E>::ArithmeticOperator(operatorr)
 {
 }
 
-template <typename E> Addition::~Addition() {}
+template <typename E> Addition<E>::~Addition() {}
 
-template <typename E> std::string Addition::getSymbol() const
+template <typename E> std::string Addition<E>::getSymbol() const
 {
-  return Addition::SYMBOL;
+  return Addition<E>::SYMBOL;
 }
 
-template <typename E> double Addition::process() const
+template <typename E> double Addition<E>::process() const
 {
-  Node<double, E>* left = Node<double, E>::getLeft();
-  Node<double, E>* right = Node<double, E>::getRight();
-  return left->process() + right->process();
+  return Operator<double, E>::getLeft()->process() +
+         Operator<double, E>::getRight()->process();
 }
 
-template <typename E> Addition<E>* Addition::clone() const
+template <typename E> Addition<E>* Addition<E>::clone() const
 {
   return new Addition<E>(*this);
 }

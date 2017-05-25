@@ -25,7 +25,7 @@ namespace logical
 template <typename E> class AND : public BetweenOperators<E>
 {
 public:
-  AND(LogicalOperator<E>* left, LogicalOperator<E>* right);
+  AND(Node<bool, E>* left, Node<bool, E>* right);
   AND(const AND<E>& operatorr);
   virtual ~AND();
   virtual bool process() const;
@@ -35,17 +35,17 @@ public:
   static const std::string SYMBOL;
 };
 
-const std::string AND::SYMBOL = "&&";
+template <typename E> const std::string AND<E>::SYMBOL = "&&";
 
 template <typename E>
-AND<E>::AND(LogicalOperator<E>* left, LogicalOperator<E>* right)
-    : BetweenOperators(left, right)
+AND<E>::AND(Node<bool, E>* left, Node<bool, E>* right)
+    : BetweenOperators<E>::BetweenOperators(left, right)
 {
 }
 
 template <typename E>
 AND<E>::AND(const AND<E>& operatorr)
-    : BetweenOperators(operatorr)
+    : BetweenOperators<E>::BetweenOperators(operatorr)
 {
 }
 
@@ -53,14 +53,13 @@ template <typename E> AND<E>::~AND() {}
 
 template <typename E> bool AND<E>::process() const
 {
-  Node<bool, E>* left = Node<bool, E>::getLeft();
-  Node<bool, E>* right = Node<bool, E>::getRight();
-  return left->process() && right->process();
+  return Operator<bool, E>::getLeft()->process() &&
+         Operator<bool, E>::getRight()->process();
 }
 
 template <typename E> std::string AND<E>::getSymbol() const
 {
-  return AND::SYMBOL;
+  return AND<E>::SYMBOL;
 }
 
 template <typename E> AND<E>* AND<E>::clone() const

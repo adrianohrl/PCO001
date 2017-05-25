@@ -21,166 +21,45 @@ namespace trees
 namespace expression_binary_tree
 {
 
-template <typename E> class Operand : public Node<double, E>
+template <typename T, typename E> class Operand : public Node<T, E>
 {
 public:
-  Operand(const Operand<E>& operand);
+  Operand(const Operand<T, E>& operand);
   virtual ~Operand();
+  const E& getContent() const;
   virtual std::string str() const;
-  virtual bool operator<(const Operand<E>& operand) const;
-  virtual bool operator<(const E& operand) const;
-  virtual bool operator<=(const Operand<E>& operand) const;
-  virtual bool operator<=(const E& operand) const;
-  virtual bool operator==(const Operand<E>& operand) const;
-  virtual bool operator==(const E& operand) const;
-  virtual bool operator!=(const Operand<E>& operand) const;
-  virtual bool operator!=(const E& operand) const;
-  virtual bool operator>=(const Operand<E>& operand) const;
-  virtual bool operator>=(const E& operand) const;
-  virtual bool operator>(const Operand<E>& operand) const;
-  virtual bool operator>(const E& operand) const;
-  virtual double operator+(const Operand<E>& operand) const;
-  virtual double operator+(const E& operand) const;
-  virtual double operator-(const Operand<E>& operand) const;
-  virtual double operator-(const E& operand) const;
-  virtual double operator*(const Operand<E>& operand) const;
-  virtual double operator*(const E& operand) const;
-  virtual double operator/(const Operand<E>& operand) const;
-  virtual double operator/(const E& operand) const;
 
 protected:
-  Operand(E* operand);
-  E* getContent() const;
+  Operand(const E& operand);
 
 private:
-  E* content_;
+  const E content_;
 };
 
-template <typename E> Operand<E>::Operand(E* content) : content_(content) {}
+template <typename T, typename E>
+Operand<T, E>::Operand(const E& content)
+    : content_(content)
+{
+}
 
-template <typename E>
-Operand<E>::Operand(const Operand<E>& operand)
+template <typename T, typename E>
+Operand<T, E>::Operand(const Operand<T, E>& operand)
     : content_(operand.content_)
 {
 }
 
-template <typename E> Operand<E>::~Operand() {}
+template <typename T, typename E> Operand<T, E>::~Operand() {}
 
-template <typename E> std::string Operand<E>::str() const
+template <typename T, typename E> const E& Operand<T, E>::getContent() const
+{
+  return content_;
+}
+
+template <typename T, typename E> std::string Operand<T, E>::str() const
 {
   std::stringstream ss;
   ss << content_;
   return ss.str();
-}
-
-template <typename E>
-bool Operand<E>::operator<(const Operand<E>& operand) const
-{
-  return *content_ < *operand.content_;
-}
-
-template <typename E> bool Operand<E>::operator<(const E& operand) const
-{
-  return *content_ < operand;
-}
-
-template <typename E>
-bool Operand<E>::operator<=(const Operand<E>& operand) const
-{
-  return *content_ <= *operand.content_;
-}
-
-template <typename E> bool Operand<E>::operator<=(const E& operand) const
-{
-  return *content_ <= operand;
-}
-
-template <typename E>
-bool Operand<E>::operator==(const Operand<E>& operand) const
-{
-  return *content_ == *operand.content_;
-}
-
-template <typename E> bool Operand<E>::operator==(const E& operand) const
-{
-  return *content_ == operand;
-}
-
-template <typename E>
-bool Operand<E>::operator!=(const Operand<E>& operand) const
-{
-  return *content_ != *operand.content_;
-}
-
-template <typename E> bool Operand<E>::operator!=(const E& operand) const
-{
-  return *content_ != operand;
-}
-
-template <typename E>
-bool Operand<E>::operator>=(const Operand<E>& operand) const
-{
-  return *content_ >= *operand.content_;
-}
-
-template <typename E> bool Operand<E>::operator>=(const E& operand) const
-{
-  return *content_ >= operand;
-}
-
-template <typename E>
-bool Operand<E>::operator>(const Operand<E>& operand) const
-{
-  return *content_ > *operand.content_;
-}
-
-template <typename E> bool Operand<E>::operator>(const E& operand) const
-{
-  return *content_ > operand;
-}
-
-template <typename E>
-double Operand<E>::operator+(const Operand<E>& operand) const
-{
-  return *content_ + *operand.content_;
-}
-
-template <typename E> double Operand<E>::operator+(const E& operand) const
-{
-  return *content_ + operand;
-}
-
-template <typename E>
-double Operand<E>::operator-(const Operand<E>& operand) const
-{
-  return *content_ - *operand.content_;
-}
-
-template <typename E> double Operand<E>::operator-(const E& operand) const
-{
-  return *content_ - operand;
-}
-
-template <typename E>
-double Operand<E>::operator*(const Operand<E>& operand) const
-{
-  return *content_ * *operand.content_;
-}
-
-template <typename E> double Operand<E>::operator*(const E& operand) const
-{
-  return *content_ * operand;
-}
-
-template <typename E>
-double Operand<E>::operator/(const Operand<E>& operand) const
-{
-  return *content_ / *operand.content_;
-}
-
-template <typename E> double Operand<E>::operator/(const E& operand) const
-{
-  return *content_ / operand;
 }
 }
 }

@@ -26,7 +26,7 @@ namespace arithmetic
 template <typename E> class Subtraction : public ArithmeticOperator<E>
 {
 public:
-  Subtraction(Operand<E>* left, Operand<E>* right);
+  Subtraction(Node<double, E>* left, Node<double, E>* right);
   Subtraction(const Subtraction<E>& operatorr);
   virtual ~Subtraction();
   virtual std::string getSymbol() const;
@@ -36,35 +36,34 @@ public:
   static const std::string SYMBOL;
 };
 
-const std::string Subtraction::SYMBOL = "-";
+template <typename E> const std::string Subtraction<E>::SYMBOL = "-";
 
 template <typename E>
-Subtraction::Subtraction(Operand<E>* left, Operand<E>* right)
-    : ArithmeticOperator(left, right)
+Subtraction<E>::Subtraction(Node<double, E>* left, Node<double, E>* right)
+    : ArithmeticOperator<E>::ArithmeticOperator(left, right)
 {
 }
 
 template <typename E>
-Subtraction::Subtraction(const Subtraction<E>& operatorr)
-    : ArithmeticOperator(operatorr)
+Subtraction<E>::Subtraction(const Subtraction<E>& operatorr)
+    : ArithmeticOperator<E>::ArithmeticOperator(operatorr)
 {
 }
 
-template <typename E> Subtraction::~Subtraction() {}
+template <typename E> Subtraction<E>::~Subtraction() {}
 
-template <typename E> std::string Subtraction::getSymbol() const
+template <typename E> std::string Subtraction<E>::getSymbol() const
 {
-  return Subtraction::SYMBOL;
+  return Subtraction<E>::SYMBOL;
 }
 
-template <typename E> double Subtraction::process() const
+template <typename E> double Subtraction<E>::process() const
 {
-  Node<double, E>* left = Node<double, E>::getLeft();
-  Node<double, E>* right = Node<double, E>::getRight();
-  return left->process() - right->process();
+  return Operator<double, E>::getLeft()->process() -
+         Operator<double, E>::getRight()->process();
 }
 
-template <typename E> Subtraction<E>* Subtraction::clone() const
+template <typename E> Subtraction<E>* Subtraction<E>::clone() const
 {
   return new Subtraction<E>(*this);
 }

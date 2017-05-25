@@ -26,7 +26,7 @@ namespace arithmetic
 template <typename E> class Multiplication : public ArithmeticOperator<E>
 {
 public:
-  Multiplication(Operand<E>* left, Operand<E>* right);
+  Multiplication(Node<double, E>* left, Node<double, E>* right);
   Multiplication(const Multiplication<E>& operatorr);
   virtual ~Multiplication();
   virtual std::string getSymbol() const;
@@ -36,35 +36,34 @@ public:
   static const std::string SYMBOL;
 };
 
-const std::string Multiplication::SYMBOL = "*";
+template <typename E> const std::string Multiplication<E>::SYMBOL = "*";
 
 template <typename E>
-Multiplication::Multiplication(Operand<E>* left, Operand<E>* right)
-    : ArithmeticOperator(left, right)
+Multiplication<E>::Multiplication(Node<double, E>* left, Node<double, E>* right)
+    : ArithmeticOperator<E>::ArithmeticOperator(left, right)
 {
 }
 
 template <typename E>
-Multiplication::Multiplication(const Multiplication<E>& operatorr)
-    : ArithmeticOperator(operatorr)
+Multiplication<E>::Multiplication(const Multiplication<E>& operatorr)
+    : ArithmeticOperator<E>::ArithmeticOperator(operatorr)
 {
 }
 
-template <typename E> Multiplication::~Multiplication() {}
+template <typename E> Multiplication<E>::~Multiplication() {}
 
-template <typename E> std::string Multiplication::getSymbol() const
+template <typename E> std::string Multiplication<E>::getSymbol() const
 {
-  return Multiplication::SYMBOL;
+  return Multiplication<E>::SYMBOL;
 }
 
-template <typename E> double Multiplication::process() const
+template <typename E> double Multiplication<E>::process() const
 {
-  Node<double, E>* left = Node<double, E>::getLeft();
-  Node<double, E>* right = Node<double, E>::getRight();
-  return left->process() * right->process();
+  return Operator<double, E>::getLeft()->process() *
+         Operator<double, E>::getRight()->process();
 }
 
-template <typename E> Multiplication<E>* Multiplication::clone() const
+template <typename E> Multiplication<E>* Multiplication<E>::clone() const
 {
   return new Multiplication<E>(*this);
 }

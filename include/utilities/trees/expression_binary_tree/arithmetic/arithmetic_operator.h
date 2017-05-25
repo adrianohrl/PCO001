@@ -30,26 +30,28 @@ public:
   virtual ~ArithmeticOperator();
 
 protected:
-  ArithmeticOperator(ArithmeticOperator<E>* operatorr);
-  ArithmeticOperator(Operand<E>* left, Operand<E>* right);
-  ArithmeticOperator(const ArithmeticOperator& operatorr);
+  ArithmeticOperator(Node<double, E>* operatorr);
+  ArithmeticOperator(Node<double, E>* left, Node<double, E>* right);
+  ArithmeticOperator(const ArithmeticOperator<E>& operatorr);
 };
 
 template <typename E>
-ArithmeticOperator<E>::ArithmeticOperator(ArithmeticOperator<E>* operatorr)
-    : Operator(operatorr)
+ArithmeticOperator<E>::ArithmeticOperator(Node<double, E>* operatorr)
+    : Operator<double, E>::Operator(operatorr)
 {
 }
 
 template <typename E>
-ArithmeticOperator<E>::ArithmeticOperator(Operand<E>* left, Operand<E>* right)
-    : Operator(left, right)
+ArithmeticOperator<E>::ArithmeticOperator(Node<double, E>* left,
+                                          Node<double, E>* right)
+    : Operator<double, E>::Operator(left, right)
 {
 }
 
 template <typename E>
-ArithmeticOperator<E>::ArithmeticOperator(const ArithmeticOperator& operatorr)
-    : Operator(operatorr)
+ArithmeticOperator<E>::ArithmeticOperator(
+    const ArithmeticOperator<E>& operatorr)
+    : Operator<double, E>::Operator(operatorr)
 {
 }
 

@@ -26,9 +26,9 @@ namespace arithmetic
 template <typename E> class Negation : public ArithmeticOperator<E>
 {
 public:
-  Negation(ArithmeticOperator<E>* operatorr);
+  Negation(Node<double, E>* operatorr);
   Negation(const Negation<E>& operatorr);
-  virtual ~Subtraction();
+  virtual ~Negation();
   virtual std::string getSymbol() const;
   virtual double process() const;
   virtual Negation<E>* clone() const;
@@ -36,34 +36,33 @@ public:
   static const std::string SYMBOL;
 };
 
-const std::string Negation::SYMBOL = "-";
+template <typename E> const std::string Negation<E>::SYMBOL = "-";
 
 template <typename E>
-Negation::Negation(ArithmeticOperator<E>* operatorr)
-    : ArithmeticOperator(operatorr)
+Negation<E>::Negation(Node<double, E>* operatorr)
+    : ArithmeticOperator<E>::ArithmeticOperator(operatorr)
 {
 }
 
 template <typename E>
-Negation::Negation(const Negation<E>& operatorr)
-    : ArithmeticOperator(operatorr)
+Negation<E>::Negation(const Negation<E>& operatorr)
+    : ArithmeticOperator<E>::ArithmeticOperator(operatorr)
 {
 }
 
-template <typename E> Negation::~Negation() {}
+template <typename E> Negation<E>::~Negation() {}
 
-template <typename E> std::string Negation::getSymbol() const
+template <typename E> std::string Negation<E>::getSymbol() const
 {
-  return Negation::SYMBOL;
+  return Negation<E>::SYMBOL;
 }
 
-template <typename E> double Negation::process() const
+template <typename E> double Negation<E>::process() const
 {
-  Node<double, E>* left = Node<double, E>::getLeft();
-  return -left->process();
+  return -Operator<double, E>::getLeft()->process();
 }
 
-template <typename E> Negation<E>* Negation::clone() const
+template <typename E> Negation<E>* Negation<E>::clone() const
 {
   return new Negation<E>(*this);
 }

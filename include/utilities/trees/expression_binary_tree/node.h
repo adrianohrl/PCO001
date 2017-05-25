@@ -45,7 +45,7 @@ template <typename T, typename E> Node<T, E>::~Node() {}
 
 template <typename T, typename E> T Node<T, E>::process() const
 {
-  throw Exception("Invalid operation");
+  throw Exception("Invalid operation!!!");
 }
 
 template <typename T, typename E> Node<T, E>* Node<T, E>::getLeft() const

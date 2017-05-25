@@ -25,7 +25,7 @@ namespace logical
 template <typename E> class GEQ : public BetweenOperands<E>
 {
 public:
-  GEQ(Operand<E>* left, Operand<E>* right);
+  GEQ(Node<double, E>* left, Node<double, E>* right);
   GEQ(const GEQ<E>& operatorr);
   virtual ~GEQ();
   virtual bool process() const;
@@ -35,17 +35,17 @@ public:
   static const std::string SYMBOL;
 };
 
-const std::string GEQ::SYMBOL = ">=";
+template <typename E> const std::string GEQ<E>::SYMBOL = ">=";
 
 template <typename E>
-GEQ<E>::GEQ(Operand<E>* left, Operand<E>* right)
-    : BetweenOperands(left, right)
+GEQ<E>::GEQ(Node<double, E>* left, Node<double, E>* right)
+    : BetweenOperands<E>::BetweenOperands(left, right)
 {
 }
 
 template <typename E>
 GEQ<E>::GEQ(const GEQ<E>& operatorr)
-    : BetweenOperands(operatorr)
+    : BetweenOperands<E>::BetweenOperands(operatorr)
 {
 }
 
@@ -53,14 +53,13 @@ template <typename E> GEQ<E>::~GEQ() {}
 
 template <typename E> bool GEQ<E>::process() const
 {
-  Node<bool, E>* left = Node<bool, E>::getLeft();
-  Node<bool, E>* right = Node<bool, E>::getRight();
-  return left->process() >= right->process();
+  return BetweenOperands<E>::getDoubleLeft()->process() >=
+         BetweenOperands<E>::getDoubleRight()->process();
 }
 
 template <typename E> std::string GEQ<E>::getSymbol() const
 {
-  return GEQ::SYMBOL;
+  return GEQ<E>::SYMBOL;
 }
 
 template <typename E> GEQ<E>* GEQ<E>::clone() const

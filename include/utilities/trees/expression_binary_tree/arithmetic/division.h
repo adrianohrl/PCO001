@@ -26,7 +26,7 @@ namespace arithmetic
 template <typename E> class Division : public ArithmeticOperator<E>
 {
 public:
-  Division(Operand<E>* left, Operand<E>* right);
+  Division(Node<double, E>* left, Node<double, E>* right);
   Division(const Division<E>& operatorr);
   virtual ~Division();
   virtual std::string getSymbol() const;
@@ -36,35 +36,34 @@ public:
   static const std::string SYMBOL;
 };
 
-const std::string Division::SYMBOL = "/";
+template <typename E> const std::string Division<E>::SYMBOL = "/";
 
 template <typename E>
-Division::Division(Operand<E>* left, Operand<E>* right)
-    : ArithmeticOperator(left, right)
+Division<E>::Division(Node<double, E>* left, Node<double, E>* right)
+    : ArithmeticOperator<E>::ArithmeticOperator(left, right)
 {
 }
 
 template <typename E>
-Division::Division(const Division<E>& operatorr)
-    : ArithmeticOperator(operatorr)
+Division<E>::Division(const Division<E>& operatorr)
+    : ArithmeticOperator<E>::ArithmeticOperator(operatorr)
 {
 }
 
-template <typename E> Division::~Division() {}
+template <typename E> Division<E>::~Division() {}
 
-template <typename E> std::string Division::getSymbol() const
+template <typename E> std::string Division<E>::getSymbol() const
 {
-  return Division::SYMBOL;
+  return Division<E>::SYMBOL;
 }
 
-template <typename E> double Division::process() const
+template <typename E> double Division<E>::process() const
 {
-  Node<double, E>* left = Node<double, E>::getLeft();
-  Node<double, E>* right = Node<double, E>::getRight();
-  return left->process() / right->process();
+  return Operator<double, E>::getLeft()->process() /
+         Operator<double, E>::getRight()->process();
 }
 
-template <typename E> Division<E>* Division::clone() const
+template <typename E> Division<E>* Division<E>::clone() const
 {
   return new Division<E>(*this);
 }

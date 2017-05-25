@@ -27,40 +27,33 @@ namespace logical
 template <typename E> class LogicalOperator : public Operator<bool, E>
 {
 public:
-  virtual LogicalOperator();
-  virtual bool operator!() const;
+  virtual ~LogicalOperator();
 
 protected:
-  LogicalOperator(LogicalOperator<E>* operatorr);
-  LogicalOperator(Operand<bool, E>* left, Operand<bool, E>* right);
+  LogicalOperator(Node<bool, E>* operatorr);
+  LogicalOperator(Node<bool, E>* left, Node<bool, E>* right);
   LogicalOperator(const LogicalOperator<E>& operatorr);
 };
 
 template <typename E>
-LogicalOperator<E>::LogicalOperator(LogicalOperator<E>* operatorr)
-    : Operator(operatorr)
+LogicalOperator<E>::LogicalOperator(Node<bool, E>* operatorr)
+    : Operator<bool, E>::Operator(operatorr)
 {
 }
 
 template <typename E>
-LogicalOperator<E>::LogicalOperator(Operand<bool, E>* left,
-                                    Operand<bool, E>* right)
-    : Operator(left, right)
+LogicalOperator<E>::LogicalOperator(Node<bool, E>* left, Node<bool, E>* right)
+    : Operator<bool, E>::Operator(left, right)
 {
 }
 
 template <typename E>
 LogicalOperator<E>::LogicalOperator(const LogicalOperator<E>& operatorr)
-    : Operator(operatorr)
+    : Operator<bool, E>::Operator(operatorr)
 {
 }
 
-template <typename E> LogicalOperator<E>::LogicalOperator() {}
-
-template <typename E> bool LogicalOperator<E>::operator!() const
-{
-  return !process();
-}
+template <typename E> LogicalOperator<E>::~LogicalOperator() {}
 }
 }
 }

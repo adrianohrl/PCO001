@@ -19,42 +19,39 @@ namespace utilities
 namespace graphes
 {
 
-template<typename T>
-class Vertex;
+template <typename T> class Vertex;
 
-template<typename T>
-class Arc
+template <typename T> class Arc
 {
 public:
-	Arc(Vertex<T> *destiny, double weight, Arc<T> *next = NULL);
+  Arc(Vertex<T>* destiny, double weight, Arc<T>* next = NULL);
   virtual ~Arc();
-  Vertex<T> *getDestiny() const;
+  Vertex<T>* getDestiny() const;
   double getWeight() const;
-  Arc<T> *getNext() const;
+  Arc<T>* getNext() const;
   bool hasNext() const;
   void setWeight(double weight);
-	void setNext(Arc<T> *arc);
-	std::string str() const;
-	bool operator<(const Arc<T> &arc) const;
-	bool operator<=(const Arc<T> &arc) const;
-	bool operator==(const Arc<T> &arc) const;
-	bool operator!=(const Arc<T> &arc) const;
-	bool operator>(const Arc<T> &arc) const;
-	bool operator>=(const Arc<T> &arc) const;
-	bool operator<(const Vertex<T> &vertex) const;
-	bool operator<=(const Vertex<T> &vertex) const;
-	bool operator==(const Vertex<T> &vertex) const;
-	bool operator!=(const Vertex<T> &vertex) const;
-	bool operator>(const Vertex<T> &vertex) const;
-	bool operator>=(const Vertex<T> &vertex) const;
+  void setNext(Arc<T>* arc);
+  std::string str() const;
+  bool operator<(const Arc<T>& arc) const;
+  bool operator<=(const Arc<T>& arc) const;
+  bool operator==(const Arc<T>& arc) const;
+  bool operator!=(const Arc<T>& arc) const;
+  bool operator>(const Arc<T>& arc) const;
+  bool operator>=(const Arc<T>& arc) const;
+  bool operator<(const Vertex<T>& vertex) const;
+  bool operator<=(const Vertex<T>& vertex) const;
+  bool operator==(const Vertex<T>& vertex) const;
+  bool operator!=(const Vertex<T>& vertex) const;
+  bool operator>(const Vertex<T>& vertex) const;
+  bool operator>=(const Vertex<T>& vertex) const;
+
 private:
-  Vertex<T> *destiny_;
+  Vertex<T>* destiny_;
   double weight_;
-  Arc<T> *next_;
+  Arc<T>* next_;
 };
-
 }
-
 }
 
 #include "utilities/graphes/Vertex.h"
@@ -65,20 +62,17 @@ namespace utilities
 namespace graphes
 {
 
-template<typename T>
-Arc<T>::Arc(Vertex<T> *destiny, double weight, Arc<T> *next)
-	: destiny_(destiny),
-		weight_(weight),
-		next_(next)
+template <typename T>
+Arc<T>::Arc(Vertex<T>* destiny, double weight, Arc<T>* next)
+    : destiny_(destiny), weight_(weight), next_(next)
 {
-	if (!destiny_)
-	{
-		throw utilities::Exception("An arc must have origin and destiny!!!");
-	}
+  if (!destiny_)
+  {
+    throw utilities::Exception("An arc must have origin and destiny!!!");
+  }
 }
 
-template<typename T>
-Arc<T>::~Arc()
+template <typename T> Arc<T>::~Arc()
 {
   destiny_ = NULL;
   if (next_)
@@ -88,128 +82,92 @@ Arc<T>::~Arc()
   }
 }
 
-template<typename T>
-Vertex<T> *Arc<T>::getDestiny() const
+template <typename T> Vertex<T>* Arc<T>::getDestiny() const { return destiny_; }
+
+template <typename T> double Arc<T>::getWeight() const { return weight_; }
+
+template <typename T> Arc<T>* Arc<T>::getNext() const { return next_; }
+
+template <typename T> bool Arc<T>::hasNext() const { return next_; }
+
+template <typename T> void Arc<T>::setWeight(double weight)
 {
-  return destiny_;
+  weight_ = weight;
 }
 
-template<typename T>
-double Arc<T>::getWeight() const
+template <typename T> void Arc<T>::setNext(Arc<T>* arc) { next_ = arc; }
+
+template <typename T> std::string Arc<T>::str() const
 {
-  return weight_;
+  std::stringstream ss;
+  ss << destiny_->getContent() << "(" << weight_ << ")";
+  if (next_)
+  {
+    ss << ", " << next_->str();
+  }
+  return ss.str();
 }
 
-template<typename T>
-Arc<T> *Arc<T>::getNext() const
+template <typename T> bool Arc<T>::operator<(const Arc<T>& arc) const
 {
-  return next_;
+  return weight_ < arc.weight_;
 }
 
-template<typename T>
-bool Arc<T>::hasNext() const
+template <typename T> bool Arc<T>::operator<=(const Arc<T>& arc) const
 {
-  return next_;
+  return weight_ <= arc.weight_;
 }
 
-template<typename T>
-void Arc<T>::setWeight(double weight)
+template <typename T> bool Arc<T>::operator==(const Arc<T>& arc) const
 {
-	weight_ = weight;
+  return weight_ == arc.weight_;
 }
 
-template<typename T>
-void Arc<T>::setNext(Arc<T> *arc)
+template <typename T> bool Arc<T>::operator!=(const Arc<T>& arc) const
 {
-	next_ = arc;
+  return !operator==(arc);
 }
 
-template<typename T>
-std::string Arc<T>::str() const
+template <typename T> bool Arc<T>::operator>=(const Arc<T>& arc) const
 {
-	std::stringstream ss;
-	ss << destiny_->getContent() << "(" << weight_ << ")";
-	if (next_)
-	{
-		ss << ", " << next_->str();
-	}
-	return ss.str();
+  return weight_ >= arc.weight_;
 }
 
-template<typename T>
-bool Arc<T>::operator<(const Arc<T> &arc) const
+template <typename T> bool Arc<T>::operator>(const Arc<T>& arc) const
 {
-	return weight_ < arc.weight_;
+  return weight_ > arc.weight_;
 }
 
-template<typename T>
-bool Arc<T>::operator<=(const Arc<T> &arc) const
+template <typename T> bool Arc<T>::operator<(const Vertex<T>& vertex) const
 {
-	return weight_ <= arc.weight_;
+  return *destiny_ < vertex;
 }
 
-template<typename T>
-bool Arc<T>::operator==(const Arc<T> &arc) const
+template <typename T> bool Arc<T>::operator<=(const Vertex<T>& vertex) const
 {
-	return weight_ == arc.weight_;
+  return *destiny_ <= vertex;
 }
 
-template<typename T>
-bool Arc<T>::operator!=(const Arc<T> &arc) const
+template <typename T> bool Arc<T>::operator==(const Vertex<T>& vertex) const
 {
-	return !operator==(arc);
+  return *destiny_ == vertex;
 }
 
-template<typename T>
-bool Arc<T>::operator>=(const Arc<T> &arc) const
+template <typename T> bool Arc<T>::operator!=(const Vertex<T>& vertex) const
 {
-	return weight_ >= arc.weight_;
+  return !operator==(vertex);
 }
 
-template<typename T>
-bool Arc<T>::operator>(const Arc<T> &arc) const
+template <typename T> bool Arc<T>::operator>=(const Vertex<T>& vertex) const
 {
-	return weight_ > arc.weight_;
+  return *destiny_ >= vertex;
 }
 
-template<typename T>
-bool Arc<T>::operator<(const Vertex<T> &vertex) const
+template <typename T> bool Arc<T>::operator>(const Vertex<T>& vertex) const
 {
-	return *destiny_ < vertex;
+  return *destiny_ > vertex;
 }
-
-template<typename T>
-bool Arc<T>::operator<=(const Vertex<T> &vertex) const
-{
-	return *destiny_ <= vertex;
 }
-
-template<typename T>
-bool Arc<T>::operator==(const Vertex<T> &vertex) const
-{
-	return *destiny_ == vertex;
-}
-
-template<typename T>
-bool Arc<T>::operator!=(const Vertex<T> &vertex) const
-{
-	return !operator==(vertex);
-}
-
-template<typename T>
-bool Arc<T>::operator>=(const Vertex<T> &vertex) const
-{
-	return *destiny_ >= vertex;
-}
-
-template<typename T>
-bool Arc<T>::operator>(const Vertex<T> &vertex) const
-{
-	return *destiny_ > vertex;
-}
-
-}
-
 }
 
 #endif // ADJACENCY_LIST_ARC_H

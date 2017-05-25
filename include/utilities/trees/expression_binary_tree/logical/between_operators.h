@@ -27,40 +27,25 @@ template <typename E> class BetweenOperators : public LogicalOperator<E>
 {
 public:
   virtual ~BetweenOperators();
-  virtual bool operator&&(const LogicalOperator<E>& operatorr) const;
-  virtual bool operator||(const LogicalOperator<E>& operatorr) const;
 
 protected:
-  BetweenOperators(LogicalOperator<E>* left, LogicalOperator<E>* right);
+  BetweenOperators(Node<bool, E>* left, Node<bool, E>* right);
   BetweenOperators(const BetweenOperators<E>& operatorr);
 };
 
 template <typename E>
-BetweenOperators<E>::BetweenOperators(LogicalOperator<E>* left,
-                                      LogicalOperator<E>* right)
-    : LogicalOperator(left, right)
+BetweenOperators<E>::BetweenOperators(Node<bool, E>* left, Node<bool, E>* right)
+    : LogicalOperator<E>::LogicalOperator(left, right)
 {
 }
 
 template <typename E>
 BetweenOperators<E>::BetweenOperators(const BetweenOperators<E>& operatorr)
-    : LogicalOperator(operatorr)
+    : LogicalOperator<E>::LogicalOperator(operatorr)
 {
 }
 
-template <typename E> BetweenOperators::~BetweenOperators() {}
-
-template <typename E>
-bool BetweenOperators<E>::operator&&(const LogicalOperator<E>& operatorr) const
-{
-  return process() && operatorr.process();
-}
-
-template <typename E>
-bool BetweenOperators<E>::operator||(const LogicalOperator<E>& operatorr) const
-{
-  return process() || operatorr.process();
-}
+template <typename E> BetweenOperators<E>::~BetweenOperators() {}
 }
 }
 }

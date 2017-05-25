@@ -25,7 +25,7 @@ namespace logical
 template <typename E> class LEQ : public BetweenOperands<E>
 {
 public:
-  LEQ(Operand<E>* left, Operand<E>* right);
+  LEQ(Node<double, E>* left, Node<double, E>* right);
   LEQ(const LEQ<E>& operatorr);
   virtual ~LEQ();
   virtual bool process() const;
@@ -35,17 +35,17 @@ public:
   static const std::string SYMBOL;
 };
 
-const std::string LEQ::SYMBOL = "<=";
+template <typename E> const std::string LEQ<E>::SYMBOL = "<=";
 
 template <typename E>
-LEQ<E>::LEQ(Operand<E>* left, Operand<E>* right)
-    : BetweenOperands(left, right)
+LEQ<E>::LEQ(Node<double, E>* left, Node<double, E>* right)
+    : BetweenOperands<E>::BetweenOperands(left, right)
 {
 }
 
 template <typename E>
 LEQ<E>::LEQ(const LEQ<E>& operatorr)
-    : BetweenOperands(operatorr)
+    : BetweenOperands<E>::BetweenOperands(operatorr)
 {
 }
 
@@ -53,14 +53,13 @@ template <typename E> LEQ<E>::~LEQ() {}
 
 template <typename E> bool LEQ<E>::process() const
 {
-  Node<bool, E>* left = Node<bool, E>::getLeft();
-  Node<bool, E>* right = Node<bool, E>::getRight();
-  return left->process() <= right->process();
+  return BetweenOperands<E>::getDoubleLeft()->process() <=
+         BetweenOperands<E>::getDoubleRight()->process();
 }
 
 template <typename E> std::string LEQ<E>::getSymbol() const
 {
-  return LEQ::SYMBOL;
+  return LEQ<E>::SYMBOL;
 }
 
 template <typename E> LEQ<E>* LEQ<E>::clone() const

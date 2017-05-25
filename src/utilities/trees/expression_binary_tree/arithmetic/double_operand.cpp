@@ -1,5 +1,6 @@
 /**
- * This header file implements the ExpressionBinaryTree DoubleOperand class.
+ * This header file implements the ExpressionBinaryTree Unary Arithmetic
+ *DoubleOperand class.
  *
  * Author: Adriano Henrique Rossette Leite (2016101518)
  * Subject: Algoritmos e Estruturas de Dados (PCO001)
@@ -8,7 +9,7 @@
  * Version: 1.0.0
  */
 
-#include "utilities/trees/expression_binary_tree/double_operand.h"
+#include "utilities/trees/expression_binary_tree/arithmetic/double_operand.h"
 
 namespace utilities
 {
@@ -16,14 +17,23 @@ namespace trees
 {
 namespace expression_binary_tree
 {
+namespace arithmetic
+{
 
-DoubleOperand::DoubleOperand(double content) : Operand(&content) {}
+DoubleOperand::DoubleOperand(double content)
+    : UnaryOperand<double>::UnaryOperand(content)
+{
+}
 
-DoubleOperand::DoubleOperand(const DoubleOperand& operand) : Operand(operand) {}
+DoubleOperand::DoubleOperand(const DoubleOperand& operand)
+    : UnaryOperand<double>::UnaryOperand(operand)
+{
+}
 
 DoubleOperand::~DoubleOperand() {}
 
 DoubleOperand* DoubleOperand::clone() const { return new DoubleOperand(*this); }
+}
 }
 }
 }

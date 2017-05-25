@@ -25,7 +25,7 @@ namespace logical
 template <typename E> class OR : public BetweenOperators<E>
 {
 public:
-  OR(LogicalOperator<E>* left, LogicalOperator<E>* right);
+  OR(Node<bool, E>* left, Node<bool, E>* right);
   OR(const OR<E>& operatorr);
   virtual ~OR();
   virtual bool process() const;
@@ -35,17 +35,17 @@ public:
   static const std::string SYMBOL;
 };
 
-const std::string OR::SYMBOL = "||";
+template <typename E> const std::string OR<E>::SYMBOL = "||";
 
 template <typename E>
-OR<E>::OR(LogicalOperator<E>* left, LogicalOperator<E>* right)
-    : BetweenOperators(left, right)
+OR<E>::OR(Node<bool, E>* left, Node<bool, E>* right)
+    : BetweenOperators<E>::BetweenOperators(left, right)
 {
 }
 
 template <typename E>
 OR<E>::OR(const OR<E>& operatorr)
-    : BetweenOperators(operatorr)
+    : BetweenOperators<E>::BetweenOperators(operatorr)
 {
 }
 
@@ -53,14 +53,13 @@ template <typename E> OR<E>::~OR() {}
 
 template <typename E> bool OR<E>::process() const
 {
-  Node<bool, E>* left = Node<bool, E>::getLeft();
-  Node<bool, E>* right = Node<bool, E>::getRight();
-  return left->process() || right->process();
+  return Operator<bool, E>::getLeft()->process() ||
+         Operator<bool, E>::getRight()->process();
 }
 
 template <typename E> std::string OR<E>::getSymbol() const
 {
-  return OR::SYMBOL;
+  return OR<E>::SYMBOL;
 }
 
 template <typename E> OR<E>* OR<E>::clone() const { return new OR<E>(*this); }

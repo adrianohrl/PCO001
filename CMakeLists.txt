@@ -55,11 +55,12 @@ set(BINARY_SEARCH_TREE_FILES
   include/utilities/trees/binary_search_tree/IntegerBinarySearchTree.h
 )
 set(EXPRESSION_BINARY_TREE_FILES
-  src/utilities/trees/expression_binary_tree/double_operand.cpp
+  src/utilities/trees/expression_binary_tree/arithmetic/double_operand.cpp
+  src/utilities/trees/expression_binary_tree/logical/bool_operand.cpp
   include/utilities/trees/expression_binary_tree/expression_binary_tree.h
   include/utilities/trees/expression_binary_tree/node.h
   include/utilities/trees/expression_binary_tree/operand.h
-  include/utilities/trees/expression_binary_tree/double_operand.h
+  include/utilities/trees/expression_binary_tree/unary_operand.h
   include/utilities/trees/expression_binary_tree/operator.h
   include/utilities/trees/expression_binary_tree/arithmetic/arithmetic_operator.h
   include/utilities/trees/expression_binary_tree/arithmetic/negation.h
@@ -67,6 +68,7 @@ set(EXPRESSION_BINARY_TREE_FILES
   include/utilities/trees/expression_binary_tree/arithmetic/subtraction.h
   include/utilities/trees/expression_binary_tree/arithmetic/multiplication.h
   include/utilities/trees/expression_binary_tree/arithmetic/division.h
+  include/utilities/trees/expression_binary_tree/arithmetic/double_operand.h
   include/utilities/trees/expression_binary_tree/logical/logical_operator.h
   include/utilities/trees/expression_binary_tree/logical/not.h
   include/utilities/trees/expression_binary_tree/logical/between_operators.h
@@ -79,6 +81,7 @@ set(EXPRESSION_BINARY_TREE_FILES
   include/utilities/trees/expression_binary_tree/logical/neq.h
   include/utilities/trees/expression_binary_tree/logical/geq.h
   include/utilities/trees/expression_binary_tree/logical/nleq.h
+  include/utilities/trees/expression_binary_tree/logical/bool_operand.h
 )
 set(TREES_FILES
   ${BINARY_SEARCH_TREE_FILES}

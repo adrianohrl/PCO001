@@ -26,14 +26,13 @@ template <typename T, typename E> class Operator : public Node<T, E>
 public:
   Operator(const Operator<T, E>& operatorr);
   virtual ~Operator();
-  virtual T process() const = 0;
   virtual Node<T, E>* getLeft() const;
   virtual Node<T, E>* getRight() const;
   virtual bool hasLeft() const;
   virtual bool hasRight() const;
   virtual bool isLeaf() const;
   bool isUnary() const;
-  virtual getSymbol() const = 0;
+  virtual std::string getSymbol() const = 0;
   virtual std::string str() const;
 
 protected:
@@ -64,7 +63,19 @@ Operator<T, E>::Operator(const Operator<T, E>& operatorr)
 {
 }
 
-template <typename T, typename E> Operator<T, E>::~Operator() {}
+template <typename T, typename E> Operator<T, E>::~Operator()
+{
+  if (left_)
+  {
+    delete left_;
+    left_ = NULL;
+  }
+  if (right_)
+  {
+    delete right_;
+    right_ = NULL;
+  }
+}
 
 template <typename T, typename E> Node<T, E>* Operator<T, E>::getLeft() const
 {
@@ -101,7 +112,7 @@ template <typename T, typename E> std::string Operator<T, E>::str() const
   std::stringstream ss;
   if (unary_)
   {
-    ss << getSymbol() + " ";
+    ss << getSymbol();
   }
   ss << (left_ ? left_->str() : "");
   if (!unary_)
