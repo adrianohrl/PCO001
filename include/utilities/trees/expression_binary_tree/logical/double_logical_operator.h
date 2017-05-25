@@ -1,6 +1,6 @@
 /**
- * This header file defines the ExpressionBinaryTree LogicalOperator
- *BetweenOperands abstract class.
+ * This header file defines the ExpressionBinaryTree DoubleLogicalOperator
+ *abstract class.
  *
  * Author: Adriano Henrique Rossette Leite (2016101518)
  * Subject: Algoritmos e Estruturas de Dados (PCO001)
@@ -9,8 +9,8 @@
  * Version: 1.0.0
  */
 
-#ifndef EBT_LOGICAL_OPERATOR_BETWEEN_OPERANDS_H
-#define EBT_LOGICAL_OPERATOR_BETWEEN_OPERANDS_H
+#ifndef EBT_DOUBLE_LOGICAL_OPERATOR_H
+#define EBT_DOUBLE_LOGICAL_OPERATOR_H
 
 #include "utilities/trees/expression_binary_tree/logical/logical_operator.h"
 
@@ -23,16 +23,16 @@ namespace expression_binary_tree
 namespace logical
 {
 
-template <typename E> class BetweenOperands : public LogicalOperator<E>
+template <typename E> class DoubleLogicalOperator : public LogicalOperator<E>
 {
 public:
-  virtual ~BetweenOperands();
+  virtual ~DoubleLogicalOperator();
   virtual std::string getSymbol() const = 0;
   virtual std::string str() const;
 
 protected:
-  BetweenOperands(Node<double, E>* left, Node<double, E>* right);
-  BetweenOperands(const BetweenOperands<E>& operatorr);
+  DoubleLogicalOperator(Node<double, E>* left, Node<double, E>* right);
+  DoubleLogicalOperator(const DoubleLogicalOperator<E>& operatorr);
   Node<double, E>* getDoubleLeft() const;
   Node<double, E>* getDoubleRight() const;
 
@@ -42,20 +42,20 @@ private:
 };
 
 template <typename E>
-BetweenOperands<E>::BetweenOperands(Node<double, E>* left,
+DoubleLogicalOperator<E>::DoubleLogicalOperator(Node<double, E>* left,
                                     Node<double, E>* right)
     : LogicalOperator<E>::LogicalOperator(NULL, NULL), left__(left), right__(right)
 {
 }
 
 template <typename E>
-BetweenOperands<E>::BetweenOperands(const BetweenOperands<E>& operatorr)
+DoubleLogicalOperator<E>::DoubleLogicalOperator(const DoubleLogicalOperator<E>& operatorr)
     : LogicalOperator<E>::LogicalOperator(operatorr), left__(operatorr.left__),
       right__(operatorr.right__)
 {
 }
 
-template <typename E> BetweenOperands<E>::~BetweenOperands()
+template <typename E> DoubleLogicalOperator<E>::~DoubleLogicalOperator()
 {
   if (left__)
   {
@@ -69,7 +69,7 @@ template <typename E> BetweenOperands<E>::~BetweenOperands()
   }
 }
 
-template <typename E> std::string BetweenOperands<E>::str() const
+template <typename E> std::string DoubleLogicalOperator<E>::str() const
 {
   std::stringstream ss;
   if (Operator<bool, E>::isUnary())
@@ -85,13 +85,13 @@ template <typename E> std::string BetweenOperands<E>::str() const
   return "(" + ss.str() + ")";
 }
 
-template <typename E> Node<double, E>* BetweenOperands<E>::getDoubleLeft() const
+template <typename E> Node<double, E>* DoubleLogicalOperator<E>::getDoubleLeft() const
 {
   return left__;
 }
 
 template <typename E>
-Node<double, E>* BetweenOperands<E>::getDoubleRight() const
+Node<double, E>* DoubleLogicalOperator<E>::getDoubleRight() const
 {
   return right__;
 }
@@ -100,4 +100,4 @@ Node<double, E>* BetweenOperands<E>::getDoubleRight() const
 }
 }
 
-#endif // EBT_LOGICAL_OPERATOR_BETWEEN_OPERANDS_H
+#endif // EBT_DOUBLE_LOGICAL_OPERATOR_H

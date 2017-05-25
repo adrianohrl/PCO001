@@ -1,5 +1,5 @@
 /**
- * This header file defines the ExpressionBinaryTree LogicalOperator GEQ class.
+ * This header file defines the ExpressionBinaryTree DoubleLogicalOperator GEQ class.
  *
  * Author: Adriano Henrique Rossette Leite (2016101518)
  * Subject: Algoritmos e Estruturas de Dados (PCO001)
@@ -8,10 +8,10 @@
  * Version: 1.0.0
  */
 
-#ifndef EBT_LOGICAL_OPERATOR_GEQ_H
-#define EBT_LOGICAL_OPERATOR_GEQ_H
+#ifndef EBT_DOUBLE_LOGICAL_OPERATOR_GEQ_H
+#define EBT_DOUBLE_LOGICAL_OPERATOR_GEQ_H
 
-#include "utilities/trees/expression_binary_tree/logical/between_operands.h"
+#include "utilities/trees/expression_binary_tree/logical/double_logical_operator.h"
 
 namespace utilities
 {
@@ -22,7 +22,7 @@ namespace expression_binary_tree
 namespace logical
 {
 
-template <typename E> class GEQ : public BetweenOperands<E>
+template <typename E> class GEQ : public DoubleLogicalOperator<E>
 {
 public:
   GEQ(Node<double, E>* left, Node<double, E>* right);
@@ -39,13 +39,13 @@ template <typename E> const std::string GEQ<E>::SYMBOL = ">=";
 
 template <typename E>
 GEQ<E>::GEQ(Node<double, E>* left, Node<double, E>* right)
-    : BetweenOperands<E>::BetweenOperands(left, right)
+    : DoubleLogicalOperator<E>::DoubleLogicalOperator(left, right)
 {
 }
 
 template <typename E>
 GEQ<E>::GEQ(const GEQ<E>& operatorr)
-    : BetweenOperands<E>::BetweenOperands(operatorr)
+    : DoubleLogicalOperator<E>::DoubleLogicalOperator(operatorr)
 {
 }
 
@@ -53,8 +53,8 @@ template <typename E> GEQ<E>::~GEQ() {}
 
 template <typename E> bool GEQ<E>::process() const
 {
-  return BetweenOperands<E>::getDoubleLeft()->process() >=
-         BetweenOperands<E>::getDoubleRight()->process();
+  return DoubleLogicalOperator<E>::getDoubleLeft()->process() >=
+         DoubleLogicalOperator<E>::getDoubleRight()->process();
 }
 
 template <typename E> std::string GEQ<E>::getSymbol() const
@@ -71,4 +71,4 @@ template <typename E> GEQ<E>* GEQ<E>::clone() const
 }
 }
 
-#endif // EBT_LOGICAL_OPERATOR_GEQ_H
+#endif // EBT_DOUBLE_LOGICAL_OPERATOR_GEQ_H

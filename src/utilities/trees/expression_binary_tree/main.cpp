@@ -20,6 +20,8 @@
 #include "utilities/trees/expression_binary_tree/arithmetic/double_operand.h"
 #include "utilities/trees/expression_binary_tree/logical/and.h"
 #include "utilities/trees/expression_binary_tree/logical/or.h"
+#include "utilities/trees/expression_binary_tree/logical/beq.h"
+#include "utilities/trees/expression_binary_tree/logical/bneq.h"
 #include "utilities/trees/expression_binary_tree/logical/not.h"
 #include "utilities/trees/expression_binary_tree/logical/ngeq.h"
 #include "utilities/trees/expression_binary_tree/logical/leq.h"
@@ -59,6 +61,10 @@ int main()
   std::cout << and1->str() << " = " << (and1->process() ? "true" : "false") << "\n";
   OR<bool>* or1 = new OR<bool>(and1, bool1);
   std::cout << or1->str() << " = " << (or1->process() ? "true" : "false") << "\n";
+  BEQ<bool>* beq1 = new BEQ<bool>(new BoolOperand(true), new BoolOperand(true));
+  std::cout << beq1->str() << " = " << (beq1->process() ? "true" : "false") << "\n";
+  BNEQ<bool>* bneq1 = new BNEQ<bool>(new BoolOperand(true), new BoolOperand(true));
+  std::cout << bneq1->str() << " = " << (bneq1->process() ? "true" : "false") << "\n";
   NOT<bool>* not1 = new NOT<bool>(bool1);
   std::cout << not1->str() << " = " << (not1->process() ? "true" : "false") << "\n";
 

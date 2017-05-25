@@ -1,5 +1,5 @@
 /**
- * This header file defines the ExpressionBinaryTree LogicalOperator AND class.
+ * This header file defines the ExpressionBinaryTree BoolLogicalOperator AND class.
  *
  * Author: Adriano Henrique Rossette Leite (2016101518)
  * Subject: Algoritmos e Estruturas de Dados (PCO001)
@@ -8,10 +8,10 @@
  * Version: 1.0.0
  */
 
-#ifndef EBT_LOGICAL_OPERATOR_AND_H
-#define EBT_LOGICAL_OPERATOR_AND_H
+#ifndef EBT_BOOL_LOGICAL_OPERATOR_AND_H
+#define EBT_BOOL_LOGICAL_OPERATOR_AND_H
 
-#include "utilities/trees/expression_binary_tree/logical/between_operators.h"
+#include "utilities/trees/expression_binary_tree/logical/bool_logical_operator.h"
 
 namespace utilities
 {
@@ -22,7 +22,7 @@ namespace expression_binary_tree
 namespace logical
 {
 
-template <typename E> class AND : public BetweenOperators<E>
+template <typename E> class AND : public BoolLogicalOperator<E>
 {
 public:
   AND(Node<bool, E>* left, Node<bool, E>* right);
@@ -39,13 +39,13 @@ template <typename E> const std::string AND<E>::SYMBOL = "&&";
 
 template <typename E>
 AND<E>::AND(Node<bool, E>* left, Node<bool, E>* right)
-    : BetweenOperators<E>::BetweenOperators(left, right)
+    : BoolLogicalOperator<E>::BoolLogicalOperator(left, right)
 {
 }
 
 template <typename E>
 AND<E>::AND(const AND<E>& operatorr)
-    : BetweenOperators<E>::BetweenOperators(operatorr)
+    : BoolLogicalOperator<E>::BoolLogicalOperator(operatorr)
 {
 }
 
@@ -71,4 +71,4 @@ template <typename E> AND<E>* AND<E>::clone() const
 }
 }
 
-#endif // EBT_LOGICAL_OPERATOR_AND_H
+#endif // EBT_BOOL_LOGICAL_OPERATOR_AND_H

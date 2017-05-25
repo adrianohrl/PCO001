@@ -71,10 +71,12 @@ set(EXPRESSION_BINARY_TREE_FILES
   include/utilities/trees/expression_binary_tree/arithmetic/double_operand.h
   include/utilities/trees/expression_binary_tree/logical/logical_operator.h
   include/utilities/trees/expression_binary_tree/logical/not.h
-  include/utilities/trees/expression_binary_tree/logical/between_operators.h
+  include/utilities/trees/expression_binary_tree/logical/bool_logical_operator.h
   include/utilities/trees/expression_binary_tree/logical/and.h
   include/utilities/trees/expression_binary_tree/logical/or.h
-  include/utilities/trees/expression_binary_tree/logical/between_operands.h
+  include/utilities/trees/expression_binary_tree/logical/beq.h
+  include/utilities/trees/expression_binary_tree/logical/bneq.h
+  include/utilities/trees/expression_binary_tree/logical/double_logical_operator.h
   include/utilities/trees/expression_binary_tree/logical/ngeq.h
   include/utilities/trees/expression_binary_tree/logical/leq.h
   include/utilities/trees/expression_binary_tree/logical/eq.h

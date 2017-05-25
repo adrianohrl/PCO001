@@ -1,5 +1,5 @@
 /**
- * This header file defines the ExpressionBinaryTree LogicalOperator EQ class.
+ * This header file defines the ExpressionBinaryTree DoubleLogicalOperator EQ class.
  *
  * Author: Adriano Henrique Rossette Leite (2016101518)
  * Subject: Algoritmos e Estruturas de Dados (PCO001)
@@ -8,10 +8,10 @@
  * Version: 1.0.0
  */
 
-#ifndef EBT_LOGICAL_OPERATOR_EQ_H
-#define EBT_LOGICAL_OPERATOR_EQ_H
+#ifndef EBT_DOUBLE_LOGICAL_OPERATOR_DOUBLE_EQ_H
+#define EBT_DOUBLE_LOGICAL_OPERATOR_DOUBLE_EQ_H
 
-#include "utilities/trees/expression_binary_tree/logical/between_operands.h"
+#include "utilities/trees/expression_binary_tree/logical/double_logical_operator.h"
 
 namespace utilities
 {
@@ -22,7 +22,7 @@ namespace expression_binary_tree
 namespace logical
 {
 
-template <typename E> class EQ : public BetweenOperands<E>
+template <typename E> class EQ : public DoubleLogicalOperator<E>
 {
 public:
   EQ(Node<double, E>* left, Node<double, E>* right);
@@ -39,13 +39,13 @@ template <typename E> const std::string EQ<E>::SYMBOL = "==";
 
 template <typename E>
 EQ<E>::EQ(Node<double, E>* left, Node<double, E>* right)
-    : BetweenOperands<E>::BetweenOperands(left, right)
+    : DoubleLogicalOperator<E>::DoubleLogicalOperator(left, right)
 {
 }
 
 template <typename E>
 EQ<E>::EQ(const EQ<E>& operatorr)
-    : BetweenOperands<E>::BetweenOperands(operatorr)
+    : DoubleLogicalOperator<E>::DoubleLogicalOperator(operatorr)
 {
 }
 
@@ -53,8 +53,8 @@ template <typename E> EQ<E>::~EQ() {}
 
 template <typename E> bool EQ<E>::process() const
 {
-  return BetweenOperands<E>::getDoubleLeft()->process() ==
-         BetweenOperands<E>::getDoubleRight()->process();
+  return DoubleLogicalOperator<E>::getDoubleLeft()->process() ==
+         DoubleLogicalOperator<E>::getDoubleRight()->process();
 }
 
 template <typename E> std::string EQ<E>::getSymbol() const
@@ -68,4 +68,4 @@ template <typename E> EQ<E>* EQ<E>::clone() const { return new EQ<E>(*this); }
 }
 }
 
-#endif // EBT_LOGICAL_OPERATOR_EQ_H
+#endif // EBT_DOUBLE_LOGICAL_OPERATOR_DOUBLE_EQ_H
