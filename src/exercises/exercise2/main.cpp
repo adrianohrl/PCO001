@@ -11,7 +11,7 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "utilities/trees/binary_search_tree/BinarySearchTree.h"
+#include "utilities/trees/binary_search_tree/binary_search_tree.h"
 
 int main()
 {

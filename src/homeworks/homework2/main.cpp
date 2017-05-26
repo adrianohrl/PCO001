@@ -11,7 +11,7 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "utilities/stacks/double_stack/DoubleStack.h"
+#include "utilities/stacks/double_stack/double_stack.h"
 
 using typename utilities::stacks::double_stack::DoubleStack;
 

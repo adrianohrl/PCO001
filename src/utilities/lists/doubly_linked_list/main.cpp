@@ -11,7 +11,7 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "utilities/lists/doubly_linked_list/DoublyLinkedList.h"
+#include "utilities/lists/doubly_linked_list/doubly_linked_list.h"
 
 using typename utilities::lists::doubly_linked_list::DoublyLinkedList;
 

@@ -11,7 +11,7 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "utilities/graphes/AdjacencyMatrix.h"
+#include "utilities/graphes/adjacency_matrix.h"
 
 using typename utilities::graphes::AdjacencyMatrix;
 

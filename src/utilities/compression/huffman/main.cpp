@@ -11,8 +11,8 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "utilities/compression/huffman/Decoder.h"
-#include "utilities/compression/huffman/Encoder.h"
+#include "utilities/compression/huffman/decoder.h"
+#include "utilities/compression/huffman/encoder.h"
 
 using namespace utilities::compression::huffman;
 

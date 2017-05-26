@@ -8,7 +8,7 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "utilities/graphes/AdjacencyMatrix.h"
+#include "utilities/graphes/adjacency_matrix.h"
 
 #define NUMBER_OF_OPTIONS 7
 #define INT_MAX 1

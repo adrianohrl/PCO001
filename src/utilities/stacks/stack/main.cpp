@@ -11,7 +11,7 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "utilities/stacks/stack/Stack.h"
+#include "utilities/stacks/stack/stack.h"
 
 using typename utilities::stacks::stack::Stack;
 

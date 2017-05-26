@@ -7,56 +7,64 @@ include_directories(include)
 ###################
 
 set(DISJOINT_SET_FILES
-  src/utilities/lists/disjoint_set/IntegerDisjointSet.cpp
-  src/utilities/lists/disjoint_set/StringDisjointSet.cpp
-  include/utilities/lists/disjoint_set/DisjointSet.h
-  include/utilities/lists/disjoint_set/DisjointSetInterface.h
-  include/utilities/lists/disjoint_set/IntegerDisjointSet.h
-  include/utilities/lists/disjoint_set/Node.h
-  include/utilities/lists/disjoint_set/StringDisjointSet.h
+  src/utilities/lists/disjoint_set/integer_disjoint_set.cpp
+  src/utilities/lists/disjoint_set/string_disjoint_set.cpp
+  src/utilities/lists/disjoint_set/integer_expression_parser.cpp
+  src/utilities/lists/disjoint_set/string_expression_parser.cpp
+  include/utilities/lists/disjoint_set/disjoint_set.h
+  include/utilities/lists/disjoint_set/disjoint_set_interface.h
+  include/utilities/lists/disjoint_set/node.h
+  include/utilities/lists/disjoint_set/string_disjoint_set.h
+  include/utilities/lists/disjoint_set/integer_disjoint_set.h
+  include/utilities/lists/disjoint_set/expression_parser.h
+  include/utilities/lists/disjoint_set/integer_expression_parser.h
+  include/utilities/lists/disjoint_set/string_expression_parser.h
 )
 set(DOUBLY_LINKED_LIST_FILES
-  include/utilities/lists/doubly_linked_list/DoublyLinkedList.h
-  include/utilities/lists/doubly_linked_list/DoublyLinkedListInterface.h
-  include/utilities/lists/doubly_linked_list/Node.h
+  include/utilities/lists/doubly_linked_list/doubly_linked_list.h
+  include/utilities/lists/doubly_linked_list/doubly_linked_list_interface.h
+  include/utilities/lists/doubly_linked_list/node.h
 )
 set(LISTS_FILES
   ${DISJOINT_SET_FILES}
   ${DOUBLY_LINKED_LIST_FILES}
 )
 set(QUEUE_FILES
-  include/utilities/queues/queue/Node.h
-  include/utilities/queues/queue/Queue.h
-  include/utilities/queues/queue/QueueInterface.h
-  include/utilities/queues/queue/QueueInverter.h
+  include/utilities/queues/queue/node.h
+  include/utilities/queues/queue/queue.h
+  include/utilities/queues/queue/queue_interface.h
+  include/utilities/queues/queue/queue_inverter.h
 )
 set(QUEUES_FILES
   ${QUEUE_FILES}
 )
 set(STACK_FILES
-  include/utilities/stacks/stack/Node.h
-  include/utilities/stacks/stack/Stack.h
-  include/utilities/stacks/stack/StackInterface.h
+  include/utilities/stacks/stack/node.h
+  include/utilities/stacks/stack/stack.h
+  include/utilities/stacks/stack/stack_interface.h
 )
 set(DOUBLE_STACK_FILES
-  include/utilities/stacks/double_stack/Node.h
-  include/utilities/stacks/double_stack/DoubleStack.h
-  include/utilities/stacks/double_stack/DoubleStackInterface.h
+  include/utilities/stacks/double_stack/node.h
+  include/utilities/stacks/double_stack/double_stack.h
+  include/utilities/stacks/double_stack/double_stack_interface.h
 )
 set(STACKS_FILES
   ${STACK_FILES}
   ${DOUBLE_STACK_FILES}
 )
 set(BINARY_SEARCH_TREE_FILES
-  src/utilities/trees/binary_search_tree/IntegerBinarySearchTree.cpp
-  include/utilities/trees/binary_search_tree/Node.h
-  include/utilities/trees/binary_search_tree/BinarySearchTreeInterface.h
-  include/utilities/trees/binary_search_tree/BinarySearchTree.h
-  include/utilities/trees/binary_search_tree/IntegerBinarySearchTree.h
+  src/utilities/trees/binary_search_tree/integer_binary_search_tree.cpp
+  include/utilities/trees/binary_search_tree/node.h
+  include/utilities/trees/binary_search_tree/binary_search_tree_interface.h
+  include/utilities/trees/binary_search_tree/binary_search_tree.h
+  include/utilities/trees/binary_search_tree/integer_binary_search_tree.h
 )
 set(EXPRESSION_BINARY_TREE_FILES
+  #src/utilities/trees/expression_binary_tree/string_expression_parser.cpp
   src/utilities/trees/expression_binary_tree/arithmetic/double_operand.cpp
   src/utilities/trees/expression_binary_tree/logical/bool_operand.cpp
+  #include/utilities/trees/expression_binary_tree/expression_parser.h
+  #include/utilities/trees/expression_binary_tree/string_expression_parser.h
   include/utilities/trees/expression_binary_tree/expression_binary_tree.h
   include/utilities/trees/expression_binary_tree/node.h
   include/utilities/trees/expression_binary_tree/operand.h
@@ -90,29 +98,25 @@ set(TREES_FILES
   ${EXPRESSION_BINARY_TREE_FILES}
 )
 set(GRAPHES_FILES
-  src/utilities/graphes/AdjacencyMatrix.cpp
-  include/utilities/graphes/AdjacencyList.h
-  include/utilities/graphes/AdjacencyMatrix.h
-  include/utilities/graphes/Arc.h
-  include/utilities/graphes/DijkstraAdjacencyList.h
-  include/utilities/graphes/DijkstraVertex.h
-  include/utilities/graphes/Vertex.h
+  src/utilities/graphes/adjacency_matrix.cpp
+  include/utilities/graphes/adjacency_list.h
+  include/utilities/graphes/adjacency_matrix.h
+  include/utilities/graphes/arc.h
+  include/utilities/graphes/dijkstra_adjacency_list.h
+  include/utilities/graphes/dijkstra_vertex.h
+  include/utilities/graphes/vertex.h
 )
 set(COMPRESSION_FILES
-  src/utilities/compression/Converter.cpp
-#  src/utilities/compression/Decoder.cpp
-#  src/utilities/compression/Encoder.cpp
-  src/utilities/compression/huffman/Decoder.cpp
-  src/utilities/compression/huffman/Encoder.cpp
-  include/utilities/compression/Converter.h
-#  include/utilities/compression/Decoder.h
-#  include/utilities/compression/Encoder.h
-  include/utilities/compression/huffman/Decoder.h
-  include/utilities/compression/huffman/Encoder.h
+  src/utilities/compression/converter.cpp
+  src/utilities/compression/huffman/decoder.cpp
+  src/utilities/compression/huffman/encoder.cpp
+  include/utilities/compression/converter.h
+  include/utilities/compression/huffman/decoder.h
+  include/utilities/compression/huffman/encoder.h
 )
 set(UTIL_FILES
-  src/utilities/Exception.cpp
-  include/utilities/Exception.h
+  src/utilities/exception.cpp
+  include/utilities/exception.h
   ${LISTS_FILES}
   ${QUEUES_FILES}
   ${STACKS_FILES}
@@ -136,10 +140,10 @@ add_executable(compression_huffman src/utilities/compression/huffman/main.cpp ${
 
 set(HOMEWORK1_FILES
   ${UTIL_FILES}
-  src/homeworks/homework1/PhoneBook.cpp
-  src/homeworks/homework1/PersonInfo.cpp
-  include/homeworks/homework1/PhoneBook.h
-  include/homeworks/homework1/PersonInfo.h
+  src/homeworks/homework1/phone_book.cpp
+  src/homeworks/homework1/person_info.cpp
+  include/homeworks/homework1/phone_book.h
+  include/homeworks/homework1/person_info.h
 )
 add_executable(homework1 src/homeworks/homework1/main.cpp ${HOMEWORK1_FILES})
 
@@ -155,8 +159,8 @@ add_executable(homework3 src/homeworks/homework3/main.cpp ${HOMEWORK3_FILES})
 
 set(HOMEWORK4_FILES
   ${UTIL_FILES}
-  src/homeworks/homework4/IntegerDisjointSets.cpp
-  include/homeworks/homework4/IntegerDisjointSets.h
+  src/homeworks/homework4/integer_disjoint_sets.cpp
+  include/homeworks/homework4/integer_disjoint_sets.h
 )
 add_executable(homework4 src/homeworks/homework4/main.cpp ${HOMEWORK4_FILES})
 
@@ -171,21 +175,21 @@ set(HOMEWORK8_FILES
 add_executable(homework8 src/homeworks/homework8/main.cpp ${HOMEWORK8_FILES})
 
 set(HOMEWORK9_FILES
-  src/homeworks/homework9/City.cpp
-  src/homeworks/homework9/Highway.cpp
-  src/homeworks/homework9/HighwayMap.cpp
-  include/homeworks/homework9/City.h
-  include/homeworks/homework9/Highway.h
-  include/homeworks/homework9/HighwayMap.h
+  src/homeworks/homework9/city.cpp
+  src/homeworks/homework9/highway.cpp
+  src/homeworks/homework9/highway_map.cpp
+  include/homeworks/homework9/city.h
+  include/homeworks/homework9/highway.h
+  include/homeworks/homework9/highway_map.h
   ${UTIL_FILES}
 )
 add_executable(homework9 src/homeworks/homework9/main.cpp ${HOMEWORK9_FILES})
 
 set(HOMEWORK11_FILES
-  src/homeworks/homework11/Activity.cpp
-  src/homeworks/homework11/CPM.cpp
-  include/homeworks/homework11/Activity.h
-  include/homeworks/homework11/CPM.h
+  src/homeworks/homework11/activity.cpp
+  src/homeworks/homework11/cpm.cpp
+  include/homeworks/homework11/activity.h
+  include/homeworks/homework11/cpm.h
   ${UTIL_FILES}
 )
 add_executable(homework11 src/homeworks/homework11/main.cpp ${HOMEWORK11_FILES})

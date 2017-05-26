@@ -8,9 +8,9 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "utilities/Exception.h"
-#include "utilities/compression/huffman/Encoder.h"
-#include "utilities/compression/huffman/Decoder.h"
+#include "utilities/exception.h"
+#include "utilities/compression/huffman/encoder.h"
+#include "utilities/compression/huffman/decoder.h"
 
 #define NUMBER_OF_OPTIONS 8
 #define INVALID_INTEGER -32768

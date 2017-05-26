@@ -11,8 +11,8 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "homeworks/homework4/IntegerDisjointSets.h"
-#include "utilities/queues/queue/Queue.h"
+#include "homeworks/homework4/integer_disjoint_sets.h"
+#include "utilities/queues/queue/queue.h"
 
 using typename homeworks::homework4::IntegerDisjointSets;
 using typename homeworks::homework4::IntegerDisjointSetEnum;

@@ -37,17 +37,17 @@ using namespace utilities::trees::expression_binary_tree::logical;
 
 int main()
 {
-  utilities::trees::expression_binary_tree::ExpressionBinaryTree<int, int> tree(
-      std::string(""));
-
   std::cout << "\nArithmetic Operations and Operator ...\n";
-  DoubleOperand *d1 = new DoubleOperand(-1.5);
+  DoubleOperand* d1 = new DoubleOperand(-1.5);
   std::cout << d1->str() << " = " << d1->getContent() << "\n";
-  Addition<double>* add1 = new Addition<double>(new DoubleOperand(2.4), new DoubleOperand(2.6));
+  Addition<double>* add1 =
+      new Addition<double>(new DoubleOperand(2.4), new DoubleOperand(2.6));
   std::cout << add1->str() << " = " << add1->process() << "\n";
-  Subtraction<double>* sub1 = new Subtraction<double>(new DoubleOperand(6.5), add1);
+  Subtraction<double>* sub1 =
+      new Subtraction<double>(new DoubleOperand(6.5), add1);
   std::cout << sub1->str() << " = " << sub1->process() << "\n";
-  Multiplication<double>* mult1 = new Multiplication<double>(new DoubleOperand(2), sub1);
+  Multiplication<double>* mult1 =
+      new Multiplication<double>(new DoubleOperand(2), sub1);
   std::cout << mult1->str() << " = " << mult1->process() << "\n";
   Division<double>* div1 = new Division<double>(mult1, new DoubleOperand(0.5));
   std::cout << div1->str() << " = " << div1->process() << "\n";
@@ -55,32 +55,52 @@ int main()
   std::cout << neg1->str() << " = " << neg1->process() << "\n";
 
   std::cout << "\nBool Logical Operations and Operator ...\n";
-  BoolOperand *bool1 = new BoolOperand(false);
-  std::cout << bool1->str() << " = " << (bool1->process() ? "true" : "false") << "\n";
+  BoolOperand* bool1 = new BoolOperand(false);
+  std::cout << bool1->str() << " = " << (bool1->process() ? "true" : "false")
+            << "\n";
   AND<bool>* and1 = new AND<bool>(new BoolOperand(true), new BoolOperand(true));
-  std::cout << and1->str() << " = " << (and1->process() ? "true" : "false") << "\n";
+  std::cout << and1->str() << " = " << (and1->process() ? "true" : "false")
+            << "\n";
   OR<bool>* or1 = new OR<bool>(and1, bool1);
-  std::cout << or1->str() << " = " << (or1->process() ? "true" : "false") << "\n";
+  std::cout << or1->str() << " = " << (or1->process() ? "true" : "false")
+            << "\n";
   BEQ<bool>* beq1 = new BEQ<bool>(new BoolOperand(true), new BoolOperand(true));
-  std::cout << beq1->str() << " = " << (beq1->process() ? "true" : "false") << "\n";
-  BNEQ<bool>* bneq1 = new BNEQ<bool>(new BoolOperand(true), new BoolOperand(true));
-  std::cout << bneq1->str() << " = " << (bneq1->process() ? "true" : "false") << "\n";
+  std::cout << beq1->str() << " = " << (beq1->process() ? "true" : "false")
+            << "\n";
+  BNEQ<bool>* bneq1 =
+      new BNEQ<bool>(new BoolOperand(true), new BoolOperand(true));
+  std::cout << bneq1->str() << " = " << (bneq1->process() ? "true" : "false")
+            << "\n";
   NOT<bool>* not1 = new NOT<bool>(bool1);
-  std::cout << not1->str() << " = " << (not1->process() ? "true" : "false") << "\n";
+  std::cout << not1->str() << " = " << (not1->process() ? "true" : "false")
+            << "\n";
 
   std::cout << "\nDouble Logical Operations and Operator ...\n";
   NGEQ<double>* ngeq1 = new NGEQ<double>(add1, d1);
-  std::cout << ngeq1->str() << " = " << (ngeq1->process() ? "true" : "false") << "\n";
+  std::cout << ngeq1->str() << " = " << (ngeq1->process() ? "true" : "false")
+            << "\n";
   LEQ<double>* leq1 = new LEQ<double>(sub1, div1);
-  std::cout << leq1->str() << " = " << (leq1->process() ? "true" : "false") << "\n";
+  std::cout << leq1->str() << " = " << (leq1->process() ? "true" : "false")
+            << "\n";
   EQ<double>* eq1 = new EQ<double>(d1, d1);
-  std::cout << eq1->str() << " = " << (eq1->process() ? "true" : "false") << "\n";
-  NEQ<double>* neq1 = new NEQ<double>(mult1, div1);
-  std::cout << neq1->str() << " = " << (neq1->process() ? "true" : "false") << "\n";
+  std::cout << eq1->str() << " = " << (eq1->process() ? "true" : "false")
+            << "\n";
+  NEQ<double>* neq1 = new NEQ<double>(mult1, neg1);
+  std::cout << neq1->str() << " = " << (neq1->process() ? "true" : "false")
+            << "\n";
   GEQ<double>* geq1 = new GEQ<double>(add1, mult1);
-  std::cout << geq1->str() << " = " << (geq1->process() ? "true" : "false") << "\n";
+  std::cout << geq1->str() << " = " << (geq1->process() ? "true" : "false")
+            << "\n";
   NLEQ<double>* nleq1 = new NLEQ<double>(div1, sub1);
-  std::cout << nleq1->str() << " = " << (nleq1->process() ? "true" : "false") << "\n";
+  std::cout << nleq1->str() << " = " << (nleq1->process() ? "true" : "false")
+            << "\n";
+  delete ngeq1, leq1, eq1, neq1, geq1, nleq1;
+  delete or1, beq1, bneq1, not1;
+
+  std::cout << "\nTesting Logical Expression Binary Tree ...\n";
+  std::string expression("((bateria >= 0.7) && holonomico)");
+  utilities::trees::expression_binary_tree::ExpressionBinaryTree<bool, double>
+      tree("");
 
   return EXIT_SUCCESS;
 }

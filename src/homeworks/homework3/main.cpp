@@ -11,7 +11,7 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "utilities/queues/queue/QueueInverter.h"
+#include "utilities/queues/queue/queue_inverter.h"
 
 using typename utilities::queues::queue::Queue;
 using typename utilities::queues::queue::QueueInverter;

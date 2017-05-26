@@ -11,7 +11,7 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "utilities/queues/queue/Queue.h"
+#include "utilities/queues/queue/queue.h"
 
 using typename utilities::queues::queue::Queue;
 

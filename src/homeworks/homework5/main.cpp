@@ -9,7 +9,7 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "utilities/trees/binary_search_tree/IntegerBinarySearchTree.h"
+#include "utilities/trees/binary_search_tree/integer_binary_search_tree.h"
 
 #define NUMBER_OF_OPTIONS 16
 #define INT_MAX 1

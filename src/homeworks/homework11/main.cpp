@@ -8,7 +8,7 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "homeworks/homework11/CPM.h"
+#include "homeworks/homework11/cpm.h"
 
 #define NUMBER_OF_OPTIONS 6
 #define INVALID_INTEGER -32768

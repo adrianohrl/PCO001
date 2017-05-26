@@ -12,7 +12,7 @@
 #define EBT_NODE_H
 
 #include <string>
-#include "utilities/Exception.h"
+#include "utilities/exception.h"
 
 namespace utilities
 {
@@ -33,7 +33,7 @@ public:
   virtual bool isLeaf() const;
   virtual Node<T, E>* clone() const = 0;
   virtual std::string str() const = 0;
-  virtual const char* c_str();
+  const char* c_str();
 
 protected:
   Node();

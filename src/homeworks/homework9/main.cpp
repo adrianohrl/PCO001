@@ -8,7 +8,7 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "homeworks/homework9/HighwayMap.h"
+#include "homeworks/homework9/highway_map.h"
 
 #define NUMBER_OF_OPTIONS 6
 #define INVALID_INTEGER -32768

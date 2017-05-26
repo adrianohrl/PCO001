@@ -11,7 +11,7 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "utilities/graphes/DijkstraAdjacencyList.h"
+#include "utilities/graphes/dijkstra_adjacency_list.h"
 
 using typename utilities::graphes::DijkstraAdjacencyList;
 

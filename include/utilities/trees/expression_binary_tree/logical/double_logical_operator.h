@@ -37,8 +37,7 @@ protected:
   Node<double, E>* getDoubleRight() const;
 
 private:
-  Node<double, E>* left__;
-  Node<double, E>* right__;
+  Node<double, E> *left__, *right__;
 };
 
 template <typename E>

@@ -41,8 +41,7 @@ protected:
 
 private:
   bool unary_;
-  Node<T, E>* left_;
-  Node<T, E>* right_;
+  Node<T, E> *left_, *right_;
 };
 
 template <typename T, typename E>

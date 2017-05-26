@@ -11,7 +11,7 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include "homeworks/homework1/PhoneBook.h"
+#include "homeworks/homework1/phone_book.h"
 
 #define NUMBER_OF_OPTIONS 6
 #define INT_MAX 1
