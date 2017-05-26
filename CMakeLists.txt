@@ -60,16 +60,20 @@ set(BINARY_SEARCH_TREE_FILES
   include/utilities/trees/binary_search_tree/integer_binary_search_tree.h
 )
 set(EXPRESSION_BINARY_TREE_FILES
-  #src/utilities/trees/expression_binary_tree/string_expression_parser.cpp
   src/utilities/trees/expression_binary_tree/arithmetic/double_operand.cpp
+  src/utilities/trees/expression_binary_tree/arithmetic/double_expression_parser.cpp
+  src/utilities/trees/expression_binary_tree/arithmetic/double_expression_binary_tree.cpp
   src/utilities/trees/expression_binary_tree/logical/bool_operand.cpp
-  #include/utilities/trees/expression_binary_tree/expression_parser.h
-  #include/utilities/trees/expression_binary_tree/string_expression_parser.h
+  src/utilities/trees/expression_binary_tree/logical/bool_expression_parser.cpp
+  src/utilities/trees/expression_binary_tree/logical/bool_expression_binary_tree.cpp
+  include/utilities/trees/expression_binary_tree/expression_parser.h
   include/utilities/trees/expression_binary_tree/expression_binary_tree.h
   include/utilities/trees/expression_binary_tree/node.h
   include/utilities/trees/expression_binary_tree/operand.h
   include/utilities/trees/expression_binary_tree/unary_operand.h
   include/utilities/trees/expression_binary_tree/operator.h
+  include/utilities/trees/expression_binary_tree/arithmetic/arithmetic_expression_parser.h
+  include/utilities/trees/expression_binary_tree/arithmetic/arithmetic_expression_binary_tree.h
   include/utilities/trees/expression_binary_tree/arithmetic/arithmetic_operator.h
   include/utilities/trees/expression_binary_tree/arithmetic/negation.h
   include/utilities/trees/expression_binary_tree/arithmetic/addition.h
@@ -77,6 +81,10 @@ set(EXPRESSION_BINARY_TREE_FILES
   include/utilities/trees/expression_binary_tree/arithmetic/multiplication.h
   include/utilities/trees/expression_binary_tree/arithmetic/division.h
   include/utilities/trees/expression_binary_tree/arithmetic/double_operand.h
+  include/utilities/trees/expression_binary_tree/arithmetic/double_expression_parser.h
+  include/utilities/trees/expression_binary_tree/arithmetic/double_expression_binary_tree.h
+  include/utilities/trees/expression_binary_tree/logical/logical_expression_parser.h
+  include/utilities/trees/expression_binary_tree/logical/logical_expression_binary_tree.h
   include/utilities/trees/expression_binary_tree/logical/logical_operator.h
   include/utilities/trees/expression_binary_tree/logical/not.h
   include/utilities/trees/expression_binary_tree/logical/bool_logical_operator.h
@@ -92,6 +100,8 @@ set(EXPRESSION_BINARY_TREE_FILES
   include/utilities/trees/expression_binary_tree/logical/geq.h
   include/utilities/trees/expression_binary_tree/logical/nleq.h
   include/utilities/trees/expression_binary_tree/logical/bool_operand.h
+  include/utilities/trees/expression_binary_tree/logical/bool_expression_parser.h
+  include/utilities/trees/expression_binary_tree/logical/bool_expression_binary_tree.h
 )
 set(TREES_FILES
   ${BINARY_SEARCH_TREE_FILES}

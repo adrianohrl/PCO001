@@ -12,6 +12,7 @@
 #ifndef EBT_ARITHMETIC_OPERATOR_H
 #define EBT_ARITHMETIC_OPERATOR_H
 
+#include <list>
 #include "utilities/trees/expression_binary_tree/operator.h"
 #include "utilities/trees/expression_binary_tree/operand.h"
 
@@ -29,11 +30,19 @@ template <typename E> class ArithmeticOperator : public Operator<double, E>
 public:
   virtual ~ArithmeticOperator();
 
+  static std::list<std::string> OPERATORS;
+
 protected:
   ArithmeticOperator(Node<double, E>* operatorr);
   ArithmeticOperator(Node<double, E>* left, Node<double, E>* right);
   ArithmeticOperator(const ArithmeticOperator<E>& operatorr);
+
+private:
+  static std::list<std::string> getOperators();
 };
+
+template <typename E>
+std::list<std::string> ArithmeticOperator<E>::OPERATORS(ArithmeticOperator<E>::getOperators());
 
 template <typename E>
 ArithmeticOperator<E>::ArithmeticOperator(Node<double, E>* operatorr)
@@ -56,6 +65,17 @@ ArithmeticOperator<E>::ArithmeticOperator(
 }
 
 template <typename E> ArithmeticOperator<E>::~ArithmeticOperator() {}
+
+template <typename E>
+std::list<std::string> ArithmeticOperator<E>::getOperators()
+{
+    std::list<std::string> operators;
+    operators.push_back("+");
+    operators.push_back("-");
+    operators.push_back("*");
+    operators.push_back("/");
+    return operators;
+}
 }
 }
 }

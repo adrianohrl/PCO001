@@ -23,20 +23,20 @@ namespace disjoint_set
 class StringExpressionParser : public ExpressionParser<std::string>
 {
 public:
-  StringExpressionParser(std::string opening_bounds, std::string closing_bounds,
-                         std::string separators);
-  StringExpressionParser(std::string valid_characters,
-                         std::string opening_bounds, std::string closing_bounds,
-                         std::string separators);
+  StringExpressionParser(std::string separators, std::string opening_bounds,
+                         std::string closing_bounds);
+  StringExpressionParser(std::string valid_characters, std::string separators,
+                         std::string opening_bounds,
+                         std::string closing_bounds);
   StringExpressionParser(
+      std::list<std::string> separators = std::list<std::string>(),
       std::list<std::string> opening_bounds = std::list<std::string>(),
-      std::list<std::string> closing_bounds = std::list<std::string>(),
-      std::list<std::string> separators = std::list<std::string>());
+      std::list<std::string> closing_bounds = std::list<std::string>());
   StringExpressionParser(
       std::string valid_characters,
+      std::list<std::string> separators = std::list<std::string>(),
       std::list<std::string> opening_bounds = std::list<std::string>(),
-      std::list<std::string> closing_bounds = std::list<std::string>(),
-      std::list<std::string> separators = std::list<std::string>());
+      std::list<std::string> closing_bounds = std::list<std::string>());
   StringExpressionParser(const StringExpressionParser& set);
   virtual ~StringExpressionParser();
   virtual Node<std::string>* parse(std::string expression) const;

@@ -26,9 +26,9 @@ public:
   IntegerExpressionParser(std::string opening_bounds,
                           std::string closing_bounds, std::string separators);
   IntegerExpressionParser(
+      std::list<std::string> separators = std::list<std::string>(),
       std::list<std::string> opening_bounds = std::list<std::string>(),
-      std::list<std::string> closing_bounds = std::list<std::string>(),
-      std::list<std::string> separators = std::list<std::string>());
+      std::list<std::string> closing_bounds = std::list<std::string>());
   virtual ~IntegerExpressionParser();
   virtual Node<int>* parse(std::string expression) const;
 

@@ -8,7 +8,7 @@
  * Version: 1.0.0
  */
 
-//#include "utilities/exception.h"
+#include "utilities/exception.h"
 #include "utilities/lists/disjoint_set/integer_expression_parser.h"
 
 namespace utilities
@@ -20,21 +20,21 @@ namespace disjoint_set
 
 const std::string IntegerExpressionParser::VALID_CHARACTERS = "0123456789";
 
-IntegerExpressionParser::IntegerExpressionParser(std::string opening_bounds,
-                                                 std::string closing_bounds,
-                                                 std::string separators)
+IntegerExpressionParser::IntegerExpressionParser(std::string separators,
+                                                 std::string opening_bounds,
+                                                 std::string closing_bounds)
     : ExpressionParser<int>::ExpressionParser(
-          IntegerExpressionParser::VALID_CHARACTERS, opening_bounds,
-          closing_bounds, separators)
+          IntegerExpressionParser::VALID_CHARACTERS, separators, opening_bounds,
+          closing_bounds)
 {
 }
 
 IntegerExpressionParser::IntegerExpressionParser(
-    std::list<std::string> opening_bounds,
-    std::list<std::string> closing_bounds, std::list<std::string> separators)
+    std::list<std::string> separators, std::list<std::string> opening_bounds,
+    std::list<std::string> closing_bounds)
     : ExpressionParser<int>::ExpressionParser(
-          IntegerExpressionParser::VALID_CHARACTERS, opening_bounds,
-          closing_bounds, separators)
+          IntegerExpressionParser::VALID_CHARACTERS, separators, opening_bounds,
+          closing_bounds)
 {
 }
 
@@ -44,8 +44,7 @@ Node<int>* IntegerExpressionParser::parse(std::string expression) const
 {
   if (!ExpressionParser<int>::evaluate(expression))
   {
-    // throw Exception("Invalid string expression: " + expression.c_str() + "
-    // !!!");
+    throw Exception("Invalid string expression: " + expression + " !!!");
   }
   std::string next(ExpressionParser<int>::getNext(expression));
   expression = expression.substr(next.length());

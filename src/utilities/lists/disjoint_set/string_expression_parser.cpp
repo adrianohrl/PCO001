@@ -8,7 +8,7 @@
  * Version: 1.0.0
  */
 
-//#include "utilities/exception.h"
+#include "utilities/exception.h"
 #include "utilities/lists/disjoint_set/string_expression_parser.h"
 
 namespace utilities
@@ -20,45 +20,46 @@ namespace disjoint_set
 
 const std::string StringExpressionParser::VALID_CHARACTERS = "";
 
-StringExpressionParser::StringExpressionParser(std::string opening_bounds,
-                                               std::string closing_bounds,
-                                               std::string separators)
+StringExpressionParser::StringExpressionParser(std::string separators,
+                                               std::string opening_bounds,
+                                               std::string closing_bounds)
     : ExpressionParser<std::string>::ExpressionParser(
-          StringExpressionParser::VALID_CHARACTERS, opening_bounds,
-          closing_bounds, separators)
+          StringExpressionParser::VALID_CHARACTERS, separators, opening_bounds,
+          closing_bounds)
 {
 }
 
 StringExpressionParser::StringExpressionParser(std::string valid_characters,
+                                               std::string separators,
                                                std::string opening_bounds,
-                                               std::string closing_bounds,
-                                               std::string separators)
+                                               std::string closing_bounds)
     : ExpressionParser<std::string>::ExpressionParser(
-          valid_characters, opening_bounds, closing_bounds, separators)
+          valid_characters, separators, opening_bounds, closing_bounds)
 {
 }
 
 StringExpressionParser::StringExpressionParser(
+    std::list<std::string> separators, std::list<std::string> opening_bounds,
+    std::list<std::string> closing_bounds)
+    : ExpressionParser<std::string>::ExpressionParser(
+          StringExpressionParser::VALID_CHARACTERS, separators, opening_bounds,
+          closing_bounds)
+{
+}
+
+StringExpressionParser::StringExpressionParser(
+    std::string valid_characters, std::list<std::string> separators,
     std::list<std::string> opening_bounds,
-    std::list<std::string> closing_bounds, std::list<std::string> separators)
+    std::list<std::string> closing_bounds)
     : ExpressionParser<std::string>::ExpressionParser(
-          StringExpressionParser::VALID_CHARACTERS, opening_bounds,
-          closing_bounds, separators)
+          valid_characters, separators, opening_bounds, closing_bounds)
 {
 }
 
 StringExpressionParser::StringExpressionParser(
-    std::string valid_characters, std::list<std::string> opening_bounds,
-    std::list<std::string> closing_bounds, std::list<std::string> separators)
-    : ExpressionParser<std::string>::ExpressionParser(
-          valid_characters, opening_bounds, closing_bounds, separators)
-{
-}
-
-StringExpressionParser::StringExpressionParser(const StringExpressionParser &set)
+    const StringExpressionParser& set)
     : ExpressionParser<std::string>::ExpressionParser(set)
 {
-
 }
 
 StringExpressionParser::~StringExpressionParser() {}
@@ -67,7 +68,7 @@ Node<std::string>* StringExpressionParser::parse(std::string expression) const
 {
   if (!ExpressionParser<std::string>::evaluate(expression))
   {
-    //throw Exception("Invalid string expression: '" + expression + "' !!!");
+    throw Exception("Invalid string expression: '" + expression + "' !!!");
   }
   std::string next(ExpressionParser<std::string>::getNext(expression));
   expression = expression.substr(next.length());

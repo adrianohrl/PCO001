@@ -64,7 +64,7 @@ DisjointSet<Element>::DisjointSet(ExpressionParser<Element>* parser,
                                   std::string expression)
     : node_(NULL), root_(NULL), parser_(parser)
 {
-  if (expression == "")
+  if (expression.empty())
   {
     return;
   }

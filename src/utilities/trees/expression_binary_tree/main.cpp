@@ -18,6 +18,7 @@
 #include "utilities/trees/expression_binary_tree/arithmetic/division.h"
 #include "utilities/trees/expression_binary_tree/arithmetic/negation.h"
 #include "utilities/trees/expression_binary_tree/arithmetic/double_operand.h"
+#include "utilities/trees/expression_binary_tree/arithmetic/double_expression_parser.h"
 #include "utilities/trees/expression_binary_tree/logical/and.h"
 #include "utilities/trees/expression_binary_tree/logical/or.h"
 #include "utilities/trees/expression_binary_tree/logical/beq.h"
@@ -30,6 +31,7 @@
 #include "utilities/trees/expression_binary_tree/logical/geq.h"
 #include "utilities/trees/expression_binary_tree/logical/nleq.h"
 #include "utilities/trees/expression_binary_tree/logical/bool_operand.h"
+#include "utilities/trees/expression_binary_tree/logical/bool_expression_parser.h"
 
 using namespace utilities::trees::expression_binary_tree;
 using namespace utilities::trees::expression_binary_tree::arithmetic;
@@ -97,10 +99,19 @@ int main()
   delete ngeq1, leq1, eq1, neq1, geq1, nleq1;
   delete or1, beq1, bneq1, not1;
 
-  std::cout << "\nTesting Logical Expression Binary Tree ...\n";
-  std::string expression("((bateria >= 0.7) && holonomico)");
-  utilities::trees::expression_binary_tree::ExpressionBinaryTree<bool, double>
-      tree("");
+  std::cout << "\nTesting Double Expression Parser ...\n";
+  DoubleExpressionParser double_parser;
+  std::string double_expression("(-((4 + 5) * 2 - 9) / 10))");
+  Node<double, double>* double_node = double_parser.parse(double_expression);
+  std::cout << "debt: " << double_node->str() << " = " << double_node->process() << "\n";
+  delete double_node;
+
+  std::cout << "\nTesting Bool Expression Parser ...\n";
+  BoolExpressionParser bool_parser;
+  std::string bool_expression("(!((true == false) && (false || true)))");
+  Node<bool, bool>* bool_node = bool_parser.parse(bool_expression);
+  std::cout << "cebt: " << bool_node->str() << " = " << bool_node->process() << "\n";
+  delete bool_node;
 
   return EXIT_SUCCESS;
 }

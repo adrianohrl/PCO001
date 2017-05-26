@@ -26,12 +26,12 @@ namespace disjoint_set
 template <typename T> class ExpressionParser
 {
 public:
-  ExpressionParser(std::string valid_characters, std::string opening_bounds,
-                   std::string closing_bounds, std::string separators);
+  ExpressionParser(std::string valid_characters, std::string separators,
+                   std::string opening_bounds, std::string closing_bounds);
   ExpressionParser(std::string valid_characters,
+                   std::list<std::string> separators,
                    std::list<std::string> opening_bounds,
-                   std::list<std::string> closing_bounds,
-                   std::list<std::string> separators);
+                   std::list<std::string> closing_bounds);
   virtual ~ExpressionParser();
   virtual bool evaluate(std::string expression) const;
   virtual Node<T>* parse(std::string expression) const = 0;
@@ -49,26 +49,39 @@ protected:
 
 private:
   std::string valid_characters_;
+  std::list<std::string> separators_;
   std::list<std::string> opening_bounds_;
   std::list<std::string> closing_bounds_;
-  std::list<std::string> separators_;
 };
 
 template <typename T>
 ExpressionParser<T>::ExpressionParser(std::string valid_characters,
+                                      std::string separators,
                                       std::string opening_bounds,
-                                      std::string closing_bounds,
-                                      std::string separators)
+                                      std::string closing_bounds)
     : valid_characters_(valid_characters)
 {
-  /*if (valid_characters_.empty())
+  if (valid_characters_.empty())
   {
-    char c(31);
-    while (++c < 256)
+    char c(32);
+    for (int counter(0); counter < 256 - 32; counter++, c++)
     {
       valid_characters_.append(&c);
     }
   }
+  if (separators_.empty())
+  {
+    separators_.push_back(",");
+  }
+  else
+  {
+    for (std::string::const_iterator it(separators.begin());
+         it != separators.end(); ++it)
+    {
+      separators_.push_back("" + *it);
+    }
+  }
+  valid_characters_.append(separators.c_str());
   if (opening_bounds.empty())
   {
     opening_bounds_.push_back("(");
@@ -95,52 +108,54 @@ ExpressionParser<T>::ExpressionParser(std::string valid_characters,
     }
   }
   valid_characters_.append(closing_bounds.c_str());
-  if (separators_.empty())
-  {
-    separators_.push_back(",");
-  }
-  else
-  {
-    for (std::string::const_iterator it(separators.begin());
-         it != separators.end(); ++it)
-    {
-      separators_.push_back("" + *it);
-    }
-  }
-  valid_characters_.append(separators.c_str());*/
 }
 
 template <typename T>
 ExpressionParser<T>::ExpressionParser(std::string valid_characters,
+                                      std::list<std::string> separators,
                                       std::list<std::string> opening_bounds,
-                                      std::list<std::string> closing_bounds,
-                                      std::list<std::string> separators)
-    : valid_characters_(valid_characters), opening_bounds_(opening_bounds),
-      closing_bounds_(closing_bounds), separators_(separators)
+                                      std::list<std::string> closing_bounds)
+    : valid_characters_(valid_characters), separators_(separators),
+      opening_bounds_(opening_bounds), closing_bounds_(closing_bounds)
 {
-  /*if (valid_characters_.empty())
+  if (valid_characters_.empty())
   {
-    char c(31);
-    while (++c < 256)
+    char c(32);
+    for (int counter(0); counter < 256 - 32; counter++, c++)
     {
       valid_characters_.append(&c);
     }
+  }
+  if (separators_.empty())
+  {
+    separators_.push_back(",");
+  }
+  std::list<std::string>::const_iterator it(separators_.begin());
+  while (it != separators_.end())
+  {
+    valid_characters_ += *it;
+    it++;
   }
   if (opening_bounds.empty())
   {
     opening_bounds_.push_back("(");
   }
-  valid_characters_.append(opening_bounds_.begin(), opening_bounds_.end());
+  it = opening_bounds_.begin();
+  while (it != opening_bounds_.end())
+  {
+    valid_characters_ += *it;
+    it++;
+  }
   if (closing_bounds_.empty())
   {
     closing_bounds_.push_back(")");
   }
-  valid_characters_.append(closing_bounds_.begin(), closing_bounds_.end());
-  if (separators_.empty())
+  it = closing_bounds_.begin();
+  while (it != closing_bounds_.end())
   {
-    separators_.push_back(",");
+    valid_characters_ += *it;
+    it++;
   }
-  valid_characters_.append(separators_.begin(), separators_.end());*/
 }
 
 template <typename T> ExpressionParser<T>::~ExpressionParser() {}
