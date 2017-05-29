@@ -22,43 +22,45 @@ const std::string StringExpressionParser::VALID_CHARACTERS = "";
 
 StringExpressionParser::StringExpressionParser(std::string separators,
                                                std::string opening_bounds,
-                                               std::string closing_bounds)
+                                               std::string closing_bounds,
+                                               std::string spacers)
     : ExpressionParser<std::string>::ExpressionParser(
           StringExpressionParser::VALID_CHARACTERS, separators, opening_bounds,
-          closing_bounds)
+          closing_bounds, spacers)
 {
 }
 
 StringExpressionParser::StringExpressionParser(std::string valid_characters,
                                                std::string separators,
                                                std::string opening_bounds,
-                                               std::string closing_bounds)
+                                               std::string closing_bounds,
+                                               std::string spacers)
     : ExpressionParser<std::string>::ExpressionParser(
-          valid_characters, separators, opening_bounds, closing_bounds)
+          valid_characters, separators, opening_bounds, closing_bounds, spacers)
 {
 }
 
 StringExpressionParser::StringExpressionParser(
     std::list<std::string> separators, std::list<std::string> opening_bounds,
-    std::list<std::string> closing_bounds)
+    std::list<std::string> closing_bounds, std::list<std::string> spacers)
     : ExpressionParser<std::string>::ExpressionParser(
           StringExpressionParser::VALID_CHARACTERS, separators, opening_bounds,
-          closing_bounds)
+          closing_bounds, spacers)
 {
 }
 
 StringExpressionParser::StringExpressionParser(
     std::string valid_characters, std::list<std::string> separators,
     std::list<std::string> opening_bounds,
-    std::list<std::string> closing_bounds)
+    std::list<std::string> closing_bounds, std::list<std::string> spacers)
     : ExpressionParser<std::string>::ExpressionParser(
-          valid_characters, separators, opening_bounds, closing_bounds)
+          valid_characters, separators, opening_bounds, closing_bounds, spacers)
 {
 }
 
 StringExpressionParser::StringExpressionParser(
-    const StringExpressionParser& set)
-    : ExpressionParser<std::string>::ExpressionParser(set)
+    const StringExpressionParser& parser)
+    : ExpressionParser<std::string>::ExpressionParser(parser)
 {
 }
 

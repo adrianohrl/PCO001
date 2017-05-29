@@ -101,7 +101,7 @@ int main()
 
   std::cout << "\nTesting Double Expression Parser ...\n";
   DoubleExpressionParser double_parser;
-  std::string double_expression("(-((4 + 5) * 2 - 9) / 10))");
+  std::string double_expression("(-((4 + 5) * 2 - 9) / 10)");
   Node<double, double>* double_node = double_parser.parse(double_expression);
   std::cout << "debt: " << double_node->str() << " = " << double_node->process() << "\n";
   delete double_node;

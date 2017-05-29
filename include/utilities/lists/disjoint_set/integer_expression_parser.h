@@ -24,11 +24,14 @@ class IntegerExpressionParser : public ExpressionParser<int>
 {
 public:
   IntegerExpressionParser(std::string opening_bounds,
-                          std::string closing_bounds, std::string separators);
+                          std::string closing_bounds, std::string separators,
+                          std::string spacers = "");
   IntegerExpressionParser(
       std::list<std::string> separators = std::list<std::string>(),
       std::list<std::string> opening_bounds = std::list<std::string>(),
-      std::list<std::string> closing_bounds = std::list<std::string>());
+      std::list<std::string> closing_bounds = std::list<std::string>(),
+      std::list<std::string> spacers = std::list<std::string>());
+  IntegerExpressionParser(const IntegerExpressionParser& parser);
   virtual ~IntegerExpressionParser();
   virtual Node<int>* parse(std::string expression) const;
 

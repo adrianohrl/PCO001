@@ -24,20 +24,22 @@ class StringExpressionParser : public ExpressionParser<std::string>
 {
 public:
   StringExpressionParser(std::string separators, std::string opening_bounds,
-                         std::string closing_bounds);
+                         std::string closing_bounds, std::string spacers);
   StringExpressionParser(std::string valid_characters, std::string separators,
-                         std::string opening_bounds,
-                         std::string closing_bounds);
+                         std::string opening_bounds, std::string closing_bounds,
+                         std::string spacers);
   StringExpressionParser(
       std::list<std::string> separators = std::list<std::string>(),
       std::list<std::string> opening_bounds = std::list<std::string>(),
-      std::list<std::string> closing_bounds = std::list<std::string>());
+      std::list<std::string> closing_bounds = std::list<std::string>(),
+      std::list<std::string> spacers = std::list<std::string>());
   StringExpressionParser(
       std::string valid_characters,
       std::list<std::string> separators = std::list<std::string>(),
       std::list<std::string> opening_bounds = std::list<std::string>(),
-      std::list<std::string> closing_bounds = std::list<std::string>());
-  StringExpressionParser(const StringExpressionParser& set);
+      std::list<std::string> closing_bounds = std::list<std::string>(),
+      std::list<std::string> spacers = std::list<std::string>());
+  StringExpressionParser(const StringExpressionParser& parser);
   virtual ~StringExpressionParser();
   virtual Node<std::string>* parse(std::string expression) const;
 

@@ -22,19 +22,26 @@ const std::string IntegerExpressionParser::VALID_CHARACTERS = "0123456789";
 
 IntegerExpressionParser::IntegerExpressionParser(std::string separators,
                                                  std::string opening_bounds,
-                                                 std::string closing_bounds)
+                                                 std::string closing_bounds,
+                                                 std::string spacers)
     : ExpressionParser<int>::ExpressionParser(
           IntegerExpressionParser::VALID_CHARACTERS, separators, opening_bounds,
-          closing_bounds)
+          closing_bounds, spacers)
 {
 }
 
 IntegerExpressionParser::IntegerExpressionParser(
     std::list<std::string> separators, std::list<std::string> opening_bounds,
-    std::list<std::string> closing_bounds)
+    std::list<std::string> closing_bounds, std::list<std::string> spacers)
     : ExpressionParser<int>::ExpressionParser(
           IntegerExpressionParser::VALID_CHARACTERS, separators, opening_bounds,
-          closing_bounds)
+          closing_bounds, spacers)
+{
+}
+
+IntegerExpressionParser::IntegerExpressionParser(
+    const IntegerExpressionParser& parser)
+    : ExpressionParser<int>::ExpressionParser(parser)
 {
 }
 
