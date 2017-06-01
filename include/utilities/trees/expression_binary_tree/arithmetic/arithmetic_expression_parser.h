@@ -57,7 +57,7 @@ template <typename E>
 Node<double, E>*
 ArithmeticExpressionParser<E>::parse(std::string expression) const
 {
-  lists::disjoint_set::StringDisjointSet set(expression);
+  lists::disjoint_set::StringDisjointSet set("", "+-*/", "(", ")", "", expression);
   std::cout << "\n\n" << set.toString() << "\n\n";
 
   return NULL;

@@ -30,12 +30,15 @@ public:
   virtual ~NOT();
   virtual bool process() const;
   virtual std::string getSymbol() const;
+  virtual int getPriority() const;
   virtual NOT<E>* clone() const;
 
   static const std::string SYMBOL;
+  static const int PRIORITY;
 };
 
 template <typename E> const std::string NOT<E>::SYMBOL = "!";
+template <typename E> const int NOT<E>::PRIORITY = 4;
 
 template <typename E>
 NOT<E>::NOT(Node<bool, E>* operatorr)
@@ -53,12 +56,17 @@ template <typename E> NOT<E>::~NOT() {}
 
 template <typename E> bool NOT<E>::process() const
 {
-  return !Operator<bool, E>::getLeft()->process();
+  return !Operator<bool, E>::getRight()->process();
 }
 
 template <typename E> std::string NOT<E>::getSymbol() const
 {
   return NOT<E>::SYMBOL;
+}
+
+template <typename E> int NOT<E>::getPriority() const
+{
+  return NOT<E>::PRIORITY;
 }
 
 template <typename E> NOT<E>* NOT<E>::clone() const

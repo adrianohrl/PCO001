@@ -25,6 +25,7 @@ namespace arithmetic
 class DoubleExpressionBinaryTree : public ArithmeticExpressionBinaryTree<double>
 {
 public:
+  DoubleExpressionBinaryTree();
   DoubleExpressionBinaryTree(std::string expression);
   DoubleExpressionBinaryTree(const DoubleExpressionBinaryTree& ebt);
   virtual ~DoubleExpressionBinaryTree();

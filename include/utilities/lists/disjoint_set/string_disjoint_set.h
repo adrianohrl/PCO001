@@ -27,12 +27,13 @@ public:
   StringDisjointSet(std::string expression = "");
   StringDisjointSet(std::string valid_characters, std::string separators,
                     std::string opening_bounds = "",
-                    std::string closing_bounds = "",
+                    std::string closing_bounds = "", std::string spacers = "",
                     std::string expression = "");
   StringDisjointSet(
       std::string valid_characters, std::list<std::string> separators,
       std::list<std::string> opening_bounds = std::list<std::string>(),
       std::list<std::string> closing_bounds = std::list<std::string>(),
+      std::list<std::string> spacers = std::list<std::string>(),
       std::string expression = "");
   StringDisjointSet(const StringDisjointSet& set);
   virtual ~StringDisjointSet();

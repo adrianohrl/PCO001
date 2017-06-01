@@ -68,8 +68,11 @@ DisjointSet<Element>::DisjointSet(ExpressionParser<Element>* parser,
   {
     return;
   }
-  root_ = parser_->parse(expression);
-  node_ = root_;
+  if (parser_->evaluate(expression))
+  {
+    root_ = parser_->parse(expression);
+    node_ = root_;
+  }
 }
 
 template <typename Element>

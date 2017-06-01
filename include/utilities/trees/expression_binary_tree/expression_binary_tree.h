@@ -27,45 +27,61 @@ public:
   ExpressionBinaryTree(const ExpressionBinaryTree<T, E>& ebt);
   virtual ~ExpressionBinaryTree();
   T process() const;
+  bool isEmpty() const;
+  Node<T, E>* getRoot() const;
+  Node<T, E>* getNode() const;
+  virtual void insert(Node<T, E>* node);
+  virtual void insert(const ExpressionBinaryTree<T, E>& expression_tree);
   virtual std::string str() const;
   const char* c_str() const;
 
 protected:
+  ExpressionBinaryTree();
   ExpressionBinaryTree(ExpressionParser<T, E>* parser, std::string expression);
-  Node<T, E>* getRoot() const;
-  bool hasRoot() const;
 
 private:
   Node<T, E>* root_;
+  Node<T, E>* node_;
 };
+
+template <typename T, typename E>
+ExpressionBinaryTree<T, E>::ExpressionBinaryTree()
+    : root_(NULL), node_(NULL)
+{
+}
 
 template <typename T, typename E>
 ExpressionBinaryTree<T, E>::ExpressionBinaryTree(ExpressionParser<T, E>* parser,
                                                  std::string expression)
-    : root_(NULL)
+    : root_(NULL), node_(NULL)
 {
   if (expression.empty())
   {
     throw Exception("Empty expression!!!");
   }
-  root_ = parser->parse(expression);
+  if (parser->evaluate(expression))
+  {
+    root_ = parser->parse(expression);
+  }
   delete parser;
 }
 
 template <typename T, typename E>
 ExpressionBinaryTree<T, E>::ExpressionBinaryTree(
     const ExpressionBinaryTree<T, E>& ebt)
-    : root_(NULL)
+    : root_(NULL), node_(NULL)
 {
   if (ebt.root_)
   {
     root_ = ebt.root_->clone();
+    node_ = root_;
   }
 }
 
 template <typename T, typename E>
 ExpressionBinaryTree<T, E>::~ExpressionBinaryTree()
 {
+  node_ = NULL;
   if (root_)
   {
     delete root_;
@@ -79,15 +95,35 @@ template <typename T, typename E> T ExpressionBinaryTree<T, E>::process() const
 }
 
 template <typename T, typename E>
+bool ExpressionBinaryTree<T, E>::isEmpty() const
+{
+  return root_;
+}
+
+template <typename T, typename E>
 Node<T, E>* ExpressionBinaryTree<T, E>::getRoot() const
 {
   return root_;
 }
 
 template <typename T, typename E>
-bool ExpressionBinaryTree<T, E>::hasRoot() const
+Node<T, E>* ExpressionBinaryTree<T, E>::getNode() const
 {
-  return root_;
+  return node_;
+}
+
+template <typename T, typename E>
+void ExpressionBinaryTree<T, E>::insert(Node<T, E>* node)
+{
+  root_ = root_ ? node_->insert(node) : node;
+  node_ = node;
+}
+
+template <typename T, typename E>
+void ExpressionBinaryTree<T, E>::insert(
+    const ExpressionBinaryTree<T, E>& expression_tree)
+{
+  ExpressionBinaryTree<T, E>::insert(expression_tree.getRoot()->clone());
 }
 
 template <typename T, typename E>

@@ -25,6 +25,7 @@ namespace logical
 class BoolExpressionBinaryTree : public LogicalExpressionBinaryTree<bool>
 {
 public:
+  BoolExpressionBinaryTree();
   BoolExpressionBinaryTree(std::string expression);
   BoolExpressionBinaryTree(const BoolExpressionBinaryTree& ebt);
   virtual ~BoolExpressionBinaryTree();

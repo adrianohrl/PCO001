@@ -82,7 +82,7 @@ ExpressionParser<T>::ExpressionParser(std::string valid_characters,
     }
   }
   std::string::const_iterator it;
-  if (separators_.empty())
+  if (separators.empty())
   {
     separators_.push_back(",");
   }
@@ -90,7 +90,7 @@ ExpressionParser<T>::ExpressionParser(std::string valid_characters,
   {
     for (it = separators.begin(); it != separators.end(); ++it)
     {
-      separators_.push_back("" + *it);
+      separators_.push_back(std::string() + *it);
     }
   }
   valid_characters_.append(separators.c_str());
@@ -102,11 +102,11 @@ ExpressionParser<T>::ExpressionParser(std::string valid_characters,
   {
     for (it = opening_bounds.begin(); it != opening_bounds.end(); ++it)
     {
-      opening_bounds_.push_back("" + *it);
+      opening_bounds_.push_back(std::string() + *it);
     }
   }
   valid_characters_.append(opening_bounds.c_str());
-  if (closing_bounds_.empty())
+  if (closing_bounds.empty())
   {
     closing_bounds_.push_back(")");
   }
@@ -114,11 +114,11 @@ ExpressionParser<T>::ExpressionParser(std::string valid_characters,
   {
     for (it = closing_bounds.begin(); it != closing_bounds.end(); ++it)
     {
-      closing_bounds_.push_back("" + *it);
+      closing_bounds_.push_back(std::string() + *it);
     }
   }
   valid_characters_.append(closing_bounds.c_str());
-  if (spacers_.empty())
+  if (spacers.empty())
   {
     spacers_.push_back(" ");
   }
@@ -126,7 +126,7 @@ ExpressionParser<T>::ExpressionParser(std::string valid_characters,
   {
     for (it = spacers.begin(); it != spacers.end(); ++it)
     {
-      spacers_.push_back("" + *it);
+      spacers_.push_back(std::string() + *it);
     }
   }
   valid_characters_.append(spacers.c_str());
@@ -250,11 +250,10 @@ bool ExpressionParser<T>::evaluate(std::string expression) const
     {
       return false;
     }
-    evaluator.push(*it);
-  }
-  if (ExpressionParser<T>::isClosingBound(evaluator.top()))
-  {
-    evaluator.pop();
+    else
+    {
+      evaluator.push(*it);
+    }
   }
   return evaluator.isEmpty();
 }
@@ -263,13 +262,13 @@ template <typename T>
 std::string ExpressionParser<T>::getNext(std::string expression) const
 {
   int counter(0);
-  std::string output("");
+  std::string output;
   for (std::string::const_iterator it(expression.begin());
        it != expression.end(); ++it)
   {
     if (ExpressionParser<T>::isSeparator(*it) && counter == 0)
     {
-      return output;
+      break;
     }
     output += *it;
     if (ExpressionParser<T>::isOpeningBound(*it))
@@ -285,12 +284,20 @@ std::string ExpressionParser<T>::getNext(std::string expression) const
       counter--;
     }
   }
+  while (!output.empty() && ExpressionParser<T>::isSpacer(output[0]))
+  {
+      output = output.substr(1);
+  }
+  while (!output.empty() && ExpressionParser<T>::isSpacer(output[output.length() - 1]))
+  {
+      output = output.substr(0, output.length() - 1);
+  }
   return output;
 }
 
 template <typename T> bool ExpressionParser<T>::isValid(char c) const
 {
-    return ExpressionParser<T>::isValid(std::string() + c);
+  return ExpressionParser<T>::isValid(std::string() + c);
 }
 
 template <typename T> bool ExpressionParser<T>::isValid(std::string str) const

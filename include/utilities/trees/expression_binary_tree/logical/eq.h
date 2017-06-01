@@ -1,5 +1,6 @@
 /**
- * This header file defines the ExpressionBinaryTree DoubleLogicalOperator EQ class.
+ * This header file defines the ExpressionBinaryTree DoubleLogicalOperator EQ
+ *class.
  *
  * Author: Adriano Henrique Rossette Leite (2016101518)
  * Subject: Algoritmos e Estruturas de Dados (PCO001)
@@ -30,12 +31,15 @@ public:
   virtual ~EQ();
   virtual bool process() const;
   virtual std::string getSymbol() const;
+  virtual int getPriority() const;
   virtual EQ<E>* clone() const;
 
   static const std::string SYMBOL;
+  static const int PRIORITY;
 };
 
 template <typename E> const std::string EQ<E>::SYMBOL = "==";
+template <typename E> const int EQ<E>::PRIORITY = 5;
 
 template <typename E>
 EQ<E>::EQ(Node<double, E>* left, Node<double, E>* right)
@@ -61,6 +65,8 @@ template <typename E> std::string EQ<E>::getSymbol() const
 {
   return EQ<E>::SYMBOL;
 }
+
+template <typename E> int EQ<E>::getPriority() const { return EQ<E>::PRIORITY; }
 
 template <typename E> EQ<E>* EQ<E>::clone() const { return new EQ<E>(*this); }
 }

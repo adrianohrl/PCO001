@@ -19,6 +19,7 @@
 #include "utilities/trees/expression_binary_tree/arithmetic/negation.h"
 #include "utilities/trees/expression_binary_tree/arithmetic/double_operand.h"
 #include "utilities/trees/expression_binary_tree/arithmetic/double_expression_parser.h"
+#include "utilities/trees/expression_binary_tree/arithmetic/double_expression_binary_tree.h"
 #include "utilities/trees/expression_binary_tree/logical/and.h"
 #include "utilities/trees/expression_binary_tree/logical/or.h"
 #include "utilities/trees/expression_binary_tree/logical/beq.h"
@@ -99,19 +100,65 @@ int main()
   delete ngeq1, leq1, eq1, neq1, geq1, nleq1;
   delete or1, beq1, bneq1, not1;
 
-  std::cout << "\nTesting Double Expression Parser ...\n";
+  std::cout << "\nExpression Binary Tree Upgrade ...\n";
+
+  /**
+  DoubleOperand* a = new DoubleOperand(1.5);
+  debt.insert(a);
+  std::cout << "debt: " << debt.str() << " = " << debt.process() << "\n";
+  NGEQ<double> op1 = new NGEQ<double>(NULL, NULL);
+  debt.insert(op1);
+  **/
+
+  DoubleExpressionBinaryTree debt;
+  std::cout << "debt: " << debt.str() << " = " << debt.process() << "\n";
+  DoubleOperand* c = new DoubleOperand(4.8);
+  debt.insert(c);
+  std::cout << "debt: " << debt.str() << "\n";
+  Multiplication<double>* op3 = new Multiplication<double>();
+  debt.insert(op3);
+  std::cout << "debt: " << debt.str() << "\n";
+  Negation<double>* op4 = new Negation<double>();
+  debt.insert(op4);
+  std::cout << "debt: " << debt.str() << "\n";
+  DoubleOperand* d = new DoubleOperand(0.9);
+  debt.insert(d);
+  std::cout << "debt: " << debt.str() << "\n";
+  Division<double>* op5 = new Division<double>();
+  debt.insert(op5);
+  std::cout << "debt: " << debt.str() << "\n";
+  DoubleOperand* e = new DoubleOperand(1.4);
+  debt.insert(e);
+  std::cout << "debt: " << debt.str() << "\n";
+  Addition<double>* op2 = new Addition<double>();
+  debt.insert(op2);
+  std::cout << "debt: " << debt.str() << "\n";
+  DoubleOperand* b = new DoubleOperand(-2.7);
+  debt.insert(b);
+  std::cout << "debt: " << debt.str() << " = " << debt.process() << "\n";
+
+  /*std::cout << "\nTesting Double Expression Parser ...\n";
   DoubleExpressionParser double_parser;
-  std::string double_expression("(-((4 + 5) * 2 - 9) / 10)");
+  std::string double_expression("(((4 + 5) * 2 - 9) / 10)");
   Node<double, double>* double_node = double_parser.parse(double_expression);
-  std::cout << "debt: " << double_node->str() << " = " << double_node->process() << "\n";
-  delete double_node;
+  if (double_node)
+  {
+    std::cout << "debt: " << double_node->str() << " = "
+              << double_node->process() << "\n";
+    delete double_node;
+  }
+  return EXIT_FAILURE;
 
   std::cout << "\nTesting Bool Expression Parser ...\n";
   BoolExpressionParser bool_parser;
   std::string bool_expression("(!((true == false) && (false || true)))");
   Node<bool, bool>* bool_node = bool_parser.parse(bool_expression);
-  std::cout << "cebt: " << bool_node->str() << " = " << bool_node->process() << "\n";
-  delete bool_node;
+  if (bool_node)
+  {
+    std::cout << "cebt: " << bool_node->str() << " = " << bool_node->process()
+              << "\n";
+    delete bool_node;
+  }*/
 
   return EXIT_SUCCESS;
 }

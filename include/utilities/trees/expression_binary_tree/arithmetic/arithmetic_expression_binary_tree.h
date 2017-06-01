@@ -31,9 +31,16 @@ public:
   virtual ~ArithmeticExpressionBinaryTree();
 
 protected:
+  ArithmeticExpressionBinaryTree();
   ArithmeticExpressionBinaryTree(ArithmeticExpressionParser<E>* parser,
                                  std::string expression);
 };
+
+template <typename E>
+ArithmeticExpressionBinaryTree<E>::ArithmeticExpressionBinaryTree()
+    : ExpressionBinaryTree<double, E>::ExpressionBinaryTree()
+{
+}
 
 template <typename E>
 ArithmeticExpressionBinaryTree<E>::ArithmeticExpressionBinaryTree(

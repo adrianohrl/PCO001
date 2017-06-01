@@ -26,17 +26,20 @@ namespace arithmetic
 template <typename E> class Subtraction : public ArithmeticOperator<E>
 {
 public:
-  Subtraction(Node<double, E>* left, Node<double, E>* right);
+  Subtraction(Node<double, E>* left = NULL, Node<double, E>* right = NULL);
   Subtraction(const Subtraction<E>& operatorr);
   virtual ~Subtraction();
-  virtual std::string getSymbol() const;
   virtual double process() const;
+  virtual std::string getSymbol() const;
+  virtual int getPriority() const;
   virtual Subtraction<E>* clone() const;
 
   static const std::string SYMBOL;
+  static const int PRIORITY;
 };
 
 template <typename E> const std::string Subtraction<E>::SYMBOL = "-";
+template <typename E> const int Subtraction<E>::PRIORITY = 3;
 
 template <typename E>
 Subtraction<E>::Subtraction(Node<double, E>* left, Node<double, E>* right)
@@ -52,15 +55,20 @@ Subtraction<E>::Subtraction(const Subtraction<E>& operatorr)
 
 template <typename E> Subtraction<E>::~Subtraction() {}
 
+template <typename E> double Subtraction<E>::process() const
+{
+  return Operator<double, E>::getLeft()->process() -
+         Operator<double, E>::getRight()->process();
+}
+
 template <typename E> std::string Subtraction<E>::getSymbol() const
 {
   return Subtraction<E>::SYMBOL;
 }
 
-template <typename E> double Subtraction<E>::process() const
+template <typename E> int Subtraction<E>::getPriority() const
 {
-  return Operator<double, E>::getLeft()->process() -
-         Operator<double, E>::getRight()->process();
+  return Subtraction<E>::PRIORITY;
 }
 
 template <typename E> Subtraction<E>* Subtraction<E>::clone() const

@@ -24,53 +24,74 @@ namespace expression_binary_tree
 template <typename T, typename E> class Node
 {
 public:
+  Node(const Node<T, E>& node);
   virtual ~Node();
-  virtual T process() const;
-  virtual Node<T, E>* getLeft() const;
-  virtual Node<T, E>* getRight() const;
-  virtual bool hasLeft() const;
-  virtual bool hasRight() const;
-  virtual bool isLeaf() const;
+  virtual Node<T, E>* insert(Node<T, E>* node) = 0;
+  virtual T process() const = 0;
+  virtual Node<T, E>* getLeft() const = 0;
+  virtual Node<T, E>* getRight() const = 0;
+  virtual Node<T, E>* getParent() const;
+  virtual bool hasLeft() const = 0;
+  virtual bool hasRight() const = 0;
+  bool hasParent() const;
+  virtual bool isLeaf() const = 0;
+  bool isOperand() const;
+  bool isOperator() const;
+  virtual void setLeft(Node<T, E>* node) = 0;
+  virtual void setRight(Node<T, E>* node) = 0;
+  void setParent(Node<T, E>* node);
   virtual Node<T, E>* clone() const = 0;
   virtual std::string str() const = 0;
   const char* c_str();
 
 protected:
-  Node();
+  Node(bool operand);
+
+  Node<T, E>* parent_;
+  bool operand_;
 };
 
-template <typename T, typename E> Node<T, E>::Node() {}
-
-template <typename T, typename E> Node<T, E>::~Node() {}
-
-template <typename T, typename E> T Node<T, E>::process() const
+template <typename T, typename E>
+Node<T, E>::Node(bool operand)
+    : parent_(NULL), operand_(operand)
 {
-  throw Exception("Invalid operation!!!");
 }
 
-template <typename T, typename E> Node<T, E>* Node<T, E>::getLeft() const
+template <typename T, typename E>
+Node<T, E>::Node(const Node<T, E>& node)
+    : parent_(NULL), operand_(node.operand_)
 {
-  return NULL;
 }
 
-template <typename T, typename E> Node<T, E>* Node<T, E>::getRight() const
+template <typename T, typename E> Node<T, E>::~Node() { parent_ = NULL; }
+
+template <typename T, typename E> Node<T, E>* Node<T, E>::getParent() const
 {
-  return NULL;
+  return parent_;
 }
 
-template <typename T, typename E> bool Node<T, E>::hasLeft() const
+template <typename T, typename E> bool Node<T, E>::hasParent() const
 {
-  return false;
+  return parent_;
 }
 
-template <typename T, typename E> bool Node<T, E>::hasRight() const
+template <typename T, typename E> bool Node<T, E>::isOperand() const
 {
-  return false;
+  return operand_;
 }
 
-template <typename T, typename E> bool Node<T, E>::isLeaf() const
+template <typename T, typename E> bool Node<T, E>::isOperator() const
 {
-  return true;
+  return !operand_;
+}
+
+template <typename T, typename E> void Node<T, E>::setParent(Node<T, E>* node)
+{
+  if (node && node->isOperand())
+  {
+    throw utilities::Exception("An operand node must be a leaf node!!!");
+  }
+  parent_ = node;
 }
 
 template <typename T, typename E> const char* Node<T, E>::c_str()

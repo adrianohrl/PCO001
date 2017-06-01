@@ -29,11 +29,22 @@ class LogicalExpressionBinaryTree : public ExpressionBinaryTree<bool, E>
 public:
   LogicalExpressionBinaryTree(const LogicalExpressionBinaryTree<E>& ebt);
   virtual ~LogicalExpressionBinaryTree();
+  using ExpressionBinaryTree<bool, E>::insert;
+  virtual Node<bool, E>* insert(Node<double, E>* node);
+  virtual Node<bool, E>*
+  insert(const ExpressionBinaryTree<double, E>& arithmetic_expression_tree);
 
 protected:
+  LogicalExpressionBinaryTree();
   LogicalExpressionBinaryTree(LogicalExpressionParser<E>* parser,
                               std::string expression);
 };
+
+template <typename E>
+LogicalExpressionBinaryTree<E>::LogicalExpressionBinaryTree()
+    : ExpressionBinaryTree<bool, E>::ExpressionBinaryTree()
+{
+}
 
 template <typename E>
 LogicalExpressionBinaryTree<E>::LogicalExpressionBinaryTree(
@@ -52,6 +63,19 @@ LogicalExpressionBinaryTree<E>::LogicalExpressionBinaryTree(
 template <typename E>
 LogicalExpressionBinaryTree<E>::~LogicalExpressionBinaryTree()
 {
+}
+
+template <typename E>
+Node<bool, E>* LogicalExpressionBinaryTree<E>::insert(Node<double, E>* node)
+{
+  throw utilities::Exception("Not implemented yet!!!");
+}
+
+template <typename E>
+Node<bool, E>* LogicalExpressionBinaryTree<E>::insert(
+    const ExpressionBinaryTree<double, E>& arithmetic_expression_tree)
+{
+  throw utilities::Exception("Not implemented yet!!!");
 }
 }
 }

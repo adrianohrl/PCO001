@@ -26,17 +26,20 @@ namespace arithmetic
 template <typename E> class Negation : public ArithmeticOperator<E>
 {
 public:
-  Negation(Node<double, E>* operatorr);
+  Negation(Node<double, E>* operatorr = NULL);
   Negation(const Negation<E>& operatorr);
   virtual ~Negation();
-  virtual std::string getSymbol() const;
   virtual double process() const;
+  virtual std::string getSymbol() const;
+  virtual int getPriority() const;
   virtual Negation<E>* clone() const;
 
   static const std::string SYMBOL;
+  static const int PRIORITY;
 };
 
 template <typename E> const std::string Negation<E>::SYMBOL = "-";
+template <typename E> const int Negation<E>::PRIORITY = 1;
 
 template <typename E>
 Negation<E>::Negation(Node<double, E>* operatorr)
@@ -52,14 +55,19 @@ Negation<E>::Negation(const Negation<E>& operatorr)
 
 template <typename E> Negation<E>::~Negation() {}
 
+template <typename E> double Negation<E>::process() const
+{
+  return -Operator<double, E>::getRight()->process();
+}
+
 template <typename E> std::string Negation<E>::getSymbol() const
 {
   return Negation<E>::SYMBOL;
 }
 
-template <typename E> double Negation<E>::process() const
+template <typename E> int Negation<E>::getPriority() const
 {
-  return -Operator<double, E>::getLeft()->process();
+  return Negation<E>::PRIORITY;
 }
 
 template <typename E> Negation<E>* Negation<E>::clone() const

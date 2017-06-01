@@ -1,5 +1,6 @@
 /**
- * This header file defines the ExpressionBinaryTree BoolLogicalOperator OR class.
+ * This header file defines the ExpressionBinaryTree BoolLogicalOperator OR
+ *class.
  *
  * Author: Adriano Henrique Rossette Leite (2016101518)
  * Subject: Algoritmos e Estruturas de Dados (PCO001)
@@ -30,12 +31,15 @@ public:
   virtual ~OR();
   virtual bool process() const;
   virtual std::string getSymbol() const;
+  virtual int getPriority() const;
   virtual OR<E>* clone() const;
 
   static const std::string SYMBOL;
+  static const int PRIORITY;
 };
 
 template <typename E> const std::string OR<E>::SYMBOL = "||";
+template <typename E> const int OR<E>::PRIORITY = 7;
 
 template <typename E>
 OR<E>::OR(Node<bool, E>* left, Node<bool, E>* right)
@@ -61,6 +65,8 @@ template <typename E> std::string OR<E>::getSymbol() const
 {
   return OR<E>::SYMBOL;
 }
+
+template <typename E> int OR<E>::getPriority() const { return OR<E>::PRIORITY; }
 
 template <typename E> OR<E>* OR<E>::clone() const { return new OR<E>(*this); }
 }

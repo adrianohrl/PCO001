@@ -68,20 +68,17 @@ StringExpressionParser::~StringExpressionParser() {}
 
 Node<std::string>* StringExpressionParser::parse(std::string expression) const
 {
-  if (!ExpressionParser<std::string>::evaluate(expression))
-  {
-    throw Exception("Invalid string expression: '" + expression + "' !!!");
-  }
   std::string next(ExpressionParser<std::string>::getNext(expression));
   expression = expression.substr(next.length());
-  if (!expression.empty() &&
-      ExpressionParser<std::string>::isSeparator(expression[0]))
+  while (!expression.empty() &&
+         (ExpressionParser<std::string>::isSpacer(expression[0]) ||
+          ExpressionParser<std::string>::isSeparator(expression[0])))
   {
     expression = expression.substr(1);
   }
   Node<std::string>* node;
-  if (ExpressionParser<std::string>::isOpeningBound(&next[0]) &&
-      ExpressionParser<std::string>::isClosingBound(&next[next.length() - 1]))
+  if (ExpressionParser<std::string>::isOpeningBound(next[0]) &&
+      ExpressionParser<std::string>::isClosingBound(next[next.length() - 1]))
   {
     next = next.substr(1, next.length() - 2);
     node = new Node<std::string>();

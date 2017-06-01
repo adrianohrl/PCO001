@@ -1,5 +1,6 @@
 /**
- * This header file defines the ExpressionBinaryTree DoubleLogicalOperator LEQ class.
+ * This header file defines the ExpressionBinaryTree DoubleLogicalOperator LEQ
+ *class.
  *
  * Author: Adriano Henrique Rossette Leite (2016101518)
  * Subject: Algoritmos e Estruturas de Dados (PCO001)
@@ -30,12 +31,15 @@ public:
   virtual ~LEQ();
   virtual bool process() const;
   virtual std::string getSymbol() const;
+  virtual int getPriority() const;
   virtual LEQ<E>* clone() const;
 
   static const std::string SYMBOL;
+  static const int PRIORITY;
 };
 
 template <typename E> const std::string LEQ<E>::SYMBOL = "<=";
+template <typename E> const int LEQ<E>::PRIORITY = 5;
 
 template <typename E>
 LEQ<E>::LEQ(Node<double, E>* left, Node<double, E>* right)
@@ -60,6 +64,11 @@ template <typename E> bool LEQ<E>::process() const
 template <typename E> std::string LEQ<E>::getSymbol() const
 {
   return LEQ<E>::SYMBOL;
+}
+
+template <typename E> int LEQ<E>::getPriority() const
+{
+  return LEQ<E>::PRIORITY;
 }
 
 template <typename E> LEQ<E>* LEQ<E>::clone() const

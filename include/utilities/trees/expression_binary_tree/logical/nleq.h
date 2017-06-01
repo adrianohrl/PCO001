@@ -1,5 +1,6 @@
 /**
- * This header file defines the ExpressionBinaryTree DoubleLogicalOperator NLEQ class.
+ * This header file defines the ExpressionBinaryTree DoubleLogicalOperator NLEQ
+ *class.
  *
  * Author: Adriano Henrique Rossette Leite (2016101518)
  * Subject: Algoritmos e Estruturas de Dados (PCO001)
@@ -31,12 +32,15 @@ public:
   virtual ~NLEQ();
   virtual bool process() const;
   virtual std::string getSymbol() const;
+  virtual int getPriority() const;
   virtual NLEQ<E>* clone() const;
 
   static const std::string SYMBOL;
+  static const int PRIORITY;
 };
 
 template <typename E> const std::string NLEQ<E>::SYMBOL = ">";
+template <typename E> const int NLEQ<E>::PRIORITY = 5;
 
 template <typename E>
 NLEQ<E>::NLEQ(Node<double, E>* left, Node<double, E>* right)
@@ -61,6 +65,11 @@ template <typename E> bool NLEQ<E>::process() const
 template <typename E> std::string NLEQ<E>::getSymbol() const
 {
   return NLEQ<E>::SYMBOL;
+}
+
+template <typename E> int NLEQ<E>::getPriority() const
+{
+  return NLEQ<E>::PRIORITY;
 }
 
 template <typename E> NLEQ<E>* NLEQ<E>::clone() const

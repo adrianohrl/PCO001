@@ -26,17 +26,20 @@ namespace arithmetic
 template <typename E> class Division : public ArithmeticOperator<E>
 {
 public:
-  Division(Node<double, E>* left, Node<double, E>* right);
+  Division(Node<double, E>* left = NULL, Node<double, E>* right = NULL);
   Division(const Division<E>& operatorr);
   virtual ~Division();
-  virtual std::string getSymbol() const;
   virtual double process() const;
+  virtual std::string getSymbol() const;
+  virtual int getPriority() const;
   virtual Division<E>* clone() const;
 
   static const std::string SYMBOL;
+  static const int PRIORITY;
 };
 
 template <typename E> const std::string Division<E>::SYMBOL = "/";
+template <typename E> const int Division<E>::PRIORITY = 2;
 
 template <typename E>
 Division<E>::Division(Node<double, E>* left, Node<double, E>* right)
@@ -52,15 +55,20 @@ Division<E>::Division(const Division<E>& operatorr)
 
 template <typename E> Division<E>::~Division() {}
 
+template <typename E> double Division<E>::process() const
+{
+  return Operator<double, E>::getLeft()->process() /
+         Operator<double, E>::getRight()->process();
+}
+
 template <typename E> std::string Division<E>::getSymbol() const
 {
   return Division<E>::SYMBOL;
 }
 
-template <typename E> double Division<E>::process() const
+template <typename E> int Division<E>::getPriority() const
 {
-  return Operator<double, E>::getLeft()->process() /
-         Operator<double, E>::getRight()->process();
+  return Division<E>::PRIORITY;
 }
 
 template <typename E> Division<E>* Division<E>::clone() const

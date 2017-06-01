@@ -1,5 +1,6 @@
 /**
- * This header file defines the ExpressionBinaryTree BoolLogicalOperator BNEQ class.
+ * This header file defines the ExpressionBinaryTree BoolLogicalOperator BNEQ
+ *class.
  *
  * Author: Adriano Henrique Rossette Leite (2016101518)
  * Subject: Algoritmos e Estruturas de Dados (PCO001)
@@ -30,12 +31,15 @@ public:
   virtual ~BNEQ();
   virtual bool process() const;
   virtual std::string getSymbol() const;
+  virtual int getPriority() const;
   virtual BNEQ<E>* clone() const;
 
   static const std::string SYMBOL;
+  static const int PRIORITY;
 };
 
 template <typename E> const std::string BNEQ<E>::SYMBOL = "!=";
+template <typename E> const int BNEQ<E>::PRIORITY = 6;
 
 template <typename E>
 BNEQ<E>::BNEQ(Node<bool, E>* left, Node<bool, E>* right)
@@ -60,6 +64,11 @@ template <typename E> bool BNEQ<E>::process() const
 template <typename E> std::string BNEQ<E>::getSymbol() const
 {
   return BNEQ<E>::SYMBOL;
+}
+
+template <typename E> int BNEQ<E>::getPriority() const
+{
+  return BNEQ<E>::PRIORITY;
 }
 
 template <typename E> BNEQ<E>* BNEQ<E>::clone() const

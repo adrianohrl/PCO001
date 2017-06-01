@@ -28,10 +28,11 @@ StringDisjointSet::StringDisjointSet(std::string valid_characters,
                                      std::string separators,
                                      std::string opening_bounds,
                                      std::string closing_bounds,
+                                     std::string spacers,
                                      std::string expression)
     : DisjointSet<std::string>::DisjointSet(
           new StringExpressionParser(valid_characters, separators,
-                                     opening_bounds, closing_bounds),
+                                     opening_bounds, closing_bounds, spacers),
           expression)
 {
 }
@@ -40,11 +41,13 @@ StringDisjointSet::StringDisjointSet(std::string valid_characters,
                                      std::list<std::string> separators,
                                      std::list<std::string> opening_bounds,
                                      std::list<std::string> closing_bounds,
+                                     std::list<std::string> spacers,
                                      std::string expression)
     : DisjointSet<std::string>::DisjointSet(
           new StringExpressionParser(valid_characters, separators,
-                                     opening_bounds, closing_bounds),
+                                     opening_bounds, closing_bounds, spacers),
           expression)
+
 {
 }
 

@@ -20,6 +20,11 @@ namespace expression_binary_tree
 namespace logical
 {
 
+BoolExpressionBinaryTree::BoolExpressionBinaryTree()
+    : LogicalExpressionBinaryTree<bool>::LogicalExpressionBinaryTree()
+{
+}
+
 BoolExpressionBinaryTree::BoolExpressionBinaryTree(std::string expression)
     : LogicalExpressionBinaryTree<bool>::LogicalExpressionBinaryTree(
           new BoolExpressionParser(), expression)

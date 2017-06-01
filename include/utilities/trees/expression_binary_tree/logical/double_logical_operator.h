@@ -33,22 +33,36 @@ public:
 protected:
   DoubleLogicalOperator(Node<double, E>* left, Node<double, E>* right);
   DoubleLogicalOperator(const DoubleLogicalOperator<E>& operatorr);
+  virtual Node<bool, E>* insert(Node<bool, E>* node);
+  virtual Node<bool, E>* insert(Node<double, E>* node);
+  virtual void upgrade(Operator<bool, E>* node);
+  virtual void upgrade(Operator<double, E>* node);
+  virtual Node<bool, E>* getLeft() const;
+  virtual Node<bool, E>* getRight() const;
   Node<double, E>* getDoubleLeft() const;
   Node<double, E>* getDoubleRight() const;
+  virtual bool hasLeft() const;
+  virtual bool hasRight() const;
+  virtual void setLeft(Node<bool, E>* node);
+  void setLeft(Node<double, E>* node);
+  virtual void setRight(Node<bool, E>* node);
+  void setRight(Node<double, E>* node);
 
 private:
-  Node<double, E> *left__, *right__;
+  Node<double, E>* left__, *right__;
 };
 
 template <typename E>
 DoubleLogicalOperator<E>::DoubleLogicalOperator(Node<double, E>* left,
-                                    Node<double, E>* right)
-    : LogicalOperator<E>::LogicalOperator(NULL, NULL), left__(left), right__(right)
+                                                Node<double, E>* right)
+    : LogicalOperator<E>::LogicalOperator(NULL, NULL), left__(left),
+      right__(right)
 {
 }
 
 template <typename E>
-DoubleLogicalOperator<E>::DoubleLogicalOperator(const DoubleLogicalOperator<E>& operatorr)
+DoubleLogicalOperator<E>::DoubleLogicalOperator(
+    const DoubleLogicalOperator<E>& operatorr)
     : LogicalOperator<E>::LogicalOperator(operatorr), left__(operatorr.left__),
       right__(operatorr.right__)
 {
@@ -68,6 +82,91 @@ template <typename E> DoubleLogicalOperator<E>::~DoubleLogicalOperator()
   }
 }
 
+template <typename E> Node<bool, E>* DoubleLogicalOperator<E>::insert(Node<bool, E>* node)
+{
+  throw utilities::Exception("Not implemented yet!!!");
+  //throw utilities::Exception("It is not possible to insert LogicalExpression "
+    //                         "throw an DoubleLogicalOperator!!!");
+}
+
+template <typename E>
+Node<bool, E>* DoubleLogicalOperator<E>::insert(Node<double, E>* node)
+{
+  throw utilities::Exception("Not implemented yet!!!");
+}
+
+template <typename E>
+void DoubleLogicalOperator<E>::upgrade(Operator<bool, E>* node)
+{
+  throw utilities::Exception("Not implemented yet!!!");
+}
+
+template <typename E>
+void DoubleLogicalOperator<E>::upgrade(Operator<double, E>* node)
+{
+  throw utilities::Exception("Not implemented yet!!!");
+}
+
+template <typename E>
+Node<bool, E>* DoubleLogicalOperator<E>::getLeft() const
+{
+  throw utilities::Exception("DoubleLogicalOperator does not have bool operands!!!");
+}
+
+template <typename E>
+Node<bool, E>* DoubleLogicalOperator<E>::getRight() const
+{
+  throw utilities::Exception("DoubleLogicalOperator does not have bool operands!!!");
+}
+
+template <typename E>
+Node<double, E>* DoubleLogicalOperator<E>::getDoubleLeft() const
+{
+  return left__;
+}
+
+template <typename E>
+Node<double, E>* DoubleLogicalOperator<E>::getDoubleRight() const
+{
+  return right__;
+}
+
+template <typename E> bool DoubleLogicalOperator<E>::hasLeft() const
+{
+  return left__;
+}
+
+template <typename E> bool DoubleLogicalOperator<E>::hasRight() const
+{
+  return right__;
+}
+
+template <typename E>
+void DoubleLogicalOperator<E>::setLeft(Node<bool, E>* node)
+{
+  throw utilities::Exception(
+      "DoubleLogicalOperator does not have bool child nodes!!!");
+}
+
+template <typename E>
+void DoubleLogicalOperator<E>::setRight(Node<bool, E>* node)
+{
+  throw utilities::Exception(
+      "DoubleLogicalOperator does not have bool child nodes!!!");
+}
+
+template <typename E>
+void DoubleLogicalOperator<E>::setLeft(Node<double, E>* node)
+{
+  left__ = node;
+}
+
+template <typename E>
+void DoubleLogicalOperator<E>::setRight(Node<double, E>* node)
+{
+  right__ = node;
+}
+
 template <typename E> std::string DoubleLogicalOperator<E>::str() const
 {
   std::stringstream ss;
@@ -82,17 +181,6 @@ template <typename E> std::string DoubleLogicalOperator<E>::str() const
     ss << (right__ ? right__->str() : "");
   }
   return "(" + ss.str() + ")";
-}
-
-template <typename E> Node<double, E>* DoubleLogicalOperator<E>::getDoubleLeft() const
-{
-  return left__;
-}
-
-template <typename E>
-Node<double, E>* DoubleLogicalOperator<E>::getDoubleRight() const
-{
-  return right__;
 }
 }
 }

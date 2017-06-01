@@ -20,6 +20,11 @@ namespace expression_binary_tree
 namespace arithmetic
 {
 
+DoubleExpressionBinaryTree::DoubleExpressionBinaryTree()
+    : ArithmeticExpressionBinaryTree<double>::ArithmeticExpressionBinaryTree()
+{
+}
+
 DoubleExpressionBinaryTree::DoubleExpressionBinaryTree(std::string expression)
     : ArithmeticExpressionBinaryTree<double>::ArithmeticExpressionBinaryTree(
           new DoubleExpressionParser(), expression)
@@ -28,7 +33,8 @@ DoubleExpressionBinaryTree::DoubleExpressionBinaryTree(std::string expression)
 
 DoubleExpressionBinaryTree::DoubleExpressionBinaryTree(
     const DoubleExpressionBinaryTree& ebt)
-    : ArithmeticExpressionBinaryTree<double>::ArithmeticExpressionBinaryTree(ebt)
+    : ArithmeticExpressionBinaryTree<double>::ArithmeticExpressionBinaryTree(
+          ebt)
 {
 }
 

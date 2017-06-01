@@ -26,17 +26,20 @@ namespace arithmetic
 template <typename E> class Multiplication : public ArithmeticOperator<E>
 {
 public:
-  Multiplication(Node<double, E>* left, Node<double, E>* right);
+  Multiplication(Node<double, E>* left = NULL, Node<double, E>* right = NULL);
   Multiplication(const Multiplication<E>& operatorr);
   virtual ~Multiplication();
-  virtual std::string getSymbol() const;
   virtual double process() const;
+  virtual std::string getSymbol() const;
+  virtual int getPriority() const;
   virtual Multiplication<E>* clone() const;
 
   static const std::string SYMBOL;
+  static const int PRIORITY;
 };
 
 template <typename E> const std::string Multiplication<E>::SYMBOL = "*";
+template <typename E> const int Multiplication<E>::PRIORITY = 2;
 
 template <typename E>
 Multiplication<E>::Multiplication(Node<double, E>* left, Node<double, E>* right)
@@ -52,15 +55,20 @@ Multiplication<E>::Multiplication(const Multiplication<E>& operatorr)
 
 template <typename E> Multiplication<E>::~Multiplication() {}
 
+template <typename E> double Multiplication<E>::process() const
+{
+  return Operator<double, E>::getLeft()->process() *
+         Operator<double, E>::getRight()->process();
+}
+
 template <typename E> std::string Multiplication<E>::getSymbol() const
 {
   return Multiplication<E>::SYMBOL;
 }
 
-template <typename E> double Multiplication<E>::process() const
+template <typename E> int Multiplication<E>::getPriority() const
 {
-  return Operator<double, E>::getLeft()->process() *
-         Operator<double, E>::getRight()->process();
+  return Multiplication<E>::PRIORITY;
 }
 
 template <typename E> Multiplication<E>* Multiplication<E>::clone() const
