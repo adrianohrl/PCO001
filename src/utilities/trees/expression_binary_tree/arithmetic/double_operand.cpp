@@ -21,16 +21,21 @@ namespace arithmetic
 {
 
 DoubleOperand::DoubleOperand(double content)
-    : UnaryOperand<double>::UnaryOperand(content)
+    : Operand<double, double>::Operand(content, false)
 {
 }
 
 DoubleOperand::DoubleOperand(const DoubleOperand& operand)
-    : UnaryOperand<double>::UnaryOperand(operand)
+    : Operand<double, double>::Operand(operand)
 {
 }
 
 DoubleOperand::~DoubleOperand() {}
+
+double DoubleOperand::process() const
+{
+  return Operand<double, double>::getContent();
+}
 
 DoubleOperand* DoubleOperand::clone() const { return new DoubleOperand(*this); }
 }

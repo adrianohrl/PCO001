@@ -26,7 +26,7 @@ namespace logical
 template <typename E> class OR : public BoolLogicalOperator<E>
 {
 public:
-  OR(Node<bool, E>* left, Node<bool, E>* right);
+  OR(Node<bool, E>* left = NULL, Node<bool, E>* right = NULL);
   OR(const OR<E>& operatorr);
   virtual ~OR();
   virtual bool process() const;

@@ -26,7 +26,7 @@ namespace logical
 template <typename E> class NEQ : public DoubleLogicalOperator<E>
 {
 public:
-  NEQ(Node<double, E>* left, Node<double, E>* right);
+  NEQ(Node<double, E>* left = NULL, Node<double, E>* right = NULL);
   NEQ(const NEQ<E>& operatorr);
   virtual ~NEQ();
   virtual bool process() const;

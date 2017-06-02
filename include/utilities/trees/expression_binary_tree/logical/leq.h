@@ -26,7 +26,7 @@ namespace logical
 template <typename E> class LEQ : public DoubleLogicalOperator<E>
 {
 public:
-  LEQ(Node<double, E>* left, Node<double, E>* right);
+  LEQ(Node<double, E>* left = NULL, Node<double, E>* right = NULL);
   LEQ(const LEQ<E>& operatorr);
   virtual ~LEQ();
   virtual bool process() const;

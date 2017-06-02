@@ -22,7 +22,7 @@ namespace expression_binary_tree
 namespace logical
 {
 
-class BoolExpressionBinaryTree : public LogicalExpressionBinaryTree<bool>
+class BoolExpressionBinaryTree : public LogicalExpressionBinaryTree<double>
 {
 public:
   BoolExpressionBinaryTree();

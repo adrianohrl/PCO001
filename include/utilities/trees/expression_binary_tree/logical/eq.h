@@ -26,7 +26,7 @@ namespace logical
 template <typename E> class EQ : public DoubleLogicalOperator<E>
 {
 public:
-  EQ(Node<double, E>* left, Node<double, E>* right);
+  EQ(Node<double, E>* left = NULL, Node<double, E>* right = NULL);
   EQ(const EQ<E>& operatorr);
   virtual ~EQ();
   virtual bool process() const;

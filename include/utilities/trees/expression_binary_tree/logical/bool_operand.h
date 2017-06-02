@@ -12,7 +12,7 @@
 #ifndef EBT_LOGICAL_BOOL_OPERAND_H
 #define EBT_LOGICAL_BOOL_OPERAND_H
 
-#include "utilities/trees/expression_binary_tree/unary_operand.h"
+#include "utilities/trees/expression_binary_tree/operand.h"
 
 namespace utilities
 {
@@ -23,12 +23,13 @@ namespace expression_binary_tree
 namespace logical
 {
 
-class BoolOperand : public UnaryOperand<bool>
+class BoolOperand : public Operand<bool, double>
 {
 public:
   BoolOperand(bool content);
   BoolOperand(const BoolOperand& operand);
   virtual ~BoolOperand();
+  virtual bool process() const;
   virtual BoolOperand* clone() const;
   virtual std::string str() const;
 };

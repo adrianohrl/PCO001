@@ -10,6 +10,7 @@
 
 #include "utilities/trees/expression_binary_tree/logical/bool_expression_binary_tree.h"
 #include "utilities/trees/expression_binary_tree/logical/bool_expression_parser.h"
+#include "utilities/trees/expression_binary_tree/arithmetic/double_expression_binary_tree.h"
 
 namespace utilities
 {
@@ -21,19 +22,21 @@ namespace logical
 {
 
 BoolExpressionBinaryTree::BoolExpressionBinaryTree()
-    : LogicalExpressionBinaryTree<bool>::LogicalExpressionBinaryTree()
+    : LogicalExpressionBinaryTree<double>::LogicalExpressionBinaryTree(
+          new arithmetic::DoubleExpressionBinaryTree())
 {
 }
 
 BoolExpressionBinaryTree::BoolExpressionBinaryTree(std::string expression)
-    : LogicalExpressionBinaryTree<bool>::LogicalExpressionBinaryTree(
+    : LogicalExpressionBinaryTree<double>::LogicalExpressionBinaryTree(
+          new arithmetic::DoubleExpressionBinaryTree(),
           new BoolExpressionParser(), expression)
 {
 }
 
 BoolExpressionBinaryTree::BoolExpressionBinaryTree(
     const BoolExpressionBinaryTree& ebt)
-    : LogicalExpressionBinaryTree<bool>::LogicalExpressionBinaryTree(ebt)
+    : LogicalExpressionBinaryTree<double>::LogicalExpressionBinaryTree(ebt)
 {
 }
 

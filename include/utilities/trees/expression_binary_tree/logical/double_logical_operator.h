@@ -26,17 +26,10 @@ namespace logical
 template <typename E> class DoubleLogicalOperator : public LogicalOperator<E>
 {
 public:
-  virtual ~DoubleLogicalOperator();
-  virtual std::string getSymbol() const = 0;
-  virtual std::string str() const;
-
-protected:
-  DoubleLogicalOperator(Node<double, E>* left, Node<double, E>* right);
   DoubleLogicalOperator(const DoubleLogicalOperator<E>& operatorr);
-  virtual Node<bool, E>* insert(Node<bool, E>* node);
+  virtual ~DoubleLogicalOperator();
+  using Operator<bool, E>::insert;
   virtual Node<bool, E>* insert(Node<double, E>* node);
-  virtual void upgrade(Operator<bool, E>* node);
-  virtual void upgrade(Operator<double, E>* node);
   virtual Node<bool, E>* getLeft() const;
   virtual Node<bool, E>* getRight() const;
   Node<double, E>* getDoubleLeft() const;
@@ -47,6 +40,11 @@ protected:
   void setLeft(Node<double, E>* node);
   virtual void setRight(Node<bool, E>* node);
   void setRight(Node<double, E>* node);
+  virtual std::string getSymbol() const = 0;
+  virtual std::string str() const;
+
+protected:
+  DoubleLogicalOperator(Node<double, E>* left, Node<double, E>* right);
 
 private:
   Node<double, E>* left__, *right__;
@@ -55,7 +53,7 @@ private:
 template <typename E>
 DoubleLogicalOperator<E>::DoubleLogicalOperator(Node<double, E>* left,
                                                 Node<double, E>* right)
-    : LogicalOperator<E>::LogicalOperator(NULL, NULL), left__(left),
+    : LogicalOperator<E>::LogicalOperator(NULL, NULL, false), left__(left),
       right__(right)
 {
 }
@@ -82,41 +80,39 @@ template <typename E> DoubleLogicalOperator<E>::~DoubleLogicalOperator()
   }
 }
 
-template <typename E> Node<bool, E>* DoubleLogicalOperator<E>::insert(Node<bool, E>* node)
-{
-  throw utilities::Exception("Not implemented yet!!!");
-  //throw utilities::Exception("It is not possible to insert LogicalExpression "
-    //                         "throw an DoubleLogicalOperator!!!");
-}
-
 template <typename E>
 Node<bool, E>* DoubleLogicalOperator<E>::insert(Node<double, E>* node)
 {
-  throw utilities::Exception("Not implemented yet!!!");
+  if (!left__)
+  {
+    left__ = node;
+  }
+  else if (!right__)
+  {
+    right__ = node;
+  }
+  else
+  {
+    throw utilities::Exception(
+        "This DoubleLogicalOperator is already filled!!!");
+  }
+  Node<bool, E>* root = Node<bool, E>::getParent();
+  while (root && root->hasParent()) {
+      root = root->getParent();
+  }
+  return root ? root : this;
 }
 
-template <typename E>
-void DoubleLogicalOperator<E>::upgrade(Operator<bool, E>* node)
+template <typename E> Node<bool, E>* DoubleLogicalOperator<E>::getLeft() const
 {
-  throw utilities::Exception("Not implemented yet!!!");
+  throw utilities::Exception(
+      "DoubleLogicalOperator does not have bool operands!!!");
 }
 
-template <typename E>
-void DoubleLogicalOperator<E>::upgrade(Operator<double, E>* node)
+template <typename E> Node<bool, E>* DoubleLogicalOperator<E>::getRight() const
 {
-  throw utilities::Exception("Not implemented yet!!!");
-}
-
-template <typename E>
-Node<bool, E>* DoubleLogicalOperator<E>::getLeft() const
-{
-  throw utilities::Exception("DoubleLogicalOperator does not have bool operands!!!");
-}
-
-template <typename E>
-Node<bool, E>* DoubleLogicalOperator<E>::getRight() const
-{
-  throw utilities::Exception("DoubleLogicalOperator does not have bool operands!!!");
+  throw utilities::Exception(
+      "DoubleLogicalOperator does not have bool operands!!!");
 }
 
 template <typename E>

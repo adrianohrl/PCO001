@@ -12,7 +12,9 @@
 #define LOGICAL_EXPRESSION_BINARY_TREE_H
 
 #include "utilities/trees/expression_binary_tree/expression_binary_tree.h"
+#include "utilities/trees/expression_binary_tree/arithmetic/arithmetic_expression_binary_tree.h"
 #include "utilities/trees/expression_binary_tree/logical/logical_expression_parser.h"
+#include "utilities/trees/expression_binary_tree/logical/double_logical_operator.h"
 
 namespace utilities
 {
@@ -29,53 +31,100 @@ class LogicalExpressionBinaryTree : public ExpressionBinaryTree<bool, E>
 public:
   LogicalExpressionBinaryTree(const LogicalExpressionBinaryTree<E>& ebt);
   virtual ~LogicalExpressionBinaryTree();
-  using ExpressionBinaryTree<bool, E>::insert;
-  virtual Node<bool, E>* insert(Node<double, E>* node);
-  virtual Node<bool, E>*
-  insert(const ExpressionBinaryTree<double, E>& arithmetic_expression_tree);
+  virtual void insert(Node<bool, E>* node);
+  virtual void insert(Node<double, E>* node);
 
 protected:
-  LogicalExpressionBinaryTree();
-  LogicalExpressionBinaryTree(LogicalExpressionParser<E>* parser,
-                              std::string expression);
+  LogicalExpressionBinaryTree(
+      arithmetic::ArithmeticExpressionBinaryTree<E>* tree);
+  LogicalExpressionBinaryTree(
+      arithmetic::ArithmeticExpressionBinaryTree<E>* tree,
+      LogicalExpressionParser<E>* parser, std::string expression);
+
+private:
+  arithmetic::ArithmeticExpressionBinaryTree<E>* tree_;
 };
 
 template <typename E>
-LogicalExpressionBinaryTree<E>::LogicalExpressionBinaryTree()
-    : ExpressionBinaryTree<bool, E>::ExpressionBinaryTree()
+LogicalExpressionBinaryTree<E>::LogicalExpressionBinaryTree(
+    arithmetic::ArithmeticExpressionBinaryTree<E>* tree)
+    : ExpressionBinaryTree<bool, E>::ExpressionBinaryTree(), tree_(tree)
 {
 }
 
 template <typename E>
 LogicalExpressionBinaryTree<E>::LogicalExpressionBinaryTree(
+    arithmetic::ArithmeticExpressionBinaryTree<E>* tree,
     LogicalExpressionParser<E>* parser, std::string expression)
-    : ExpressionBinaryTree<bool, E>::ExpressionBinaryTree(parser, expression)
+    : ExpressionBinaryTree<bool, E>::ExpressionBinaryTree(parser, expression),
+      tree_(tree)
 {
 }
 
 template <typename E>
 LogicalExpressionBinaryTree<E>::LogicalExpressionBinaryTree(
     const LogicalExpressionBinaryTree<E>& ebt)
-    : ExpressionBinaryTree<bool, E>::ExpressionBinaryTree(ebt)
+    : ExpressionBinaryTree<bool, E>::ExpressionBinaryTree(ebt), tree_(ebt.tree_)
 {
 }
 
 template <typename E>
 LogicalExpressionBinaryTree<E>::~LogicalExpressionBinaryTree()
 {
+  if (tree_)
+  {
+    delete tree_;
+    tree_ = NULL;
+  }
 }
 
 template <typename E>
-Node<bool, E>* LogicalExpressionBinaryTree<E>::insert(Node<double, E>* node)
+void LogicalExpressionBinaryTree<E>::insert(Node<bool, E>* node)
 {
-  throw utilities::Exception("Not implemented yet!!!");
+  Node<bool, E>* current_node = ExpressionBinaryTree<bool, E>::getNode();
+  LogicalOperator<E>* logical_node = NULL;
+  DoubleLogicalOperator<E>* double_logical_node = NULL;
+  if (current_node && current_node->isOperator())
+  {
+    logical_node = (LogicalOperator<E>*)current_node;
+    if (logical_node->isDoubleLogical())
+    {
+      if (tree_->isEmpty())
+      {
+        throw utilities::Exception(
+            "There is no arithmetic expression available "
+            "for the current DoubleLogicalOperator "
+            "node!!!");
+      }
+      double_logical_node = (DoubleLogicalOperator<E>*)logical_node;
+    }
+  }
+  else if (node->isOperator())
+  {
+    logical_node = (LogicalOperator<E>*)node;
+    if (logical_node->isDoubleLogical())
+    {
+      if (tree_->isEmpty() && !logical_node->isUnary())
+      {
+        throw utilities::Exception("There is no arithmetic expression "
+                                   "available for the given "
+                                   "DoubleLogicalOperator node!!!");
+      }
+      double_logical_node = (DoubleLogicalOperator<E>*)logical_node;
+    }
+  }
+  if (double_logical_node)
+  {
+    double_logical_node->insert(tree_->getRoot());
+    tree_->clear();
+  }
+  ExpressionBinaryTree<bool, E>::insert(node);
 }
 
 template <typename E>
-Node<bool, E>* LogicalExpressionBinaryTree<E>::insert(
-    const ExpressionBinaryTree<double, E>& arithmetic_expression_tree)
+void LogicalExpressionBinaryTree<E>::insert(Node<double, E>* node)
 {
-  throw utilities::Exception("Not implemented yet!!!");
+  tree_->insert(node);
 }
 }
 }

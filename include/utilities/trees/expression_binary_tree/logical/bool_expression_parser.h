@@ -22,7 +22,7 @@ namespace expression_binary_tree
 namespace logical
 {
 
-class BoolExpressionParser : public LogicalExpressionParser<bool>
+class BoolExpressionParser : public LogicalExpressionParser<double>
 {
 public:
   BoolExpressionParser();

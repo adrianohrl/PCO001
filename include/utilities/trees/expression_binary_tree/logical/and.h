@@ -26,7 +26,7 @@ namespace logical
 template <typename E> class AND : public BoolLogicalOperator<E>
 {
 public:
-  AND(Node<bool, E>* left, Node<bool, E>* right);
+  AND(Node<bool, E>* left = NULL, Node<bool, E>* right = NULL);
   AND(const AND<E>& operatorr);
   virtual ~AND();
   virtual bool process() const;

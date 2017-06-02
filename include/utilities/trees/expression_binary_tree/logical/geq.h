@@ -26,7 +26,7 @@ namespace logical
 template <typename E> class GEQ : public DoubleLogicalOperator<E>
 {
 public:
-  GEQ(Node<double, E>* left, Node<double, E>* right);
+  GEQ(Node<double, E>* left = NULL, Node<double, E>* right = NULL);
   GEQ(const GEQ<E>& operatorr);
   virtual ~GEQ();
   virtual bool process() const;

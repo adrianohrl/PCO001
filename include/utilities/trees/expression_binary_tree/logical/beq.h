@@ -26,7 +26,7 @@ namespace logical
 template <typename E> class BEQ : public BoolLogicalOperator<E>
 {
 public:
-  BEQ(Node<bool, E>* left, Node<bool, E>* right);
+  BEQ(Node<bool, E>* left = NULL, Node<bool, E>* right = NULL);
   BEQ(const BEQ<E>& operatorr);
   virtual ~BEQ();
   virtual bool process() const;

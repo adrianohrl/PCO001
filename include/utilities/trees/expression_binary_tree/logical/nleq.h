@@ -27,7 +27,7 @@ namespace logical
 template <typename E> class NLEQ : public DoubleLogicalOperator<E>
 {
 public:
-  NLEQ(Node<double, E>* left, Node<double, E>* right);
+  NLEQ(Node<double, E>* left = NULL, Node<double, E>* right = NULL);
   NLEQ(const NLEQ<E>& operatorr);
   virtual ~NLEQ();
   virtual bool process() const;

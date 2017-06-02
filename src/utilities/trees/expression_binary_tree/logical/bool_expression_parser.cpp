@@ -22,7 +22,7 @@ namespace logical
 BoolExpressionParser::BoolExpressionParser() {}
 
 BoolExpressionParser::BoolExpressionParser(const BoolExpressionParser& parser)
-    : LogicalExpressionParser<bool>::LogicalExpressionParser(parser)
+    : LogicalExpressionParser<double>::LogicalExpressionParser(parser)
 {
 }
 

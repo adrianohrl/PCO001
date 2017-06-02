@@ -21,22 +21,27 @@ namespace logical
 {
 
 BoolOperand::BoolOperand(bool content)
-    : UnaryOperand<bool>::UnaryOperand(content)
+    : Operand<bool, double>::Operand(content ? 1.0 : 0.0, true)
 {
 }
 
 BoolOperand::BoolOperand(const BoolOperand& operand)
-    : UnaryOperand<bool>::UnaryOperand(operand)
+    : Operand<bool, double>::Operand(operand)
 {
 }
 
 BoolOperand::~BoolOperand() {}
 
+bool BoolOperand::process() const
+{
+  return Operand<bool, double>::getContent() == 1.0;
+}
+
 BoolOperand* BoolOperand::clone() const { return new BoolOperand(*this); }
 
 std::string BoolOperand::str() const
 {
-  return Operand<bool, bool>::getContent() ? "true" : "false";
+  return Operand<bool, double>::getContent() == 1.0 ? "true" : "false";
 }
 }
 }

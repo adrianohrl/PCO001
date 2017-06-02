@@ -25,7 +25,7 @@ namespace logical
 template <typename E> class NOT : public LogicalOperator<E>
 {
 public:
-  NOT(Node<bool, E>* operatorr);
+  NOT(Node<bool, E>* operatorr = NULL);
   NOT(const NOT<E>& operatorr);
   virtual ~NOT();
   virtual bool process() const;
@@ -42,7 +42,7 @@ template <typename E> const int NOT<E>::PRIORITY = 4;
 
 template <typename E>
 NOT<E>::NOT(Node<bool, E>* operatorr)
-    : LogicalOperator<E>::LogicalOperator(operatorr)
+    : LogicalOperator<E>::LogicalOperator(operatorr, true)
 {
 }
 

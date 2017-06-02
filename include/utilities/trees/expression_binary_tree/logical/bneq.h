@@ -26,7 +26,7 @@ namespace logical
 template <typename E> class BNEQ : public BoolLogicalOperator<E>
 {
 public:
-  BNEQ(Node<bool, E>* left, Node<bool, E>* right);
+  BNEQ(Node<bool, E>* left = NULL, Node<bool, E>* right = NULL);
   BNEQ(const BNEQ<E>& operatorr);
   virtual ~BNEQ();
   virtual bool process() const;

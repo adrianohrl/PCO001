@@ -46,14 +46,14 @@ std::list<std::string> ArithmeticOperator<E>::OPERATORS(ArithmeticOperator<E>::g
 
 template <typename E>
 ArithmeticOperator<E>::ArithmeticOperator(Node<double, E>* operatorr)
-    : Operator<double, E>::Operator(operatorr)
+    : Operator<double, E>::Operator(operatorr, false)
 {
 }
 
 template <typename E>
 ArithmeticOperator<E>::ArithmeticOperator(Node<double, E>* left,
                                           Node<double, E>* right)
-    : Operator<double, E>::Operator(left, right)
+    : Operator<double, E>::Operator(left, right, false)
 {
 }
 

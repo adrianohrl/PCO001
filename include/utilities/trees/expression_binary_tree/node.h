@@ -37,6 +37,7 @@ public:
   virtual bool isLeaf() const = 0;
   bool isOperand() const;
   bool isOperator() const;
+  bool isLogical() const;
   virtual void setLeft(Node<T, E>* node) = 0;
   virtual void setRight(Node<T, E>* node) = 0;
   void setParent(Node<T, E>* node);
@@ -45,21 +46,23 @@ public:
   const char* c_str();
 
 protected:
-  Node(bool operand);
+  Node(bool operand, bool logical);
 
+private:
   Node<T, E>* parent_;
   bool operand_;
+  bool logical_;
 };
 
 template <typename T, typename E>
-Node<T, E>::Node(bool operand)
-    : parent_(NULL), operand_(operand)
+Node<T, E>::Node(bool operand, bool logical)
+    : parent_(NULL), operand_(operand), logical_(logical)
 {
 }
 
 template <typename T, typename E>
 Node<T, E>::Node(const Node<T, E>& node)
-    : parent_(NULL), operand_(node.operand_)
+    : parent_(NULL), operand_(node.operand_), logical_(node.logical_)
 {
 }
 
@@ -83,6 +86,11 @@ template <typename T, typename E> bool Node<T, E>::isOperand() const
 template <typename T, typename E> bool Node<T, E>::isOperator() const
 {
   return !operand_;
+}
+
+template <typename T, typename E> bool Node<T, E>::isLogical() const
+{
+  return logical_;
 }
 
 template <typename T, typename E> void Node<T, E>::setParent(Node<T, E>* node)

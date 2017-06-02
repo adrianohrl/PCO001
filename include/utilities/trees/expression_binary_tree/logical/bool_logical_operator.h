@@ -34,13 +34,15 @@ protected:
 };
 
 template <typename E>
-BoolLogicalOperator<E>::BoolLogicalOperator(Node<bool, E>* left, Node<bool, E>* right)
-    : LogicalOperator<E>::LogicalOperator(left, right)
+BoolLogicalOperator<E>::BoolLogicalOperator(Node<bool, E>* left,
+                                            Node<bool, E>* right)
+    : LogicalOperator<E>::LogicalOperator(left, right, true)
 {
 }
 
 template <typename E>
-BoolLogicalOperator<E>::BoolLogicalOperator(const BoolLogicalOperator<E>& operatorr)
+BoolLogicalOperator<E>::BoolLogicalOperator(
+    const BoolLogicalOperator<E>& operatorr)
     : LogicalOperator<E>::LogicalOperator(operatorr)
 {
 }

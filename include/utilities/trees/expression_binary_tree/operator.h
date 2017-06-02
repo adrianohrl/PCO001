@@ -47,8 +47,8 @@ public:
   virtual std::string str() const;
 
 protected:
-  Operator(Node<T, E>* operand, int level = 0);
-  Operator(Node<T, E>* left, Node<T, E>* right, int level = 0);
+  Operator(Node<T, E>* operand, bool logical, int level = 0);
+  Operator(Node<T, E>* left, Node<T, E>* right, bool logical, int level = 0);
 
 private:
   int level_;
@@ -57,16 +57,15 @@ private:
 };
 
 template <typename T, typename E>
-Operator<T, E>::Operator(Node<T, E>* operand, int level)
-    : Node<T, E>::Node(false), level_(level), unary_(true), left_(NULL),
+Operator<T, E>::Operator(Node<T, E>* operand, bool logical, int level)
+    : Node<T, E>::Node(false, logical), level_(level), unary_(true), left_(NULL),
       right_(operand)
-
 {
 }
 
 template <typename T, typename E>
-Operator<T, E>::Operator(Node<T, E>* left, Node<T, E>* right, int level)
-    : Node<T, E>::Node(false), level_(level), unary_(false), left_(left),
+Operator<T, E>::Operator(Node<T, E>* left, Node<T, E>* right, bool logical, int level)
+    : Node<T, E>::Node(false, logical), level_(level), unary_(false), left_(left),
       right_(right)
 {
 }

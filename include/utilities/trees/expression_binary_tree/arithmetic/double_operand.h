@@ -12,7 +12,7 @@
 #ifndef EBT_ARITHMETIC_DOUBLE_OPERAND_H
 #define EBT_ARITHMETIC_DOUBLE_OPERAND_H
 
-#include "utilities/trees/expression_binary_tree/unary_operand.h"
+#include "utilities/trees/expression_binary_tree/operand.h"
 
 namespace utilities
 {
@@ -23,12 +23,13 @@ namespace expression_binary_tree
 namespace arithmetic
 {
 
-class DoubleOperand : public UnaryOperand<double>
+class DoubleOperand : public Operand<double, double>
 {
 public:
   DoubleOperand(double content);
   DoubleOperand(const DoubleOperand& operand);
   virtual ~DoubleOperand();
+  virtual double process() const;
   virtual DoubleOperand* clone() const;
 };
 }

@@ -39,15 +39,15 @@ public:
   virtual std::string str() const;
 
 protected:
-  Operand(const E& operand);
+  Operand(const E& operand, bool logical);
 
 private:
   const E content_;
 };
 
 template <typename T, typename E>
-Operand<T, E>::Operand(const E& content)
-    : Node<T, E>::Node(true), content_(content)
+Operand<T, E>::Operand(const E& content, bool logical)
+    : Node<T, E>::Node(true, logical), content_(content)
 {
 }
 

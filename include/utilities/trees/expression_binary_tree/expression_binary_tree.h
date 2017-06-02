@@ -26,18 +26,20 @@ template <typename T, typename E> class ExpressionBinaryTree
 public:
   ExpressionBinaryTree(const ExpressionBinaryTree<T, E>& ebt);
   virtual ~ExpressionBinaryTree();
+  virtual void insert(Node<T, E>* node);
   T process() const;
   bool isEmpty() const;
   Node<T, E>* getRoot() const;
   Node<T, E>* getNode() const;
-  virtual void insert(Node<T, E>* node);
-  virtual void insert(const ExpressionBinaryTree<T, E>& expression_tree);
+  void clear();
   virtual std::string str() const;
   const char* c_str() const;
 
 protected:
   ExpressionBinaryTree();
   ExpressionBinaryTree(ExpressionParser<T, E>* parser, std::string expression);
+  void setRoot(Node<T, E>* node);
+  void setNode(Node<T, E>* node);
 
 private:
   Node<T, E>* root_;
@@ -89,15 +91,26 @@ ExpressionBinaryTree<T, E>::~ExpressionBinaryTree()
   }
 }
 
+template <typename T, typename E>
+void ExpressionBinaryTree<T, E>::insert(Node<T, E>* node)
+{
+  root_ = root_ ? node_->insert(node) : node;
+  node_ = node;
+}
+
 template <typename T, typename E> T ExpressionBinaryTree<T, E>::process() const
 {
+  if (!root_)
+  {
+    throw utilities::Exception("The expression binary tree is empty!!!");
+  }
   return root_->process();
 }
 
 template <typename T, typename E>
 bool ExpressionBinaryTree<T, E>::isEmpty() const
 {
-  return root_;
+  return !root_;
 }
 
 template <typename T, typename E>
@@ -113,17 +126,22 @@ Node<T, E>* ExpressionBinaryTree<T, E>::getNode() const
 }
 
 template <typename T, typename E>
-void ExpressionBinaryTree<T, E>::insert(Node<T, E>* node)
+void ExpressionBinaryTree<T, E>::setRoot(Node<T, E>* node)
 {
-  root_ = root_ ? node_->insert(node) : node;
+  root_ = node;
+}
+
+template <typename T, typename E>
+void ExpressionBinaryTree<T, E>::setNode(Node<T, E>* node)
+{
   node_ = node;
 }
 
 template <typename T, typename E>
-void ExpressionBinaryTree<T, E>::insert(
-    const ExpressionBinaryTree<T, E>& expression_tree)
+void ExpressionBinaryTree<T, E>::ExpressionBinaryTree::clear()
 {
-  ExpressionBinaryTree<T, E>::insert(expression_tree.getRoot()->clone());
+  root_ = NULL;
+  node_ = NULL;
 }
 
 template <typename T, typename E>

@@ -70,7 +70,6 @@ set(EXPRESSION_BINARY_TREE_FILES
   include/utilities/trees/expression_binary_tree/expression_binary_tree.h
   include/utilities/trees/expression_binary_tree/node.h
   include/utilities/trees/expression_binary_tree/operand.h
-  include/utilities/trees/expression_binary_tree/unary_operand.h
   include/utilities/trees/expression_binary_tree/operator.h
   include/utilities/trees/expression_binary_tree/arithmetic/arithmetic_expression_parser.h
   include/utilities/trees/expression_binary_tree/arithmetic/arithmetic_expression_binary_tree.h

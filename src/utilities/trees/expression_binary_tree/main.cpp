@@ -33,6 +33,7 @@
 #include "utilities/trees/expression_binary_tree/logical/nleq.h"
 #include "utilities/trees/expression_binary_tree/logical/bool_operand.h"
 #include "utilities/trees/expression_binary_tree/logical/bool_expression_parser.h"
+#include "utilities/trees/expression_binary_tree/logical/bool_expression_binary_tree.h"
 
 using namespace utilities::trees::expression_binary_tree;
 using namespace utilities::trees::expression_binary_tree::arithmetic;
@@ -61,20 +62,22 @@ int main()
   BoolOperand* bool1 = new BoolOperand(false);
   std::cout << bool1->str() << " = " << (bool1->process() ? "true" : "false")
             << "\n";
-  AND<bool>* and1 = new AND<bool>(new BoolOperand(true), new BoolOperand(true));
+  AND<double>* and1 =
+      new AND<double>(new BoolOperand(true), new BoolOperand(true));
   std::cout << and1->str() << " = " << (and1->process() ? "true" : "false")
             << "\n";
-  OR<bool>* or1 = new OR<bool>(and1, bool1);
+  OR<double>* or1 = new OR<double>(and1, bool1);
   std::cout << or1->str() << " = " << (or1->process() ? "true" : "false")
             << "\n";
-  BEQ<bool>* beq1 = new BEQ<bool>(new BoolOperand(true), new BoolOperand(true));
+  BEQ<double>* beq1 =
+      new BEQ<double>(new BoolOperand(true), new BoolOperand(true));
   std::cout << beq1->str() << " = " << (beq1->process() ? "true" : "false")
             << "\n";
-  BNEQ<bool>* bneq1 =
-      new BNEQ<bool>(new BoolOperand(true), new BoolOperand(true));
+  BNEQ<double>* bneq1 =
+      new BNEQ<double>(new BoolOperand(true), new BoolOperand(true));
   std::cout << bneq1->str() << " = " << (bneq1->process() ? "true" : "false")
             << "\n";
-  NOT<bool>* not1 = new NOT<bool>(bool1);
+  NOT<double>* not1 = new NOT<double>(bool1);
   std::cout << not1->str() << " = " << (not1->process() ? "true" : "false")
             << "\n";
 
@@ -102,40 +105,52 @@ int main()
 
   std::cout << "\nExpression Binary Tree Upgrade ...\n";
 
-  /**
+  BoolExpressionBinaryTree bebt;
   DoubleOperand* a = new DoubleOperand(1.5);
-  debt.insert(a);
-  std::cout << "debt: " << debt.str() << " = " << debt.process() << "\n";
-  NGEQ<double> op1 = new NGEQ<double>(NULL, NULL);
-  debt.insert(op1);
-  **/
-
-  DoubleExpressionBinaryTree debt;
-  std::cout << "debt: " << debt.str() << " = " << debt.process() << "\n";
+  bebt.insert(a);
+  std::cout << "debt: " << bebt.str() << "\n";
+  NGEQ<double>* op1 = new NGEQ<double>();
+  bebt.insert(op1);
   DoubleOperand* c = new DoubleOperand(4.8);
-  debt.insert(c);
-  std::cout << "debt: " << debt.str() << "\n";
+  bebt.insert(c);
+  std::cout << "debt: " << bebt.str() << "\n";
   Multiplication<double>* op3 = new Multiplication<double>();
-  debt.insert(op3);
-  std::cout << "debt: " << debt.str() << "\n";
+  bebt.insert(op3);
+  std::cout << "debt: " << bebt.str() << "\n";
   Negation<double>* op4 = new Negation<double>();
-  debt.insert(op4);
-  std::cout << "debt: " << debt.str() << "\n";
+  bebt.insert(op4);
+  std::cout << "debt: " << bebt.str() << "\n";
   DoubleOperand* d = new DoubleOperand(0.9);
-  debt.insert(d);
-  std::cout << "debt: " << debt.str() << "\n";
+  bebt.insert(d);
+  std::cout << "debt: " << bebt.str() << "\n";
   Division<double>* op5 = new Division<double>();
-  debt.insert(op5);
-  std::cout << "debt: " << debt.str() << "\n";
+  bebt.insert(op5);
+  std::cout << "debt: " << bebt.str() << "\n";
   DoubleOperand* e = new DoubleOperand(1.4);
-  debt.insert(e);
-  std::cout << "debt: " << debt.str() << "\n";
+  bebt.insert(e);
+  std::cout << "debt: " << bebt.str() << "\n";
   Addition<double>* op2 = new Addition<double>();
-  debt.insert(op2);
-  std::cout << "debt: " << debt.str() << "\n";
+  bebt.insert(op2);
+  std::cout << "debt: " << bebt.str() << "\n";
   DoubleOperand* b = new DoubleOperand(-2.7);
-  debt.insert(b);
-  std::cout << "debt: " << debt.str() << " = " << debt.process() << "\n";
+  bebt.insert(b);
+  std::cout << "debt: " << bebt.str() << "\n";
+  AND<double>* op6 = new AND<double>();
+  bebt.insert(op6);
+  std::cout << "debt: " << bebt.str() << "\n";
+  NOT<double>* op7 = new NOT<double>();
+  bebt.insert(op7);
+  std::cout << "debt: " << bebt.str() << "\n";
+  BoolOperand* f = new BoolOperand(false);
+  bebt.insert(f);
+  std::cout << "debt: " << bebt.str() << "\n";
+  OR<double>* op8 = new OR<double>();
+  bebt.insert(op8);
+  std::cout << "debt: " << bebt.str() << "\n";
+  BoolOperand* g = new BoolOperand(false);
+  bebt.insert(g);
+  std::cout << "debt: " << bebt.str() << " = "
+            << (bebt.process() ? "true" : "false") << "\n";
 
   /*std::cout << "\nTesting Double Expression Parser ...\n";
   DoubleExpressionParser double_parser;
